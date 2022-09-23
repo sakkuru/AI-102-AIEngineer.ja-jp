@@ -1,121 +1,121 @@
 ---
 lab:
-    title: 'Bot Framework Composer を使用したボットの作成'
-    module: 'モジュール 7 - 会話型 AI と the Azure Bot Service'
+  title: Bot Framework Composer を使用したボットの作成
+  module: Module 7 - Conversational AI and the Azure Bot Service
 ---
 
-# Bot Framework Composer を使用したボットの作成
+# <a name="create-a-bot-with-bot-framework-composer"></a>Bot Framework Composer を使用したボットの作成
 
-Bot Framework Composer は、コードを記述せずに高度な会話型ボットをすばやく簡単に構築できるグラフィカル デザイナーです。コンポーザーは、ボットを構築するためのビジュアル キャンバスを表示するオープン ソース ツールです。
+Bot Framework Composer is a graphical designer that lets you quickly and easily build sophisticated conversational bots without writing code. The composer is an open-source tool that presents a visual canvas for building bots.
 
-## ボットを開発する準備をする
+## <a name="prepare-to-develop-a-bot"></a>ボットを開発する準備をする
 
 初めに、ボットの開発に必要なサービスとツールを準備します。
 
-### OpenWeather API キーを取得する
+### <a name="get-an-openweather-api-key"></a>OpenWeather API キーを取得する
 
-この演習では、Open Weather サービスを使用してユーザーが入力した地域の気象条件を取得するボットを作成します。サービスを機能させるには、API キーが必要です。
+In this exercise, you will create a bot that uses the OpenWeather service to retrieve weather conditions for the city entered by the user. You will require an API key for the service to work.
 
 1. Web ブラウザーで、OpenWeather サイト (`https://openweathermap.org/price`) にアクセスします。
 2. 無料の API キーをリクエストし、OpenWeather アカウントを作成します (まだ持っていない場合)。
-3. サインアップ後、**API keys** ページを表示して API キーを確認します。
+3. サインアップ後、 **[API keys]\(API キー\)** ページを表示して API キーを確認します。
 
-### Bot Framework Composer を更新する
+### <a name="update-bot-framework-composer"></a>Bot Framework Composer を更新する
 
-Bot Framework Composer を使用してボットを作成します。 このツールは、定期的に更新されるため、最新バージョンがインストールされていることを確認しましょう。
+You're going to use the Bot Framework Composer to create your bot. This tools is updated regularly, so let's make sure you have the latest version installed.
 
 > **注**: 更新には、この演習の手順に影響を与えるユーザー インターフェイスの変更が含まれる場合があります。
 
-1. **Bot Framework Composer** を起動し、更新をインストールするプロンプトが自動的表示されない場合は、**「ヘルプ」** メニューの **「更新の確認」** オプションを使用して更新を確認します。
-2. アップデートがある場合は、アプリケーションを閉じたときにインストールを行うオプションを選択します。次に、Bot Framework Composer を閉じて、現在ログインしているユーザーのアップデートをインストールし、インストールの完了後に Bot Framework Composer を再起動します。インストールには数分かかることがあります。
+1. **Bot Framework Composer** を起動し、更新をインストールするプロンプトが自動的表示されない場合は、 **[ヘルプ]** メニューの **[更新の確認]** オプションを使用して更新を確認します。
+2. Bot Framework Composer は、コードを記述せずに高度な会話型ボットをすばやく簡単に構築できるグラフィカル デザイナーです。
 3. Bot Framework Composer のバージョンが **2.0.0** 以降であることを確認します。
 
-## ボットの作成
+## <a name="create-a-bot"></a>ボットの作成
 
 これで、Bot Framework Composer を使用してボットを作成する準備ができました。
 
-### ボットを作成し、"welcome" ダイアログ フローをカスタマイズする
+### <a name="create-a-bot-and-customize-the-welcome-dialog-flow"></a>ボットを作成し、"welcome" ダイアログ フローをカスタマイズする
 
 1. Bot Framework Composer がまだ開いていない場合は、起動します。
-2. **ホーム**画面で、**「新規」** を選択します。次に、新しい空のボットを作成します。**WeatherBot** という名前を付けて、ローカル フォルダーに保存します。
-3. **「概要」** ペインが開いたら閉じ、左側のナビゲーション ペインで、**「Greeting」** を選択してオーサリング キャンバスを開き、ユーザーが最初にボットとの会話に参加したときに呼び出される *ConversationUpdate* アクティビティを表示します。アクティビティは、アクションのフローで構成されます。
-4. 右側のプロパティペインで、右側のプロパティペインの上部にある **Greeting** という単語を選択し、**WelcomeUsers** に変更して、**Greeting** のタイトルを編集します。
-5. オーサリング キャンバスで、**「応答の送信」** アクションを選択します。次に、プロパティ ペインで、既定のテキストを、*Hi to your bot* から`Hi! I'm WeatherBot.`に変更します
-6. オーサリング キャンバスで、最後の **+** 記号 (ダイアログ フローの<u>終わり</u>を示す円のすぐ上) を選択し、**テキスト**応答の新しい**質問**アクションを追加します。
+2. Composer は、ボットを構築するためのビジュアル キャンバスを提供するオープンソース ツールです。
+3. Close the <bpt id="p1">**</bpt>Get Started<ept id="p1">**</ept> pane if it opens, and then in the navigation pane on the left, select <bpt id="p2">**</bpt>Greeting<ept id="p2">**</ept> to open the authoring canvas and show the <bpt id="p3">*</bpt>ConversationUpdate<ept id="p3">*</ept> activity that is called when a user initially joins a conversation with the bot. The activity consists of a flow of actions.
+4. 右側のプロパティ ペインで、上部にある **Greeting** という単語を選択し、それを「**WelcomeUsers**」に変更して、**Greeting** というタイトルを編集します。
+5. In the authoring canvas, select the <bpt id="p1">**</bpt>Send a response<ept id="p1">**</ept> action. Then, in the properties pane, change the default text from <bpt id="p1">*</bpt>Hi to your bot<ept id="p1">*</ept>  to <ph id="ph1">`Hi! I'm WeatherBot.`</ph>
+6. オーサリング キャンバスで、最後の **[+]** 記号 (ダイアログ フローの<u>終わり</u>を示す円のすぐ上) を選択し、 **[テキスト]** 応答に新しい **[質問する]** アクションを追加します。
 
-    新しいアクションにより、ダイアログフローに 2 つのノードが作成されます。最初のノードは、ボットがユーザーに質問するためのプロンプトを定義し、2 番目のノードは、ユーザーから受信される応答を表します。プロパティ ペインでは、これらのノードに対応する **「ボット回答」** タブと **「ユーザー入力」** タブがあります。
+    The new action creates two nodes in the dialog flow. The first node defines a prompt for the bot to ask the user a question, and the second node represents the response that will be received from the user. In the properties pane, these nodes have corresponding <bpt id="p1">**</bpt>Bot response<ept id="p1">**</ept> and <bpt id="p2">**</bpt>User input<ept id="p2">**</ept> tabs.
 
-7. プロパティペインの **「ボット回答」** タブで、`What's your name?`というテキストの応答を追加します。次に、**「ユーザー入力」** タブで、**プロパティ値**を`user.name`に設定して、ボットの会話の後半でアクセスできる変数を定義します。
-8. オーサリング キャンバスに戻り、追加した **「ユーザー入力 (テキスト)」** アクションの下の **+** 記号を選択し、**「応答の送信」** アクションを追加します。
-9. 新しく追加された **「応答の送信」** アクションを選択し、プロパティ ペインで、テキスト値を`Hello ${user.name}, nice to meet you!`に設定します。
+7. In the properties pane, on the <bpt id="p1">**</bpt>Bot response<ept id="p1">**</ept> tab, add a response with the text <ph id="ph1">`What's your name?`</ph>. Then, on the <bpt id="p1">**</bpt>User input<ept id="p1">**</ept> tab, set the <bpt id="p2">**</bpt>Property<ept id="p2">**</ept> value to <ph id="ph1">`user.name`</ph> to define a variable that you can access later in the bot conversation.
+8. 作成キャンバスに戻り、先ほど追加した **[User input (Text)]\(ユーザー入力 (テキスト)\)** アクションの下の **+** 記号を選択し、 **[Send a response]\(応答の送信\)** アクションを追加します。
+9. 新しく追加した **[Send a response]\(応答の送信\)** アクションを選択し、プロパティ ペインで、テキスト値を「`Hello ${user.name}, nice to meet you!`」に設定します。
 
     完成したアクティビティ フローはこのようになります。
 
-    ![ユーザーを歓迎し、名前を尋ねるダイアログ フロー](./images/welcomeUsers.png)
+    ![ユーザーを歓迎し、名前をたずねるダイアログ フロー](./images/welcomeUsers.png)
 
-### ボットのテスト
+### <a name="test-the-bot"></a>ボットのテスト
 
 基本的なボットが完成したのでテストしてみましょう。
 
-1. Composer の右上隅にある **「ボットの開始」** を選択し、ボットがコンパイルされて開始されるまで待ちます。この処理には数分かかることがあります。
+1. この演習では、Open Weather サービスを使用してユーザーが入力した地域の気象条件を取得するボットを作成します。
 
-    - Windows ファイアウォール メッセージが表示された場合は、すべてのネットワークへのアクセスを有効にします。
+    - Windows ファイアウォールのメッセージが表示された場合は、すべてのネットワークのアクセスを有効にします。
 
-2. **「ローカルボットランタイムマネージャー」** ペインで、**「Web チャットを開く」** を選択します。
-3. しばらくすると、**WeatherBot** Web チャット ペインにウェルカム メッセージと名の入力を求めるメッセージが表示されます。  名を入力して **Enter** キーを押します。
-4. ボットは、「**Hello *your_name*, nice to meet you!**」で応答するはずです。
+2. **[ローカル ボット ランタイム マネージャー]** ペインで、 **[Web チャットを開きます]** を選択します。
+3. サービスを機能させるには、API キーが必要です。
+4. ボットは、「**Hello *your_name*, nice to meet you!**」と応答するはずです。
 5. Web チャットパネルを閉じます。
-6. Composer の右上の **「ボットを再起動する」** の隣にある **<u>=</u>** をクリックして **「ローカル ボット ランタイム マネージャー」** ペインを開き、⏹ アイコンを使用してボットを停止します。
+6. Composer の右上の **[&#8635; Restart bot]\(ボットの再起動\)** の隣にある **<u>=</u>** をクリックして **[ローカル ボット ランタイム マネージャー]** ペインを開き、⏹ アイコンを使用してボットを停止します。
 
-## 天気を取得するためのダイアログを追加する
+## <a name="add-a-dialog-to-get-the-weather"></a>天気を取得するためのダイアログを追加する
 
-これでボットが機能するようになったので、特定のインタラクションのダイアログを追加することでその機能を拡張できます。この場合、ユーザーが「weather」と言ったときにトリガーされるダイアログを追加します。
+Now that you have a working bot, you can expand its capabilities by adding dialogs for specific interactions. In this case, you'll add a dialog that is triggered when the user mentions "weather".
 
-### ダイアログの追加
+### <a name="add-a-dialog"></a>ダイアログを追加する
 
-最初に、天気に関する質問を処理するために使用されるダイアログ フローを定義する必要があります。
+まず、天気に関する質問を処理するために使用されるダイアログ フローを定義する必要があります。
 
-1. Composer の 「ナビゲーション」 ペインで、最上位ノード (**WeatherBot**) と &#8285; メニューの上にマウスを置き、次に示すように、**「+ダイアログを追加」** を選択します。
+1. 次に示すように、Composer のナビゲーション ウィンドウで最上位ノード (**WeatherBot**) をポイントし、 **[...]** メニューの **[+ Add a dialog]\(ダイアログの追加\)** を選択します。
 
-    ![ダイアログ メニューの追加](./images/add-dialog.png)
+    ![ダイアログの追加メニュー](./images/add-dialog.png)
 
-    次に、**getWeather** という名前の新しいダイアログを作成し、**「Get the current weather condition for the provided zip code」** という説明を付けます。
-2. 「ナビゲーション」 ペインで、新しい **getWeather** ダイアログの **BeginDialog** ノードを選択します。次に、オーサリング キャンバスで、**+** 記号を使用して、**テキスト**応答の**質問**アクションを追加します。
-3. プロパティペインの **「ボット回答」** タブで、`Enter your city.`という応答を追加します。
-4. **「ユーザー入力」** タブで、**「プロパティ」** フィールドを`dialog.city`に設定し、**「出力形式」** フィールドを式`=trim(this.value)`に設定して、ユーザーが指定した値の周囲の余分なスペースを削除します。
+    次に、**GetWeather** という名前の新しいダイアログを作成し、「**Get the current weather condition for the provided zip code**」という説明を付けます。
+2. In the navigation pane, select the <bpt id="p1">**</bpt>BeginDialog<ept id="p1">**</ept> node for the new <bpt id="p2">**</bpt>GetWeather<ept id="p2">**</ept> dialog. Then on the authoring canvas, use the <bpt id="p1">**</bpt><ph id="ph1">+</ph><ept id="p1">**</ept> symbol to add a <bpt id="p2">**</bpt>Ask a question<ept id="p2">**</ept> action for a <bpt id="p3">**</bpt>Text<ept id="p3">**</ept> response.
+3. プロパティ ペインの **[ボット応答]** タブで、「`Enter your city.`」という応答を追加します。
+4. **[ユーザー入力]** タブで、**[プロパティ]** フィールドを「`dialog.city`」に設定し、**[出力形式]** フィールドを式「`=trim(this.value)`」に設定して、ユーザーが指定した値の周囲の余分なスペースを削除します。
 
     これまでのアクティビティ フローはこのようになります。
 
-    ![「応答の送信」アクションが 1 つあるダイアログ フロー](./images/getWeather-dialog-1.png)
+    !["応答の送信" アクションが 1 つあるダイアログ フロー](./images/getWeather-dialog-1.png)
 
-    ここまでで、ダイアログはユーザーに地域を入力するように求めました。次に、入力された地域の天気情報を取得するロジックを実装する必要があります。
+    So far, the dialog asks the user to enter a city. Now you must implement the logic to retrieve the weather information for the city that was entered.
 
-6. オーサリング キャンバスで、ユーザーの地域エントリの **「ユーザー入力」** アクションのすぐ下で、**+** 記号を選択して新しいアクションを追加します。
-7. アクションのリストから、**「外部リソースへのアクセス」**、**「HTTP リクエストの送信」** の順に選択します。
-8. **HTTP リクエスト**のプロパティを次のように設定し、**YOUR_API_KEY** を [OpenWeather](https://openweathermap.org/price) API キーに置き換えます
+6. オーサリング キャンバスで、ユーザーの地域エントリの **[ユーザー入力]** アクションのすぐ下で、 **[+]** 記号を選択して新しいアクションを追加します。
+7. アクションの一覧で、**[Access external resources]\(外部リソースへのアクセス\)**、**[Send an HTTP request]\(HTTP 要求の送信\)** の順に選択します。
+8. **HTTP 要求**のプロパティを次のように設定し、**YOUR_API_KEY** を [OpenWeather](https://openweathermap.org/price) API キーに置き換えます
     - **HTTP メソッド**: GET
     - **Url**: `http://api.openweathermap.org/data/2.5/weather?units=metric&q=${dialog.city}&appid=YOUR_API_KEY`
     - **結果プロパティ**: `dialog.api_response`
 
-    結果には、HTTP 応答からの次の 4 つのプロパティのいずれかを含めることができます。
+    結果には、HTTP 応答の次の 4 つのプロパティのいずれかを含めることができます。
 
-    - **statusCode**。**dialog.api_response.statusCode** を介してアクセスします。
-    - **reasonPhrase**。**dialog.api_response.reasonPhrase** を介してアクセスします。
-    - **content**。**dialog.api_response.content** を介してアクセスします。
-    - **headers**。**dialog.api_response.headers** を介してアクセスします。
+    - <bpt id="p1">**</bpt>statusCode<ept id="p1">**</ept>. Accessed via <bpt id="p1">**</bpt>dialog.api_response.statusCode<ept id="p1">**</ept>.
+    - <bpt id="p1">**</bpt>reasonPhrase<ept id="p1">**</ept>. Accessed via <bpt id="p1">**</bpt>dialog.api_response.reasonPhrase<ept id="p1">**</ept>.
+    - これから、Bot Framework Composer を使用してボットを作成します。
+    - このツールは定期的に更新されるため、最新バージョンがインストールされていることを確認しましょう。
 
-    さらに、応答タイプが JSON の場合、**dialog.api_response.content** プロパティを介して利用できる逆シリアル化されたオブジェクトになります。OpenWeather API とそれが返す応答の詳細については、[OpenWeather API のドキュメント](https://openweathermap.org/current)を参照してください。
+    Additionally, if the response type is JSON, it will be a deserialized object available via <bpt id="p1">**</bpt>dialog.api_response.content<ept id="p1">**</ept> property. For detailed information about the OpenWeather API and the response it returns, see the <bpt id="p1">[</bpt>OpenWeather API documentation<ept id="p1">](https://openweathermap.org/current)</ept>.
 
     次に、応答を処理するロジックをダイアログ フローに追加する必要があります。これにより、HTTP 要求が成功か失敗かを示します。
 
-9. オーサリング キャンバスで、作成した **「HTTP リクエストの送信アクション」** の下に、**「条件ブランチの作成** > **:if/else」** アクションを追加します。このアクションは、**True** パスと **False** パスを使用してダイアログ フローのブランチを定義します。
-10. ブランチ アクションの **「プロパティ」** で、次の式を書き込むように **「条件」** フィールドを設定します。
+9. On the authoring canvas, under the <bpt id="p1">**</bpt>Send HTTP Request<ept id="p1">**</ept> action you created, add a <bpt id="p2">**</bpt>Create a condition<ept id="p2">**</ept><ph id="ph1"> &gt; </ph><bpt id="p3">**</bpt>Branch: if/else<ept id="p3">**</ept> action. This action defines a branch in the dialog flow with <bpt id="p1">**</bpt>True<ept id="p1">**</ept> and <bpt id="p2">**</bpt>False<ept id="p2">**</ept> paths.
+10. 分岐アクションの **[Properties]\(プロパティ\)** で、**[Condition]\(条件\)** フィールドを次の式に設定します。
 
     ```
     =dialog.api_response.statusCode == 200
     ```
 
-11. 呼び出しが成功した場合は、応答を変数に格納する必要があります。オーサリング キャンバスの **True**ブランチで、**「プロパティの管理」** > **「プロパティの設定」** アクションを追加します。プロパティ ウィンドウで、次のプロパティの割り当てを追加します。
+11. If the call was successful, you need to store the response in a variable. On the authoring canvas, in the <bpt id="p1">**</bpt>True<ept id="p1">**</ept> branch, add a <bpt id="p2">**</bpt>Manage properties<ept id="p2">**</ept><ph id="ph1"> &gt; </ph><bpt id="p3">**</bpt>Set properties<ept id="p3">**</ept> action. Then in the properties pane, add the following property assignments:
 
     | プロパティ | 値 |
     | -- | -- |
@@ -123,68 +123,68 @@ Bot Framework Composer を使用してボットを作成します。 このツ�
     | `dialog.temp` | `=round(dialog.api_response.content.main.temp)` |
     | `dialog.icon` | `=dialog.api_response.content.weather[0].icon` |
 
-12. まだ **True** ブランチで、**「プロパティの設定」** アクションの下に **「応答の送信」** アクションを追加し、そのテキストを次のように設定します。
+12. まだ **True** 分岐で、 **[プロパティの設定]** アクションの下に **[Send a response]\(応答の送信\)** アクションを追加し、そのテキストを次のように設定します。
 
     ```
     The weather in ${dialog.city} is ${dialog.weather} and the temperature is ${dialog.temp}&deg;.
     ```
 
-    ***注**: このメッセージは、前のアクションで設定した **dialog.city**、**dialog.weather**、および **dialog.temp** プロパティを使用します。後に、**dialog.icon** プロパティも使用します。*
+    アップデートがある場合は、アプリケーションを閉じたときにインストールを行うオプションを選択します。
 
-13. 200 以外の気象サービスからの応答も考慮する必要があるため、**False** ブランチで、**「応答の送信」** アクションを追加し、そのテキストを `I got an error: ${dialog.api_response.content.message}.`に設定します。
+13. 200 以外の気象サービスからの応答も考慮する必要があるため、**False** 分岐で、**[Send a response]\(応答の送信\)** を追加し、そのテキストを「`I got an error: ${dialog.api_response.content.message}.`」に設定します
 
     ダイアログ フローは次のようなります。
 
     ![HTTP 応答結果のブランチを含むダイアログ フロー](./images/getWeather-dialog-2.png)
 
-### ダイアログのトリガーを追加する
+### <a name="add-a-trigger-for-the-dialog"></a>ダイアログのトリガーを追加する
 
-ここで、既存のウェルカム ダイアログから新しいダイアログを開始する方法が必要です。
+次に、既存の welcome ダイアログから新しいダイアログを開始するためのなんらかの方法が必要です。
 
-1. 「ナビゲーション」 ペインで、**WelcomeUsers** を含む **WeatherBot** ダイアログを選択します (これは同じ名前のトップレベルのボット ノードの下にあります)。
+1. ナビゲーション ウィンドウで、**WelcomeUsers** を含む **WeatherBot** ダイアログを選択します (これは同じ名前のトップレベルのボット ノードの下にあります)。
 
-    ![選択した WeatherBot ワークフロー](./images/select-workflow.png)
+    ![選択された WeatherBot ワークフロー](./images/select-workflow.png)
 
-2. 選択した **WeatherBot** ダイアログのプロパティ ペインの **「Language Understanding」** セクションで、**「認識」** タイプを **「正規表現認識」** に設定します。
+2. 選択した **WeatherBot** ダイアログのプロパティ ペインの **[言語理解]** セクションで、 **[認識エンジンの種類]** を **[Regular expression recognizer]\(正規表現認識エンジン\)** に設定します。
 
-    > 既定の認識タイプは、Language Understanding サービスを使用して、自然言語理解モデルを使用してユーザーの意図を生成します。この演習を簡略化するために、正規表現認識機能を使用しています。実際のアプリケーションでは、Language Understanding を使用して、より高度な意図認識を可能にすることを検討する必要があります。
+    > 次に、Bot Framework Composer を閉じて、現在ログインしているユーザーのアップデートをインストールし、インストールの完了後に Bot Framework Composer を再起動します。
 
-3. **「WeatherBot」** メニューで、**「新しいトリガーの追加」** を選択します。
+3. **WeatherBot** の **[...]** メニューで、 **[新しいトリガーの追加]** を選択します。
 
-    ![トリガー メニューを追加する](./images/add-trigger.png)
+    ![トリガーの追加メニュー](./images/add-trigger.png)
 
-    次に、次の設定でトリガーを作成します。
+    次の設定を使用してトリガーを作成します。
 
-    - **What is the type of this trigger?**: 意図の認識
-    - **What is the name of this trigger (RegEx)**:  `WeatherRequested`
-    - **Please input regex pattern**: `weather`
+    - **[What is the type of this trigger?]\(このトリガーの種類を選択してください\)**: Intent recognized\(意図認識\)
+    - **[What is the name of this trigger (RegEx)]\(このトリガー (RegEx) の名前を指定してください\)** : `WeatherRequested`
+    - **[Please input regex pattern]\(regex パターンを入力してください\)** : `weather`
 
-    > 入力されたテキストを正規表現パターンのテキストボックスは、ボットが着信メッセージで *weather* という単語を検索するようにする単純な正規表現パターンです。  「weather」が存在する場合、メッセージは**認識された意図**になり、トリガーが開始されます。
+    > インストールには数分かかることがあります。
 
-4. トリガーが作成されたので、そのためのアクションを構成する必要があります。トリガーのオーサリング キャンバスで、新しい **WeatherRequested** トリガー ノードの下にある **+** 記号を選択します。次に、アクションのリストで、**「ダイアログ管理」** を選択し、**「新しいダイアログの開始」** を選択します。
-5. 「**新しいダイアログの開始**」 アクションを選択した状態で、「プロパティ」 ペインで、「ダイアログ名」 ドロップダウン リストから **GetWeather** ダイアログを選択し、**WeatherRequested** トリガーが認識されたときに前に定義した **getWeather** ダイアログを開始します。
+4. Now that the trigger is created, you need to configure an action for it. In the authoring canvas for the trigger, select the <bpt id="p1">**</bpt><ph id="ph1">+</ph><ept id="p1">**</ept> symbol under your new <bpt id="p2">**</bpt>WeatherRequested<ept id="p2">**</ept> trigger node. Then in the list of actions, select <bpt id="p1">**</bpt>Dialog Management<ept id="p1">**</ept> and select <bpt id="p2">**</bpt>Begin a new dialog<ept id="p2">**</ept>.
+5. **[Begin a new dialog]\(新しいダイアログの開始\)** アクションを選択した状態で、プロパティ ペインで、 **[Dialog name]\(ダイアログ名\)** ドロップダウン リストから **GetWeather** ダイアログを選択し、**WeatherRequested** トリガーが認識されたときに前に定義した **GetWeather** ダイアログを開始します。
 
     **WeatherRequested** アクティビティ フローは次のようになります。
 
     ![regex トリガーによる getWeather ダイアログの開始](./images/weather-regex.png)
 
-6. ボットを再起動して Web チャットペインを開き、会話を再開し、名前を入力した後、`What is the weather like?`と入力します。プロンプトが表示されたら、`Seattle`などの地域を入力します。ボットがサービスに問い合わせ、天気予報を示す簡単な文で応答します。
+6. Restart the bot and open the web chat pane.Then restart the conversation, and after entering your name, enter <ph id="ph1">`What is the weather like?`</ph>. Then, when prompted, enter a city, such as <ph id="ph1">`Seattle`</ph>. The bot will contact the service and should respond with a small weather report statement.
 7. テストが完了したら、Web チャット ウィンドウを閉じ、ボットを停止します。
 
-## 割り込みの処理
+## <a name="handle-interruptions"></a>割り込みの処理
 
 適切に設計されたボットは、ユーザーが、たとえば要求をキャンセルすることによって、会話の流れを変更できるようにする必要があります。
 
-1. Bot Composer の 「ナビゲーション」 ペインで、**「WeatherBot」** ダイアログ 「&#8285;」 メニューを使用します (既存の **WelcomeUsers** および **WeatherRequested** トリガーに加えて) 新しいトリガーを追加します。新しいトリガーには、次の設定が必要です。
+1. In the Bot Composer, in the navigation pane, use the <bpt id="p1">**</bpt>...<ept id="p1">**</ept> menu for the <bpt id="p2">**</bpt>WeatherBot<ept id="p2">**</ept> dialog to add a new trigger (in addition to the existing <bpt id="p3">**</bpt>WelcomeUsers<ept id="p3">**</ept> and <bpt id="p4">**</bpt>WeatherRequested<ept id="p4">**</ept> triggers). The new trigger should have the following settings:
 
-    - **What is the type of this trigger?**: 意図の認識
-    - **What is the name of this trigger (RegEx)**:  `CancelRequest`
-    - **Please input regex pattern**: `cancel`
+    - **[What is the type of this trigger?]\(このトリガーの種類を選択してください\)**: Intent recognized\(意図認識\)
+    - **[What is the name of this trigger (RegEx)]\(このトリガー (RegEx) の名前を指定してください\)** : `CancelRequest`
+    - **[Please input regex pattern]\(regex パターンを入力してください\)** : `cancel`
 
-    > テキストに入力されたテキストボックスは単純な正規表現パターンであり、ボットは着信メッセージで *cancel* という単語を検索します。
+    > テキストに入力されたテキスト ボックスは単純な正規表現パターンであり、ボットは着信メッセージで *cancel* という単語を検索します。
 
-2. トリガーのオーサリングキャンバスで、**「応答の送信」** アクションを追加し、そのテキスト応答を`OK.Whenever you're ready, you can ask me about the weather.`に設定します。
-3. **「応答の送信」** アクションで、**「ダイアログ管理」** と **「このダイアログの終了」** を選択して、ダイアログに新しいアクションを追加します。
+2. トリガーのオーサリング キャンバスで、**[Send a response]\(応答の送信\)** アクションを追加し、そのテキスト応答を「`OK. Whenever you're ready, you can ask me about the weather.`」に設定します。
+3. **[Send a response]\(応答の送信\)** アクションで、 **[Dialog management]\(ダイアログの管理\)** と **[End this dialog]\(このダイアログの終了\)** を選択して、ダイアログに新しいアクションを追加します。
 
     **CancelRequest** ダイアログ フローは次のようになります。
 
@@ -192,36 +192,36 @@ Bot Framework Composer を使用してボットを作成します。 このツ�
 
     ユーザーのキャンセル要求に応答するトリガーができたので、天気情報を要求した後に郵便番号の入力を求められた場合など、ユーザーがそのような要求を行う可能性のあるダイアログ フローの中断を許可する必要があります。
 
-4. ナビゲーション ペインで、**「getWeather」** ダイアログの下の **「BeginDialog」** を選択します。
-5. ユーザーに地域の入力を求める **「テキストの入力を求める」** アクションを選択します。
-6. アクションのプロパティの **「その他」** タブで、**「プロンプト構成」** を展開し、**「中断を許可」** プロパティを **「True」** に設定します。
-7. ボットを再起動し、Web チャット ペインを開きます。会話を再開し、名前を入力した後、`What is the weather like?`と入力します。次に、プロンプトが表示されたら、 `cancel`と入力し、リクエストがキャンセルされたことを確認します。
-8. リクエストをキャンセルした後、`What's the weather like?`と入力し、適切なトリガーによって **「GetWeather」** ダイアログの新しいインスタンスが開始され、郵便番号の入力を再度求められることに注意してください。
+4. ナビゲーション ウィンドウで、**GetWeather** ダイアログの下の **BeginDialog** を選択します。
+5. ユーザーに地域の入力を求める **[Prompt for text]\(テキストの入力を求める\)** アクションを選択します。
+6. アクションのプロパティの **[その他]** タブで、 **[Prompt Configurations]\(プロンプト構成\)** を展開し、 **[Allow Interruptions]\(中断を許可\)** プロパティを **true** に設定します。
+7. Restart the bot and open the web chat pane. Restart the conversation, and and after entering your name, enter <ph id="ph1">`What is the weather like?`</ph>. Then, when prompted, enter <ph id="ph1">`cancel`</ph>, and confirm that the request is canceled.
+8. リクエストをキャンセルした後、「`What's the weather like?`」と入力し、適切なトリガーによって **GetWeather** ダイアログの新しいインスタンスが開始され、郵便番号の入力を再度求められることに注意してください。
 9. テストが完了したら、Web チャット ウィンドウを閉じ、ボットを停止します。
 
-## ユーザー エクスペリエンスを強化する
+## <a name="enhance-the-user-experience"></a>ユーザー エクスペリエンスを強化する
 
-これまでの気象ボットとのやり取りは、テキストを介して行われました。  ユーザーは意図したとおりにテキストを入力すると、ボットはテキストで応答します。多くの場合、テキストはコミュニケーションに適した方法ですが、他の形式のユーザー インターフェイス要素を使用してエクスペリエンスを向上させることができます。  たとえば、ボタンを使用して推奨されるアクションを開始したり、*カード*を表示して情報を視覚的に表示したりできます。
+The interactions with the weather bot so far has been through text.  Users enter text for their intentions and the bot responds with text. While text is often a suitable way to communicate, you can enhance the experience through other forms of user interface element.  For example, you can use buttons to initiate recommended actions, or display a <bpt id="p1">*</bpt>card<ept id="p1">*</ept> to present information visually.
 
-### ボタンの追加
+### <a name="add-a-button"></a>ボタンを追加する
 
-1. Bot Framework Composer の 「ナビゲーション」 ペインの **「GetWeather」** アクションで、**「BeginDialog」** を選択します。
-2. 作成キャンバスで、地域のプロンプトを含む **「Prompt for text」\(テキストのプロンプト\)** アクションを選択します。
-3. プロパティペインで、**「コードを表示する」** を選択し、既存のコードを次のコードに置き換えます。
+1. Bot Framework Composer のナビゲーション ウィンドウの **GetWeather** アクションで、**BeginDialog** を選択します。
+2. 作成キャンバスで、地域のプロンプトを含む **[Prompt for text]\(テキストの入力を求める\)** アクションを選択します。
+3. プロパティペインで、 **[Show code]\(コードを表示する\)** を選択し、既存のコードを次のコードに置き換えます。
 
 ```
 [Activity    
-    Text = ${TextInput_Prompt_Kz22lf_text()}    
+    Text = Enter your city.
     SuggestedActions = Cancel
 ]
 ```
 
-このアクティビティでは、以前と同じようにユーザーに地域の入力を求めますが、**「キャンセル」** ボタンも表示します。
+このアクティビティでは、以前と同じようにユーザーに地域の入力を求めますが、 **[キャンセル]** ボタンも表示します。
 
-### カードを追加する
+### <a name="add-a-card"></a>カードを追加する
 
-1. **「getWeather」** ダイアログの HTTP 天気サービスからの応答を確認した後の **True** パスで、天気レポートを表示する **「応答の送信」** アクションを選択します。
-2. プロパティペインで、**「コードを表示する」** を選択し、既存のコードを次のコードに置き換えます。
+1. **GetWeather** ダイアログの HTTP 天気サービスからの応答を確認した後の **True** パスで、天気レポートを表示する **[Send a response]\(応答の送信\)** アクションを選択します。
+2. プロパティ ペインで、 **[Show code]\(コードを表示する\)** を選択し、既存のコードを次のコードに置き換えます。
 
 ```
 [ThumbnailCard
@@ -231,14 +231,14 @@ Bot Framework Composer を使用してボットを作成します。 このツ�
 ]
 ```
 
-このテンプレートは、気象条件に対して以前と同じ変数を使用しますが、気象条件の画像とともに、表示されるカードにタイトルも追加します。
+このテンプレートでは、天気について以前と同じ変数を使用しますが、表示されるカードにタイトルを追加し、天気の画像も追加します。
 
-### 新しいユーザー インターフェイスをテストする
+### <a name="test-the-new-user-interface"></a>新しいユーザー インターフェイスをテストする
 
-1. ボットを再起動し、Web チャット ペインを開きます。会話を再開し、名前を入力した後、`What is the weather like?`と入力します。次に、プロンプトが表示されたら、**「キャンセル」** ボタンをクリックしてリクエストをキャンセルします。
-2. キャンセル後、`Tell me about the weather`と入力し、プロンプトが表示されたら、`London`などの有効な地域名を入力します。ボットはサービスに連絡し、気象条件を示すカードで応答する必要があります。
-3. テストが終了したら、エミュレーターを閉じてボットを停止します。
+1. Restart the bot and open the web chat pane. Restart the conversation, and after entering your name, enter <ph id="ph1">`What is the weather like?`</ph>. Then, when prompted, click the <bpt id="p1">**</bpt>Cancel<ept id="p1">**</ept> button to cancel the request.
+2. **[Home]\(ホーム\)** 画面の **[New]\(新規作成\)** を選択します。
+3. テストが完了したら、エミュレーターを閉じ、ボットを停止します。
 
-## 詳細
+## <a name="more-information"></a>詳細情報
 
-Bot Framework Composer の詳細については、[Bot Framework Composerのドキュメント](https://docs.microsoft.com/composer/introduction)を参照してください。
+Bot Framework Composer の詳細については、[Bot Framework Composer のドキュメント](https://docs.microsoft.com/composer/introduction)を参照してください。
