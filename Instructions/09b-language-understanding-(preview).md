@@ -6,7 +6,7 @@ lab:
 
 # <a name="create-a-language-understanding-model-with-the-language-service-preview"></a>言語サービスで言語理解モデルを作成する (プレビュー)
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The conversational language understanding feature of the Language service is currently in preview, and subject to change. In some cases, model training may fail - if this happens, try again.  
+> **注**: 言語サービスの会話言語理解機能は、現在プレビュー段階であり、変更される可能性があります。 場合によっては、モデルのトレーニングに失敗することがありますが、その場合はもう一度やり直してください。  
 
 言語サービスを使うと、*会話言語理解* モデルを定義することができます。これをアプリケーションから使って、ユーザーからの自然言語入力を解釈し、ユーザーの *意図* (達成したいこと) を予測し、その意図を適用する必要がある *エンティティ* を特定することができます。
 
@@ -16,11 +16,11 @@ lab:
 
 この種の入力は、*発話* (ユーザーが言うまたは入力する可能性のあるもの) の例です。*意図* は、特定の場所 (*エンティティ*) (この場合はロンドン) の時間を得ることです。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The task of a conversational language model is to predict the user's intent and identify any entities to which the intent applies. It is <bpt id="p1">&lt;u&gt;</bpt>not<ept id="p1">&lt;/u&gt;</ept> the job of a conversational language model to actually perform the actions required to satisfy the intent. For example, a clock application can use a conversational language model to discern that the user wants to know the time in London; but the client application itself must then implement the logic to determine the correct time and present it to the user.
+> **注**:会話言語モデルのタスクは、ユーザーの意図を予測し、意図が適用されるエンティティを特定することです。 意図を満たすために必要なアクションを実際に実行することは、会話言語モデルの仕事では<u>ありません</u>。 たとえば、時計アプリケーションは会話言語モデルを使用して、ユーザーがロンドンの時刻を知りたいことを識別できます。ただし、クライアント アプリケーション自体は、正しい時刻を決定してユーザーに提示するロジックを実装する必要があります。
 
 ## <a name="create-a-language-service-resource"></a>"言語サービス" リソースを作成する
 
-To create a conversational language model, you need a <bpt id="p1">**</bpt>Language service<ept id="p1">**</ept> resource in a supported region. At the time of writing, only the West US 2 and West Europe regions are supported.
+会話言語モデルを作成するには、サポートされているリージョンの**言語サービス** リソースが必要です。 この記事の執筆時点で、米国西部 2 と西ヨーロッパのリージョンのみがサポートされています。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*[言語]* を検索し、次の設定で**言語サービス** リソースを作成します。
@@ -118,7 +118,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
 4. トレーニングが完了した場合 (数分かかることがあります)、ジョブの **[状態]** が " **トレーニング成功**" に変わります。
 
-5. **注**: 言語サービスの会話言語理解機能は、現在プレビュー段階であり、変更される可能性があります。
+5. **[モデルの詳細の表示]** ページを選択し、**Clock** モデルを選択します。 全体と意図ごとの評価メトリック ( *"精度"* 、 *"再現率"* 、 *"F1 スコア"* ) と、トレーニング時に行った評価で生成された *"混同行列"* を確認します (サンプル発話数が少ないため、すべての意図が結果に含まれていない可能性がある点に注意してください)。
 
     >**注**: 評価メトリックの詳細については、[ドキュメント](https://docs.microsoft.com/azure/cognitive-services/language-service/conversational-language-understanding/concepts/evaluation-metrics)を参照してください。
 
@@ -126,7 +126,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
 5. **[展開の追加]** ダイアログで、**[新しい展開名を作成する]** を選択し、「**production**」と入力します。
 
-5. 場合によっては、モデルのトレーニングに失敗することがありますが、その場合はもう一度やり直してください。
+5. **Clock** モデルを選択し、 **[送信]** をクリックします。 この展開には時間がかかる場合があります。
 
 6. モデルが展開されたら、 **[モデルのテスト]** ページで **Clock** モデルを選びます。
 
@@ -136,7 +136,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
     `what's the time now?`
 
-    Review the result that is returned, noting that it includes the predicted intent (which should be <bpt id="p1">**</bpt>GetTime<ept id="p1">**</ept>) and a confidence score that indicates the probability the model calculated for the predicted intent. The JSON tab shows the comparative confidence for each potential intent (the one with the highest confidence score is the predicted intent)
+    返された結果を確認します。予測された意図 (**GetTime** であるはずです) と、予測された意図に対してモデルが計算した確率を示す信頼スコアが含まれていることに注意してください。 [JSON] タブには、考えられる各意図の信頼度の比較が表示されます (信頼度スコアが最も高いものが予測された意図です)
 
 8. テキスト ボックスをクリアし、次のテキストを使って別のテストを実行します。
 
@@ -152,7 +152,7 @@ To create a conversational language model, you need a <bpt id="p1">**</bpt>Langu
 
 ## <a name="add-entities"></a>複数エンティティの追加
 
-So far you've defined some simple utterances that map to intents. Most real applications include more complex utterances from which specific data entities must be extracted to get more context for the intent.
+これまで、意図にマップするいくつかの簡単な発話を定義しました。 ほとんどの実際のアプリケーションには、より複雑な発話が含まれており、意図のコンテキストを増やすために、特定のデータ エンティティを抽出する必要があります。
 
 ### <a name="add-a-learned-entity"></a>*学習済み* エンティティを追加する
 
@@ -160,7 +160,7 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. Language Studio の **[スキーマの構築]** ページに戻り、 **[エンティティ]** タブで **[&#65291; 追加]** を選んで新しいエンティティを追加します。
 
-2. In the <bpt id="p1">**</bpt>Add an entity<ept id="p1">**</ept> dialog box, enter the entity name <bpt id="p2">**</bpt>Location<ept id="p2">**</ept> and ensure that <bpt id="p3">**</bpt>Learned<ept id="p3">**</ept> is selected. Then click <bpt id="p1">**</bpt>Add entity<ept id="p1">**</ept>.
+2. **[エンティティの追加]** ダイアログ ボックスで、エンティティ名 **Location** を入力し、 **[学習済み]** が選ばれていることを確認します。 次に、 **[エンティティの追加]** をクリックします。
 
 3. **Location** エンティティが作成されたら、 **[スキーマの構築]** ページに戻り、 **[意図]** タブで **GetTime** 意図を選びます。
 
@@ -190,9 +190,9 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. Language Studio の **[スキーマの構築]** ページに戻り、 **[エンティティ]** タブで **[&#65291; 追加]** を選んで新しいエンティティを追加します。
 
-2. In the <bpt id="p1">**</bpt>Add an entity<ept id="p1">**</ept> dialog box, enter the entity name <bpt id="p2">**</bpt>Weekday<ept id="p2">**</ept> and select the <bpt id="p3">**</bpt>List<ept id="p3">**</ept> entity type. Then click <bpt id="p1">**</bpt>Add entity<ept id="p1">**</ept>.
+2. **[エンティティの追加]** ダイアログ ボックスで、エンティティ名 **Weekday** を入力し、エンティティの種類として **[リスト]** を選びます。 次に、 **[エンティティの追加]** をクリックします。
 
-3. On the page for the <bpt id="p1">**</bpt>Weekday<ept id="p1">**</ept> entity, in the <bpt id="p2">**</bpt>List<ept id="p2">**</ept> section, click <bpt id="p3">**</bpt>&amp;#65291; Add new list<ept id="p3">**</ept>. Then enter the following value and synonym and click <bpt id="p1">**</bpt>Save<ept id="p1">**</ept>:
+3. **Weekday** エンティティのページの **[リスト]** セクションで、 **[&#65291; 新しいリストの追加]** をクリックします。 次に、次の値とシノニムを入力し、 **[保存]** をクリックします。
 
     | キーの一覧表示 | シノニム|
     |-------------------|---------|
@@ -237,7 +237,7 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. Language Studio の **[スキーマの構築]** ページに戻り、 **[エンティティ]** タブで **[&#65291; 追加]** を選んで新しいエンティティを追加します。
 
-2. **注**:会話言語モデルのタスクは、ユーザーの意図を予測し、意図が適用されるエンティティを特定することです。
+2. **[エンティティの追加]** ダイアログ ボックスで、エンティティ名 **Date** を入力し、エンティティの種類として **[事前構築済み]** を選びます。 次に、 **[エンティティの追加]** をクリックします。
 
 3. **Date** エンティティのページの **[事前構築済み]** セクションで、 **[&#65291; 新しい事前構築済みの追加]** をクリックします。
 
@@ -265,17 +265,17 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 1. **[モデルのトレーニング]** ページで、 **[トレーニング ジョブの開始]** を選択します。
 
-1. 意図を満たすために必要なアクションを実際に実行することは、会話言語モデルの仕事では<u>ありません</u>。
+1. **[トレーニング ジョブの開始]** ダイアログで、既存のモデルを上書きするオプションを選び、**Clock** モデルを指定します。 トレーニング時に評価を実行するオプションが選ばれていることを確認し、 **[トレーニング]** をクリックしてモデルをトレーニングします。その際に、既存のモデルを上書きすることを確認します。
 
 2. トレーニングが完了した場合、ジョブの **[状態]** が " **トレーニング成功**" に更新されます。 
 
-2. たとえば、時計アプリケーションは会話言語モデルを使用して、ユーザーがロンドンの時刻を知りたいことを識別できます。ただし、クライアント アプリケーション自体は、正しい時刻を決定してユーザーに提示するロジックを実装する必要があります。
+2. **[モデルの詳細の表示]** ページを選択し、**Clock** モデルを選択します。 次に、全体、エンティティごと、意図ごとの評価メトリック ( *"精度"* 、 *"再現率"* 、 *"F1 スコア"* ) と、トレーニング時に行った評価で生成された *"混同行列"* を確認します (サンプル発話数が少ないため、すべての意図が結果に含まれていない可能性がある点に注意してください)。
 
 3. **[モデルの展開]** ページで、 **[展開の追加]** を選択します。
 
 3. **[展開の追加]** ダイアログで、**[既存の展開名をオーバーライドする]** を選択し、「**production**」を選択します。
 
-3. Select the <bpt id="p1">**</bpt>Clock<ept id="p1">**</ept> model and then click <bpt id="p2">**</bpt>Submit<ept id="p2">**</ept> to deploy it. This may take some time.
+3. **Clock** モデルを選択し、 **[送信]** をクリックして展開します。 これには時間がかかる場合があります。
 
 4. モデルが展開されたら、 **[モデルのテスト]** ページで **Clock** モデルを選び、**production** 展開を選択して、次のテキストでテストします。
 
@@ -297,9 +297,9 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 ## <a name="use-the-model-from-a-client-app"></a>クライアント アプリからモデルを使う
 
-In a real project, you'd iteratively refine intents and entities, retrain, and retest until you are satisfied with the predictive performance. Then, when you've tested it and are satisfied with its predictive performance, you can use it in a client app by calling its REST interface. In this exercise, you'll use the <bpt id="p1">*</bpt>curl<ept id="p1">*</ept> utility to call the REST endpoint for your model.
+実際のプロジェクトでは、予測パフォーマンスに満足するまで、意図とエンティティを繰り返し改良し、再トレーニングして、再テストします。 次に、モデルをテストしてその予測のパフォーマンスに満足したら、REST インターフェイスを呼び出してクライアント アプリで使用できます。 この演習では、*curl* ユーティリティを使って、モデルの REST エンドポイントを呼び出します。
 
-1. 会話言語モデルを作成するには、サポートされているリージョンの**言語サービス** リソースが必要です。
+1. Language Studio の **[モデルの展開]** ページで **Clock** モデルを選びます。 次に **[予測 URL の取得]** をクリックします。
 
 2. **[予測 URL の取得]** ダイアログ ボックスには、予測エンドポイントの URL とサンプル要求 (ヘッダーに Language リソースのキーを指定し、要求データにクエリと言語を含めてエンドポイントに HTTP POST 要求を送信する **curl** コマンドで構成されています) が表示されることに注目してください。
 
@@ -339,9 +339,9 @@ In a real project, you'd iteratively refine intents and entities, retrain, and r
 
 ## <a name="export-the-project"></a>プロジェクトをエクスポートする
 
-この記事の執筆時点で、米国西部 2 と西ヨーロッパのリージョンのみがサポートされています。
+Language Studio を使って言語理解モデルを開発およびテストできますが、DevOps のソフトウェア開発プロセスでは、継続的インテグレーションとデリバリー (CI/CD) パイプラインに含めることができるプロジェクトのソース制御定義を維持する必要があります。 コード スクリプトで Language REST API を使ってモデルを作成およびトレーニング *できます* が、より簡単な方法は、ポータルを使ってモデルを作成し、それを *.json* ファイルとしてエクスポートし、別の言語サービス インスタンスにインポートして再トレーニングできるようにすることです。 このアプローチにより、モデルの移植性と再現性を維持しながら、Language Studio ビジュアル インターフェイスの生産性のメリットを活用できます。
 
-1. In Language Studio, on the <bpt id="p1">**</bpt>Projects<ept id="p1">**</ept> page, select the <bpt id="p2">**</bpt>Clock<ept id="p2">**</ept> project. Don't click <bpt id="p1">**</bpt>Clock<ept id="p1">**</ept>, select the circle icon to select the Clock project.
+1. Language Studio の **[プロジェクト]** ページで **Clock** プロジェクトを選びます。 **Clock** をクリックしないで、円アイコンを選択して Clock プロジェクトを選択します。
 
 2. **[&#x2913; エクスポート]** ボタンをクリックします。
 
