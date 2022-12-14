@@ -21,13 +21,13 @@ lab:
 
 ## <a name="create-custom-vision-resources"></a>Custom Vision リソースを作成する
 
-If you already have <bpt id="p1">**</bpt>Custom Vision<ept id="p1">**</ept> resources for training and prediction in your Azure subscription, you can use them in this exercise. If not, use the following instructions to create them.
+Azure サブスクリプションでトレーニングと予測のための **Custom Vision** リソースが既にある場合は、この演習でそれらを使用できます。 そうでない場合は、次の手順を使用して作成してください。
 
 1. 新しいブラウザー タブで Azure portal (`https://portal.azure.com`) を開き、自分の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*custom vision* を検索して、次の設定で **Custom Vision** リソースを作成します。
     - **作成オプション**: 両方
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **トレーニング価格レベル**: F0
@@ -35,13 +35,13 @@ If you already have <bpt id="p1">**</bpt>Custom Vision<ept id="p1">**</ept> reso
 
     > **注**: サブスクリプションに既に F0 Custom Vision サービスがある場合は、このサービスに **S0** を選択してください。
 
-3. Wait for the resources to be created, and then view the deployment details and note that two Custom Vision resources are provisioned; one for training, and another for prediction (evident by the <bpt id="p1">**</bpt>-Prediction<ept id="p1">**</ept> suffix). You can view these by navigating to the resource group where you created them.
+3. リソースが作成されるのを待ってから、デプロイの詳細を表示し、2 つの Custom Vision リソースがプロビジョニングされていることに注意してください。1 つはトレーニング用で、もう 1 つは予測用です ( **-Prediction** サフィックスで示されます)。 これらを作成したリソース グループに移動すると、これらを表示できます。
 
-> <bpt id="p1">**</bpt>Important<ept id="p1">**</ept>: Each resource has its own <bpt id="p2">*</bpt>endpoint<ept id="p2">*</ept> and <bpt id="p3">*</bpt>keys<ept id="p3">*</ept>, which are used to manage access from your code. To train an image classification model, your code must use the <bpt id="p1">*</bpt>training<ept id="p1">*</ept> resource (with its endpoint and key); and to use the trained model to predict image classes, your code must use the <bpt id="p2">*</bpt>prediction<ept id="p2">*</ept> resource (with its endpoint and key).
+> **重要**: 各リソースには独自の *エンドポイント* と *キー* があり、コードからのアクセスを管理するために使用されます。 画像分類モデルをトレーニングするには、コードで *トレーニング* リソース (エンドポイントとキーを含む) を使用する必要があります。トレーニング済みモデルを使用して画像クラスを予測するには、コードで *予測* リソース (エンドポイントとキーを含む) を使用する必要があります。
 
 ## <a name="create-a-custom-vision-project"></a>Custom Vision プロジェクトを作成する
 
-To train an object detection model, you need to create a Custom Vision project based on your training resource. To do this, you'll use the Custom Vision portal.
+物体検出モデルをトレーニングするには、トレーニング リソースに基づいて Custom Vision プロジェクトを作成する必要があります。 これを行うには、Custom Vision ポータルを使用します。
 
 1. 新しいブラウザー タブで Custom Vision ポータル (`https://customvision.ai`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. 次の設定で新しいプロジェクトを作成します。
@@ -56,10 +56,10 @@ To train an object detection model, you need to create a Custom Vision project b
 
 物体検出モデルをトレーニングするには、モデルで識別するクラスが含まれている画像をアップロードし、各物体インスタンスの境界ボックスを示すためにタグを付ける必要があります。
 
-1. In Visual Studio Code, view the training images in the <bpt id="p1">**</bpt>18-object-detection/training-images<ept id="p1">**</ept> folder where you cloned the repository. This folder contains images of fruit.
+1. Visual Studio Code で、リポジトリをクローンした **18-object-detection/training-images** フォルダ－にあるトレーニン画像を表示します。 このフォルダーには果物の画像が含まれています。
 2. Custom Vision ポータルの物体検出プロジェクトで、 **[画像の追加]** を選択し、抽出したフォルダーのすべての画像をアップロードします。
 3. 画像がアップロードされた後、最初のものを選択して開きます。
-4. Hold the mouse over any object in the image until an automatically detected region is displayed like the image below. Then select the object, and if necessary resize the region to surround it.
+4. 以下の画像のように、自動的に検出された領域が表示されるまで、画像内の任意の物体の上にマウス ポインターを置きます。 その後、物体を選択し、必要に応じて、それを囲む領域のサイズを変更します。
 
 ![物体の既定の領域](./images/object-region.jpg)
 
@@ -73,7 +73,7 @@ To train an object detection model, you need to create a Custom Vision project b
 
 ![画像内のタグ付けされた 2 つの物体](./images/object-tags.jpg)
 
-7. Use the <bpt id="p1">**</bpt><ph id="ph1">&gt;</ph><ept id="p1">**</ept> link on the right to go to the next image, and tag its objects. Then just keep working through the entire image collection, tagging each apple, banana, and orange.
+7. 右側の **[>]** リンクを使用して、次の画像に移動し、その物体にタグを付けます。 その後、単に画像のコレクション全体で引き続き作業を行い、apple、banana、および orange にそれぞれタグを付けます。
 
 8. 最後の画像のタグ付けが終了したら、**[Image Detail]\(画像の詳細\)** エディターを閉じ、**[画像のトレーニング]** ページの **[タグ]** で **[タグ付け]** を選択して、タグ付けされたすべての画像を表示します。
 
@@ -81,15 +81,15 @@ To train an object detection model, you need to create a Custom Vision project b
 
 ## <a name="use-the-training-api-to-upload-images"></a>Training API を使用して画像をアップロードする
 
-You can use the graphical tool in the Custom Vision portal to tag your images, but many AI development teams use other tools that generate files containing information about tags and object regions in images. In scenarios like this, you can use the Custom Vision training API to upload tagged images to the project.
+Custom Vision ポータルのグラフィカル ツールを使用して画像にタグを付けることができますが、多くの AI 開発チームは、画像内のタグとオブジェクト領域に関する情報を含むファイルを生成する他のツールを使用しています。 このようなシナリオでは、Custom Vision トレーニング API を使用して、タグ付けされた画像をプロジェクトにアップロードできます。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: In this exercise, you can choose to use the API from either the <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept> SDK. In the steps below, perform the actions appropriate for your preferred language.
+> **注**: この演習では、**C#** または **Python** SDK のいずれかから API を使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Custom Vision ポータルの **[画像のトレーニング]** ページの右上にある *設定* (&#9881;) アイコンをクリックして、プロジェクトの設定を表示します。
 2. **[一般]** (左側) の下で、このプロジェクトを一意に識別する **[プロジェクト ID]** に注意してください。
-3. On the right, under <bpt id="p1">**</bpt>Resources<ept id="p1">**</ept> note that the key and endpoint are shown. These are the details for the <bpt id="p1">*</bpt>training<ept id="p1">*</ept> resource (you can also obtain this information by viewing the resource in the Azure portal).
+3. 右側の **[リソース]** の下に、キーとエンドポイントが表示されていることに注意してください。 これらは、*トレーニング* リソースの詳細です (この情報は、Azure portal でリソースを表示することでも取得できます)。
 4. Visual Studio Code の **18-object-detection** フォルダーの下で、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-5. Right-click the <bpt id="p1">**</bpt>train-detector<ept id="p1">**</ept> folder and open an integrated terminal. Then install the Custom Vision Training package by running the appropriate command for your language preference:
+5. **train-detector** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定のための適切なコマンドを実行して、Custom Vision トレーニング パッケージをインストールします。
 
 **C#**
 
@@ -107,11 +107,11 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to reflect the endpoint and key for your Custom Vision <bpt id="p1">*</bpt>training<ept id="p1">*</ept> resource, and the project ID for the object detection project you created previously. Save your changes.
+    構成ファイルを開き、含まれている構成値を更新して、Custom Vision *トレーニング* リソースのエンドポイントとキー、および以前に作成した物体検出プロジェクトのプロジェクト ID を反映します。 変更を保存します。
 
-7. Azure サブスクリプションでトレーニングと予測のための **Custom Vision** リソースが既にある場合は、この演習でそれらを使用できます。
+7. **train-detector** フォルダーで **taged-images.json** を開き、そこに含まれている JSON を調べます。 JSON は画像のリストを定義し、各画像には 1 つ以上のタグ付き領域が含まれています。 タグ付けされた各領域には、タグ名、タグ付けされたオブジェクトを含む境界ボックスの上下の座標と幅と高さの寸法が含まれます。
 
-    > そうでない場合は、次の手順を使用して作成してください。
+    > **注**: このファイルの座標と寸法は、画像上の相対点を示しています。 たとえば、*高さ* の値が 0.7 の場合、ボックスは画像の高さの 70% であることを示します。 一部のタグ付けツールは、座標と寸法の値がピクセル、インチ、またはその他の測定単位を表す他の形式のファイルを生成します。
 
 8. **train-detector** フォルダーには、JSON ファイルで参照されている画像ファイルが保存されているサブフォルダーが含まれていることに注意してください。
 
@@ -139,16 +139,16 @@ dotnet run
 python train-detector.py
 ```
     
-11. Wait for the program to end. Then return to your browser and view the <bpt id="p1">**</bpt>Training Images<ept id="p1">**</ept> page for your project in the Custom Vision portal (refreshing the browser if necessary).
+11. プログラムが終了するのを待ちます。 次に、ブラウザーに戻り、Custom Vision ポータルでプロジェクトの **[画像のトレーニング]** ページを表示します (必要に応じてブラウザーを更新します)。
 12. いくつかの新しいタグ付き画像がプロジェクトに追加されていることを確認します。
 
 ## <a name="train-and-test-a-model"></a>モデルをトレーニングしてテストする
 
 これでプロジェクト内の画像にタグを付けたので、モデルをトレーニングする準備ができました。
 
-1. In the Custom Vision project, click <bpt id="p1">**</bpt>Train<ept id="p1">**</ept> to train an object detection model using the tagged images. Select the <bpt id="p1">**</bpt>Quick Training<ept id="p1">**</ept> option.
+1. Custom Vision プロジェクトで、**[トレーニング]** をクリックして、タグ付けされた画像を使用して物体検出モデルをトレーニングします。 **[クイック トレーニング]** オプションを選択します。
 2. トレーニングが完了するのを待ってから (10 分ほどかかる場合があります)、*正確性*、*再現性*、*mAP* などのパフォーマンス指標を確認します。これらは分類モデルの予測精度の指標であり、すべて高い値を示しているはずです。
-3. At the top right of the page, click <bpt id="p1">**</bpt>Quick Test<ept id="p1">**</ept>, and then in the <bpt id="p2">**</bpt>Image URL<ept id="p2">**</ept> box, enter <ph id="ph1">`https://aka.ms/apple-orange`</ph> and view the prediction that is generated. Then close the <bpt id="p1">**</bpt>Quick Test<ept id="p1">**</ept> window.
+3. ページの右上にある **[クイック テスト]** をクリックしてから、**[画像の URL]** ボックスに、「`https://aka.ms/apple-orange`」と入力し、生成された予測を表示します。 その後、**[クイック テスト]** ウィンドウを閉じます。
 
 ## <a name="publish-the-object-detection-model"></a>物体検出モデルを公開する
 
@@ -158,14 +158,14 @@ python train-detector.py
     - **モデル名**: fruit-detector
     - **予測リソース**: *前に作成した "-Prediction" で終わる**予測**リソース (トレーニング リソースでは<u>ありません</u>)。*
 2. **[プロジェクト設定]** ページの左上にある *[プロジェクトギャラリー]* (&#128065) アイコンをクリックして、プロジェクトが一覧表示されている Custom Vision ポータルの [ホーム] ページに戻ります。
-3. On the Custom Vision portal home page, at the top right, click the <bpt id="p1">*</bpt>settings<ept id="p1">*</ept> (&amp;#9881;) icon to view the settings for your Custom Vision service. Then, under <bpt id="p1">**</bpt>Resources<ept id="p1">**</ept>, find your <bpt id="p2">*</bpt>prediction<ept id="p2">*</ept> resource which ends with "-Prediction" (<bpt id="p3">&lt;u&gt;</bpt>not<ept id="p3">&lt;/u&gt;</ept> the training resource) to determine its <bpt id="p4">**</bpt>Key<ept id="p4">**</ept> and <bpt id="p5">**</bpt>Endpoint<ept id="p5">**</ept> values (you can also obtain this information by viewing the resource in the Azure portal).
+3. Custom Vision ポータルの [ホーム] ページの右上にある *設定* (&#9881;) アイコンをクリックして、Custom Vision サービスの設定を表示します。 次に、 **[リソース]** の下で、"-Prediction" で終わる *予測* リソース (トレーニング リソースでは<u>ありません</u>) を見つけて、その**キー**と**エンドポイント**の値を確認します (この情報は、Azure portal のリソースで表示して取得することもできます)。
 
 ## <a name="use-the-image-classifier-from-a-client-application"></a>クライアント アプリケーションからの画像分類子を使用する
 
-Now that you've published the image classification model, you can use it from a client application. Once again, you can choose to use <bpt id="p1">**</bpt>C#<ept id="p1">**</ept> or <bpt id="p2">**</bpt>Python<ept id="p2">**</ept>.
+画像分類モデルを公開したので、クライアント アプリケーションからそれを使用できます。 ここでも、**C#** または **Python** のどちらを使用するかを選択できます。
 
 1. Visual Studio Code で、**18-object-detection** フォルダーを参照し、使用する言語のフォルダー (**C-Sharp** または **Python**) で、**test-detector** フォルダーを展開します。
-2. Right-click the <bpt id="p1">**</bpt>test-detector<ept id="p1">**</ept> folder and open an integrated terminal. Then enter the following SDK-specific command to install the Custom Vision Prediction package:
+2. **test-detector** フォルダーを右クリックして、統合ターミナルを開きます。 その後、Custom Vision 予測パッケージをインストールするには、次の SDK 特有のコマンドを入力します
 
 **C#**
 
@@ -181,11 +181,11 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
 
 > **注**: Python SDK パッケージには、トレーニング パッケージと予測パッケージの両方が含まれており、既にインストールされている場合があります。
 
-3. Open the configuration file for your client application (<bpt id="p1">*</bpt>appsettings.json<ept id="p1">*</ept> for C# or <bpt id="p2">*</bpt>.env<ept id="p2">*</ept> for Python) and update the configuration values it contains to reflect the endpoint and key for your Custom Vision <bpt id="p3">*</bpt>prediction<ept id="p3">*</ept> resource, the project ID for the object detection project, and the name of your published model (which should be <bpt id="p4">*</bpt>fruit-detector<ept id="p4">*</ept>). Save your changes.
+3. クライアントアプリケーションの構成ファイル (C# の場合は *appsettings.json*、Python の場合は *.env*) を開き、Custom Vision *予測* リソースのエンドポイントとキー、物体検出プロジェクトのプロジェクト ID、および公開されたモデルの名前 (*fruit-detector* である必要があります) を反映するように、含まれている構成値を更新します。 変更を保存します。
 4. クライアント アプリケーションのコード ファイル (C# の場合は *Program.cs*、Python の場合は *test-detector.py*) を開き、含まれているコードを確認して、次の詳細に注意してください。
     - インストールしたパッケージの名前空間インポートされます
     - **Main** 関数は構成設定を取得し、キーとエンドポイントを使用して認証済みの **CustomVisionPredictionClient** を作成します。
-    - The prediction client object is used to get object detection predictions for the <bpt id="p1">**</bpt>produce.jpg<ept id="p1">**</ept> image, specifying the project ID and model name in the request. The predicted tagged regions are then drawn on the image, and the result is saved as <bpt id="p1">**</bpt>output.jpg<ept id="p1">**</ept>.
+    - 予測クライアント オブジェクトは、リクエストでプロジェクト ID とモデル名を指定して、**produce.jpg** 画像の物体検出予測を取得するために使用されます。 次に、予測されたタグ付き領域が画像に描画され、結果が **output.jpg** として保存されます。
 5. **test-detector** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
 **C#**

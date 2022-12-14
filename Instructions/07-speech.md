@@ -13,11 +13,11 @@ lab:
 
 この演習では、これらの API の両方を使用して、スピーキング クロック アプリケーションを実装します。
 
-<bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: This exercise requires that you are using a computer with speakers/headphones. For the best experience, a microphone is also required. Some hosted virtual environments may be able to capture audio from your local microphone, but if this doesn't work (or you don't have a microphone at all), you can use a provided audio file for speech input. Follow the instructions carefully, as you'll need to choose different options depending on whether you are using a microphone or the audio file.
+**注**:この演習では、スピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。 最良のエクスペリエンスのため、マイクも必要です。 一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。 マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
-If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1">**</ept> code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
@@ -33,22 +33,22 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need one of the keys and the location in which the service is provisioned from this page in the next procedure.
+5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページからサービスがプロビジョニングされるキーと場所の 1 つが必要になります。
 
 ## <a name="prepare-to-use-the-speech-service"></a>Speech サービスを使用する準備をする
 
 この演習では、Speech SDK を使用して音声を認識および合成する、部分的に実装されたクライアント アプリケーションを完成させます。
 
-<bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the SDK for either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+**注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**07-speech** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. Right-click the <bpt id="p1">**</bpt>speaking-clock<ept id="p1">**</ept> folder and open an integrated terminal. Then install the Speech SDK package by running the appropriate command for your language preference:
+2. **speaking-clock** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Speech SDK パッケージをインストールします。
 
     **C#**
 
@@ -66,13 +66,13 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to include an authentication <bpt id="p1">**</bpt>key<ept id="p1">**</ept> for your cognitive services resource, and the <bpt id="p2">**</bpt>location<ept id="p2">**</ept> where it is deployed. Save your changes.
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの認証**キー**と、それが展開されている**場所**を含めます。 変更を保存します。
 4. **speaking-clock** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#** : Program.cs
     - **Python**: speaking-clock.py
 
-    Open the code file and at the top, under the existing namespace references, find the comment <bpt id="p1">**</bpt>Import namespaces<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Speech SDK:
+    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
@@ -89,7 +89,7 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     import azure.cognitiveservices.speech as speech_sdk
     ```
 
-5. **注**:この演習では、スピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。
+5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードが既に提供されていることにご注意ください。 Cognitive Servicesリソースの **SpeechConfig** を作成するには、これらの変数を使用する必要があります。 コメント **「Configure speech service」** の下に次のコードを追加します。
 
     **C#**
     
@@ -124,7 +124,7 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     python speaking-clock.py
     ```
 
-7. 最良のエクスペリエンスのため、マイクも必要です。
+7. C# を使用している場合は、非同期メソッドで **await** 演算子を使用することに関する警告を無視できます。これは後で修正します。 コードは、アプリケーションが使用する音声サービスリソースの領域を表示する必要があります。
 
 ## <a name="recognize-speech"></a>音声を認識する
 
@@ -185,7 +185,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     from playsound import playsound
     ```
 
-3. 一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。
+3. **Main** 関数で、コードが **TranscribeCommand** 関数を使用して音声入力を受け入れることに注意してください。 **TranscribeCommand** 関数のコメント **「Configure speech recognition」** の下に、適切なコードを追加して、音声ファイルからの音声を認識して、書き起こすために使用できる **SpeechRecognizer** クライアントを作成します。
 
     **C#**
 
@@ -264,15 +264,15 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     python speaking-clock.py
     ```
 
-3. マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
+3. マイクを使用している場合、明瞭に話、"what time is it?" と言ってください。 プログラムは、音声入力を書き起こし、時刻を表示する必要があります (コードが実行されているコンピューターの現地時間に基づいており、現在の時刻とは異なる場合があります)。
 
-    The SpeechRecognizer gives you around 5 seconds to speak. If it detects no spoken input, it produces a "No match" result.
+    SpeechRecognizer を使用すると、約 5 秒で話すことができます。 音声入力が検出されない場合は、[一致なし] の結果が生成されます。
 
-    If the SpeechRecognizer encounters an error, it produces a result of "Cancelled". The code in the application will then display the error message. The most likely cause is an incorrect key or region in the configuration file.
+    SpeechRecognizer でエラーが発生した場合は、"Cancelled" の結果が生成されます。 アプリケーションのコードは、エラーメッセージを表示します。 最も可能性の高い原因は、構成ファイルのキーまたはリージョンが正しくないことです。
 
 ## <a name="synthesize-speech"></a>音声を合成する
 
-このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。
+speaking clock アプリケーションは話し言葉の入力を受け入れますが、実際には話しません。 音声合成用のコードを追加して修正しましょう。
 
 1. プログラムの **Main** 関数で、コードが **TellTime** 関数を使用してユーザーに現在の時刻を通知することに注意してください。
 2. **TellTime** 関数のコメント **「Configure speech synthesis」** の下に、次のコードを追加して、音声出力の生成に使用できる **SpeechSynthesizer** クライアントを作成します。
@@ -331,11 +331,11 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
     python speaking-clock.py
     ```
 
-5. それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
+5. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムが時間を教えくれるはずです。
 
 ## <a name="use-a-different-voice"></a>別の音声を使用する
 
-Your speaking clock application uses a default voice, which you can change. The Speech service supports a range of <bpt id="p1">*</bpt>standard<ept id="p1">*</ept> voices as well as more human-like <bpt id="p2">*</bpt>neural<ept id="p2">*</ept> voices. You can also create <bpt id="p1">*</bpt>custom<ept id="p1">*</ept> voices.
+speaking clock アプリケーションは、変更可能なデフォルトの音声を使用します。 Speech サービスは、さまざまな*標準*音声だけでなく、より人間らしい*ニューラル*音声もサポートします。 *カスタム* ボイスを作成することもできます。
 
 > **注**:ニューラル音声と標準音声のリストについては、Speech サービスのドキュメントの[言語と音声のサポート](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-to-speech)を参照してください。
 
@@ -371,7 +371,7 @@ Your speaking clock application uses a default voice, which you can change. The 
     python speaking-clock.py
     ```
 
-3. When prompted, speak clearly into the microphone and say "what time is it?". The program should speak in the specified voice, telling you the time.
+3. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムは指定された声で話し、時間を伝えます。
 
 ## <a name="use-speech-synthesis-markup-language"></a>音声合成マークアップ言語を使用する
 
@@ -429,7 +429,7 @@ Your speaking clock application uses a default voice, which you can change. The 
     python speaking-clock.py
     ```
 
-3. When prompted, speak clearly into the microphone and say "what time is it?". The program should speak in the voice that is specified in the SSML (overriding the voice specified in the SpeechConfig), telling you the time, and then after a pause telling you it's time to end this lab - which it is!
+3. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムは、SSML で指定された音声 (SpeechConfig で指定された音声を上書き) で話し、時間を通知し、一時停止した後、このラボを終了する時間であることを通知する必要があります。
 
 ## <a name="more-information"></a>詳細情報
 

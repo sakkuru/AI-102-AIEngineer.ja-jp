@@ -6,9 +6,9 @@ lab:
 
 # <a name="analyze-video-with-video-analyzer"></a>Video Analyzer を使用する動画の分析
 
-A large proportion of the data created and consumed today is in the format of video. <bpt id="p1">**</bpt>Video Analyzer for Media<ept id="p1">**</ept> is an AI-powered service that you can use to index videos and extract insights from them.
+今日作成および消費されているデータの大部分は動画形式です。 **Video Analyzer for Media** は、AI を利用したサービスであり、動画のインデックスを作成し、そこからインサイトを抽出するために使用できます。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: From June 21st 2022, capabilities of cognitive services that return personally identifiable information are restricted to customers who have been granted <bpt id="p2">[</bpt>limited access<ept id="p2">](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)</ept>. Without getting limited access approval, recognizing people and celebrities with Video Analyzer for this lab is not available. For more details about the changes Microsoft has made, and why - see <bpt id="p1">[</bpt>Responsible AI investments and safeguards for facial recognition<ept id="p1">](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)</ept>.
+> **注**:2022 年 6 月 21 日から、個人を特定できる情報を返すコグニティブ サービスの機能は、[制限付きアクセス](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)が許可されているお客様に限定されます。 制限付きアクセスの承認を得ていない場合、このラボの Video Analyzer を使用して人や著名人を認識することはできません。 Microsoft が行った変更と理由について詳しくは、「[顔認識に対する責任ある AI 投資と保護](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)」をご覧ください。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -25,11 +25,11 @@ A large proportion of the data created and consumed today is in the format of vi
 
 最初に、Video Analyzer ポータルにサインインして、動画をアップロードする必要があります。
 
-> <bpt id="p1">**</bpt>Tip<ept id="p1">**</ept>: If the Video Analyzer page is slow to load in the hosted lab environment, use your locally installed browser. You can switch back to the hosted VM for the later tasks.
+> **ヒント**: ホストされているラボ環境で Video Analyzer ページの読み込みが遅い場合は、ローカルにインストールされているブラウザーを使用してください。 後のタスクのために、ホストされている VM に戻すことができます。
 
 1. ブラウザーで、Video Analyzer ポータル (`https://www.videoindexer.ai`) を開きます。
-2. 今日作成および消費されているデータの大部分は動画形式です。
-3. **Video Analyzer for Media** は、AI を利用したサービスであり、動画のインデックスを作成し、そこからインサイトを抽出するために使用できます。
+2. 既存の Video Analyzer アカウントがある場合は、サインインします。 それ以外の場合は、無料アカウントにサインアップし、Microsoft アカウント (またはその他の有効なアカウントの種類) を使ってサインインします。 サインインに問題がある場合は、プライベート ブラウザー セッションを開いてみてください。
+3. Video Analyzer で、**[アップロード]** オプションを選びます。 次に、**ファイルの URL を入力する**オプションを選び、`https://aka.ms/responsible-ai-video` と入力します。 デフォルト名を **Responsible AI** に変更し、既定の設定を確認し、チェックボックスを選択して顔認識に関する Microsoft のポリシーに準拠していることを確認し、ファイルをアップロードします。
 4. ファイルがアップロードされたら、Video Analyzer が自動的にインデックスを作成するまで数分待ちます。
 
 > **注**: この演習では、この動画を使用して Video Analyzer の機能を調べます。ただし、AI 対応アプリケーションを責任を持って開発するための有用な情報とガイダンスが含まれているため、演習が終了したら、時間をかけて完全に確認する必要があります。 
@@ -38,7 +38,7 @@ A large proportion of the data created and consumed today is in the format of vi
 
 インデックス作成プロセスは、ポータルで表示できる動画からインサイトを抽出します。
 
-1. In the Video Analyzer portal, when the video is indexed, select it to view it. You'll see the video player alongside a pane that shows insights extracted from the video.
+1. Video Analyzer ポータルで、動画にインデックスが付けられたら、それを選択して表示します。 動画から抽出されたインサイトを示すペインの横にビデオ プレーヤーが表示されます。
 
 ![ビデオ プレーヤーと [インサイト] ペインを備えた Video Analyzer](./images/video-indexer-insights.png)
 
@@ -53,8 +53,8 @@ A large proportion of the data created and consumed today is in the format of vi
 4. **[タイムライン]** ペインに次のものが含まれていることを確認します。
     - 音声ナレーションのトランスクリプト。
     - 動画に表示されるテキスト。
-    - **注**:2022 年 6 月 21 日から、個人を特定できる情報を返すコグニティブ サービスの機能は、[制限付きアクセス](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access)が許可されているお客様に限定されます。
-5. 制限付きアクセスの承認を得ていない場合、このラボの Video Analyzer を使用して人や著名人を認識することはできません。
+    - 動画に登場するスピーカーの表示。 よく知られている人の中には、名前で自動的に認識される人もいれば、番号で示される人もいます (たとえば、*スピーカー #1*)。
+5. **[インサイト]** ペインに戻り、そこに表示されるインサイトを表示します。 これには次のようなものがあります。
     - ビデオに表示される個々の人。
     - ビデオで議論されたトピック。
     - ビデオに表示されるオブジェクトのラベル。
@@ -62,13 +62,13 @@ A large proportion of the data created and consumed today is in the format of vi
     - キー シーン。
 6. **[インサイト]** ペインが表示されている状態で、**[ビュー]** 記号を再度選択し、インサイトのリストで **[キーワード]** と **[感情]** をペインに追加します。
 
-    Microsoft が行った変更と理由について詳しくは、「[顔認識に対する責任ある AI 投資と保護](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/)」をご覧ください。
+    見つかったインサイトは、動画の主なテーマを決定するのに役立ちます。 たとえば、この動画の**トピック**は、テクノロジー、社会的責任、および倫理に関するものであることを明確に示しています。
 
 ## <a name="search-for-insights"></a>インサイトを検索する
 
 Video Analyzer を使用して、動画でインサイトを検索できます。
 
-1. In the <bpt id="p1">**</bpt>Insights<ept id="p1">**</ept> pane, in the <bpt id="p2">**</bpt>Search<ept id="p2">**</ept> box, enter <bpt id="p3">*</bpt>Bee<ept id="p3">*</ept>. You may need to scroll down in the Insights pane to see results for all types of insight.
+1. **[インサイト]** ペインの **[検索]** ボックスに、「*Bee*」と入力します。 すべてのタイプのインサイトの結果を表示するには、[インサイト] ペインを下にスクロールする必要がある場合があります。
 2. 下に示されている動画の場所で、一致する *ラベル* が 1 つ見つかったことを確認します。
 3. ミツバチの存在が示されているセクションの先頭を選択し、その時点で動画を表示します (動画を一時停止して慎重に選択する必要がある場合があります。ミツバチは短時間しか表示されません。)
 4. 動画のすべてのインサイトを表示するには、**[検索]** ボックスをクリアします。
@@ -77,15 +77,15 @@ Video Analyzer を使用して、動画でインサイトを検索できます�
 
 ## <a name="use-video-analyzer-widgets"></a>Video Analyzer ウィジェットを使用する
 
-The Video Analyzer portal is a useful interface to manage video indexing projects. However, there may be occasions when you want to make the video and its insights available to people who don't have access to your Video Analyzer account. Video Analyzer provides widgets that you can embed in a web page for this purpose.
+Video Analyzer サーポータルは、動画インデックス プロジェクトを管理するための便利なインターフェイスです。 ただし、Video Analyzer アカウントにアクセスできないユーザーが動画とそのインサイトを利用できるようにしたい場合があります。 Video Analyzer は、この目的のために Web ページに埋め込むことができるウィジェットを提供します。
 
-1. In Visual Studio Code, in the <bpt id="p1">**</bpt>16-video-indexer<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>analyze-video.html<ept id="p2">**</ept>. This is a basic HTML page to which you will add the Video Analyzer <bpt id="p1">**</bpt>Player<ept id="p1">**</ept> and <bpt id="p2">**</bpt>Insights<ept id="p2">**</ept> widgets. Note the reference to the <bpt id="p1">**</bpt>vb.widgets.mediator.js<ept id="p1">**</ept> script in the header - this script enables multiple Video Analyzer widgets on the page to interact with one another.
+1. Visual Studio Code の **16-video-indexer** フォルダーで、**analyze-video.html** を開きます。 これは、Video Analyzer の **[プレーヤー]** ウィジェットと **[インサイト]** ウィジェットを追加する基本的な HTML ページです。 ヘッダー内の **vb.widgets.mediator.js** スクリプトへの参照に注意してください。このスクリプトにより、ページ上の複数の Video Analyzer ウィジェットが相互に対話できるようになります。
 2. Video Analyzer ポータルで、**[メディア ファイル]** ページに戻り、**責任ある AI** 動画を開きます。
 3. ビデオ プレーヤーの下の **[&lt;/&gt; 埋め込み]** を選択し、HTML iframe コードを表示して、ウィジェットを埋め込みます。
 4. **[共有と埋め込み]** ダイアログ ボックスで、**[プレーヤー]** ウィジェットを選択し、動画サイズを 560 x 315 に設定してから、埋め込みコードをクリップボードにコピーします。
 5. Visual Studio Code の **analyze-video.html** ファイルで、コピーしたコードをコメント "**&lt;-- Player widget goes here -- &gt;**" の下に貼り付けます。
-6. Back in the <bpt id="p1">**</bpt>Share and Embed<ept id="p1">**</ept> dialog box, select the <bpt id="p2">**</bpt>Insights<ept id="p2">**</ept> widget and then copy the embed code to the clipboard. Then close the <bpt id="p1">**</bpt>Share and Embed<ept id="p1">**</ept> dialog box, switch back to Visual Studio Code, and paste the copied code under the comment <bpt id="p2">**</bpt><ph id="ph1">&amp;lt;</ph>-- Insights widget goes here -- <ph id="ph2">&amp;gt;</ph><ept id="p2">**</ept>.
-7. Save the file. Then in the <bpt id="p1">**</bpt>Explorer<ept id="p1">**</ept> pane, right-click <bpt id="p2">**</bpt>analyze-video.html<ept id="p2">**</ept> and select <bpt id="p3">**</bpt>Reveal in File Explorer<ept id="p3">**</ept>.
+6. **[共有と埋め込み]** ダイアログボックスに戻り、**[インサイト]** ウィジェットを選択して、埋め込みコードをクリップボードにコピーします。 次に、**[共有と埋め込み]** ダイアログボックスを閉じ、Visual Studio Code に戻って、コピーしたコードをコメント "**&lt;-- Insights widget goes here -- &gt;**" の下に貼り付けます。
+7. ファイルを保存します。 次に、**[エクスプローラー]** ペインで、**analyze-video.html** を右クリックし、**[ファイルエクスプローラーで表示]** を選択します。
 8. ブラウザーのファイル エクスプローラーで、**analyze-video.html** を開き、Web ページを表示します。
 9. **[インサイト]** ウィジェットを使用してウィジェットを試して、「insights」を検索し、動画内でそれらにジャンプします。
 
@@ -103,11 +103,11 @@ Video Analyzer APIを使用するには、リクエストを認証するため�
 2. このページの**アカウント ID** に注意してください。後で必要になります。
 3. 新しいブラウザー タブを開き、Video Analyzer 開発者ポータル (`https://api-portal.videoindexer.ai`) に移動し、Video Analyzer アカウントの資格情報を使用してサインインします。
 4. **[プロファイル]** ページで、プロファイルに関連付けられた**サブスクリプション**を表示します。
-5. On the page with your subscription(s), observe that you have been assigned two keys (primary and secondary) for each subscription. Then select <bpt id="p1">**</bpt>Show<ept id="p1">**</ept> for any of the keys to see it. You will need this key shortly.
+5. サブスクリプションのあるページで、サブスクリプションごとに 2 つのキー (プライマリとセカンダリ) が割り当てられていることを確認します。 次に、いずれかのキーの **[表示]** を選択して表示します。 このキーはまもなく必要になります。
 
 ### <a name="use-the-rest-api"></a>REST API を使用する
 
-Now that you have the account ID and an API key, you can use the REST API to work with videos in your account. In this procedure, you'll use a PowerShell script to make REST calls; but the same principles apply with HTTP utilities such as cURL or Postman, or any programming language capable of sending and receiving JSON over HTTP.
+アカウント ID と API キーを取得したので、REST API を使用してアカウント内の動画を操作できます。 この手順では、PowerShell スクリプトを使用して REST 呼び出しを行います。ただし、cURL や Postman などの HTTP ユーティリティ、または JSON over HTTP を送受信できるプログラミング言語にも同じ原則が適用されます。
 
 Video Analyzer REST API とのすべての対話は、同じパターンに従います。
 
@@ -116,13 +116,13 @@ Video Analyzer REST API とのすべての対話は、同じパターンに従�
 
 1. Visual Studio Code の **16-video-indexer** フォルダーで、**get-videos.ps1** を開きます。
 2. PowerShell スクリプトで、**YOUR_ACCOUNT_ID** および **YOUR_API_KEY** プレースホルダーを、以前に識別したアカウント ID および API キーの値に置き換えます。
-3. Observe that the <bpt id="p1">*</bpt>location<ept id="p1">*</ept> for a free account is "trial". If you have created an unrestricted Video Analyzer account (with an associated Azure resource), you can change this to the location where your Azure resource is provisioned (for example "eastus").
+3. 無料アカウントの *location* が "trial" であることに注意してください。 無制限の Video Analyzer アカウント (関連付けられた Azure リソースを含む) を作成した場合は、これを Azure リソースがプロビジョニングされている場所 ("eastus" など) に変更できます。
 4. スクリプトのコードを確認し、2 つの REST メソッドを呼び出すことに注意してください。1 つはアクセス トークンを取得するためのもので、もう 1 つはアカウント内の動画を一覧表示するためのものです。
 5. 変更を保存してから、[スクリプト] ペインの右上で、**[&#9655;]** ボタンを使用して、スクリプトを実行します。
 6. REST サービスからの JSON 応答を表示します。これには、以前にインデックスを作成した**責任のある AI** 動画の詳細が含まれているはずです。
 
 ## <a name="more-information"></a>詳細情報
 
-Recognition of people and celebrities is still available, but following the <bpt id="p1">[</bpt>Responsible AI Standard<ept id="p1">](https://aka.ms/aah91ff)</ept> those are restricted behind a Limited Access policy. These features include facial identification and celebrity recognition. To learn more and apply for access, see the <bpt id="p1">[</bpt>Limited Access for Cognitive Services<ept id="p1">](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)</ept>.
+人や著名人の認識は引き続き利用できますが、[責任ある AI 標準](https://aka.ms/aah91ff)に従うと、制限付きアクセス ポリシーで制限されます。 これらの機能には、顔の識別と有名人の認識が含まれます。 詳細とアクセスの申請については、[Cognitive Services の制限付きアクセス](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access)に関するページを参照してください。
 
 **Video Analyzer** の詳細については、[Video Analyzer のドキュメント](https://docs.microsoft.com/azure/azure-video-analyzer/video-analyzer-for-media-docs/)を参照してください。

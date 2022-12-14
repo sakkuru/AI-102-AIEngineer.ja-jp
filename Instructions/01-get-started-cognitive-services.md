@@ -6,11 +6,11 @@ lab:
 
 # <a name="get-started-with-cognitive-services"></a>Cognitive Services の概要
 
-In this exercise, you'll get started with Cognitive Services by creating a <bpt id="p1">**</bpt>Cognitive Services<ept id="p1">**</ept> resource in your Azure subscription and using it from a client application. The goal of the exercise is not to gain expertise in any particular service, but rather to become familiar with a general pattern for provisioning and working with cognitive services as a developer.
+この演習では、Azure サブスクリプションで **Cognitive Services** リソースを作成し、それをクライアント アプリケーションから使用して、Cognitive Services の使用を開始します。 この演習の目標は、特定のサービスに関する専門知識を習得することではなく、開発者として Cognitive Services をプロビジョニングおよび操作するための一般的なパターンに精通することです。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
-If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1">**</ept> code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
@@ -21,34 +21,34 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
 
 ## <a name="provision-a-cognitive-services-resource"></a>Cognitive Services リソースをプロビジョニングする
 
-Azure Cognitive Services are cloud-based services that encapsulate artificial intelligence capabilities you can incorporate into your applications. You can provision individual cognitive services resources for specific APIs (for example, <bpt id="p1">**</bpt>Language<ept id="p1">**</ept> or <bpt id="p2">**</bpt>Computer Vision<ept id="p2">**</ept>), or you can provision a general <bpt id="p3">**</bpt>Cognitive Services<ept id="p3">**</ept> resource that provides access to multiple cognitive services APIs through a single endpoint and key. In this case, you'll use a single <bpt id="p1">**</bpt>Cognitive Services<ept id="p1">**</ept> resource.
+Azure Cognitive Services は、アプリケーションに組み込むことができる人工知能機能をカプセル化するクラウドベースのサービスです。 特定の API (**言語**または **Computer Vision** など) に個別の **Cognitive Services** リソースをプロビジョニングすることも、単一のエンドポイントとキーを介して複数の Cognitive Services API へのアクセスを提供する一般的な Cognitive Services リソースをプロビジョニングすることもできます。 この場合、単一の **Cognitive Services** リソースを使用します。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. この演習では、Azure サブスクリプションで **Cognitive Services** リソースを作成し、それをクライアント アプリケーションから使用して、Cognitive Services の使用を開始します。
+5. リソースに移動し、その **[キーとエンドポイントページ]** ページを表示します。 このページには、リソースに接続して、開発したアプリケーションからリソースを使用するために必要な情報が含まれています。 具体的な内容は次のとおりです。
     - クライアント アプリケーションが要求を送信できる HTTP *エンドポイント*。
     - 認証に使用できる 2 つの "*キー*" (クライアント アプリケーションはどちらのキーも認証に使用できます)。
-    - この演習の目標は、特定のサービスに関する専門知識を習得することではなく、開発者として Cognitive Services をプロビジョニングおよび操作するための一般的なパターンに精通することです。
+    - リソースがホストされている "*場所*"。 これは、一部の (すべてではない) API へのリクエストに必要です。
 
 ## <a name="use-a-rest-interface"></a>REST インターフェイスの使用
 
-The cognitive services APIs are REST-based, so you can consume them by submitting JSON requests over HTTP. In this example, you'll explore a console application that uses the <bpt id="p1">**</bpt>Language<ept id="p1">**</ept> REST API to perform language detection; but the basic principle is the same for all of the APIs supported by the Cognitive Services resource.
+Cognitive Services API は REST ベースであるため、HTTP 経由で JSON リクエストを送信することで API を利用できます。 この例では、**言語** REST API を使用して言語検出を実行するコンソール アプリケーションについて説明します。ただし、基本的な原則は、Cognitive Services リソースでサポートされているすべての API で同じです。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: In this exercise, you can choose to use the REST API from either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **注**: この演習では、**C#** または **Python** のいずれかから REST API を使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の **[エクスプローラー]** ウィンドウで、**01-getting-started** フォルダーを参照し、言語の設定に応じて **C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
 2. **rest-client** フォルダーの内容を表示し、構成設定用のファイルが含まれていることにご注意ください。
     - **C#** : appsettings.json
     - **Python**: .env
 
-    このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 3. **rest-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
     - **C#** : Program.cs
@@ -61,7 +61,7 @@ The cognitive services APIs are REST-based, so you can consume them by submittin
     - API に送信される要求は、入力データを含む JSON オブジェクトで構成されます。この場合、**ドキュメント** オブジェクトのコレクションであり、それぞれに **ID** と**テキスト**があります。
     - サービスのキーは、クライアント アプリケーションを認証するためのリクエスト ヘッダーに含まれています。
     - サービスからの応答は JSON オブジェクトであり、クライアント アプリケーションはこれを解析できます。
-4. それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
+4. **rest-client** フォルダーを右クリックして、統合ターミナルを開きます。 次に、次の言語固有のコマンドを入力して、プログラムを実行します。
 
     **C#**
 
@@ -75,15 +75,15 @@ The cognitive services APIs are REST-based, so you can consume them by submittin
     python rest-client.py
     ```
 
-5. When prompted, enter some text and review the language that is detected by the service, which is returned in the JSON response. For example, try entering "Hello", "Bonjour", and "Gracias".
+5. プロンプトが表示されたら、テキストを入力し、サービスによって検出された言語を確認します。これは、JSON 応答で返されます。 たとえば、「Hello」、「Bonjour」、「Gracias」と入力してみてください。
 6. アプリケーションのテストが終了したら、「quit」と入力してプログラムを終了します。
 
 ## <a name="use-an-sdk"></a>SDK を使用する
 
-You can write code that consumes cognitive services REST APIs directly, but there are software development kits (SDKs) for many popular programming languages, including Microsoft C#, Python, and Node.js. Using an SDK can greatly simplify development of applications that consume cognitive services.
+Cognitive Services のREST API を直接使用するコードを記述できますが、Microsoft C#、Python、Node.js など、多くの一般的なプログラミング言語用のソフトウェア開発キット (SDK) があります。 SDK を使用すると、Cognitive Services を使用するアプリケーションの開発を大幅に簡素化できます。
 
 1. Visual Studio Code の **[エクスプローラー]** ウィンドウの **01-getting-started** フォルダーで、言語の設定に応じて **C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
-2. Right-click the <bpt id="p1">**</bpt>sdk-client<ept id="p1">**</ept> folder and open an integrated terminal. Then install the Text Analytics SDK package by running the appropriate command for your language preference:
+2. **sdk-client** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適合するコマンドを実行して、Text Analytics SDK パッケージをインストールします。
 
     **C#**
 
@@ -101,7 +101,7 @@ You can write code that consumes cognitive services REST APIs directly, but ther
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to reflect the <bpt id="p1">**</bpt>endpoint<ept id="p1">**</ept> and an authentication <bpt id="p2">**</bpt>key<ept id="p2">**</ept> for your cognitive services resource. Save your changes.
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
     
 4. **sdk-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
@@ -126,7 +126,7 @@ You can write code that consumes cognitive services REST APIs directly, but ther
     python sdk-client.py
     ```
 
-6. When prompted, enter some text and review the language that is detected by the service. For example, try entering "Goodbye", "Au revoir", and "Hasta la vista".
+6. プロンプトが表示されたら、テキストを入力し、サービスによって検出された言語を確認します。 たとえば、「Goodbye」、「Au revoir」、「Hasta la vista」と入力してみてください。
 7. アプリケーションのテストが終了したら、「quit」と入力してプログラムを終了します。
 
 > **注**: Unicode 文字セットを必要とする一部の言語は、この単純なコンソール アプリケーションでは認識されない場合があります。

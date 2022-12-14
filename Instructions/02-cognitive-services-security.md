@@ -28,7 +28,7 @@ Cognitive Services へのアクセスは通常、認証キーを介して制御�
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
@@ -37,21 +37,21 @@ Cognitive Services へのアクセスは通常、認証キーを介して制御�
 
 ## <a name="manage-authentication-keys"></a>認証キーの管理
 
-When you created your cognitive services resource, two authentication keys were generated. You can manage these in the Azure portal or by using the Azure command line interface (CLI).
+Cognitive Services リソースを作成すると、2 つの認証キーが生成されました。 これらは、Azure portal で、または Azure コマンド ライン インターフェイス (CLI) を使用して管理できます。
 
-1. In the Azure portal, go to your cognitive services resource and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. This page contains the information that you will need to connect to your resource and use it from applications you develop. Specifically:
+1. Azure portal で Cognitive Services リソースに移動し、その **[キーとエンドポイント]** ページを表示します。 このページには、リソースに接続して、開発したアプリケーションからリソースを使用するために必要な情報が含まれています。 具体的な内容は次のとおりです。
     - クライアント アプリケーションが要求を送信できる HTTP *エンドポイント*。
-    - Two <bpt id="p1">*</bpt>keys<ept id="p1">*</ept> that can be used for authentication (client applications can use either of the keys. A common practice is to use one for development, and another for production. You can easily regenerate the development key after developers have finished their work to prevent continued access).
-    - The <bpt id="p1">*</bpt>location<ept id="p1">*</ept> where the resource is hosted. This is required for requests to some (but not all) APIs.
-2. In Visual Studio Code, right-click the <bpt id="p1">**</bpt>02-cognitive-security<ept id="p1">**</ept> folder and open an integrated terminal. Then enter the following command to sign into your Azure subscription by using the Azure CLI.
+    - 認証に使用できる 2 つの *キー* (クライアント アプリケーションはどちらのキーも使用できます。 一般的な方法は、1 つを開発用に、もう 1 つを本番用に使用する方法です。 開発者が作業を終了した後、開発キーを簡単に再生成して、継続的なアクセスを防ぐことができます)。
+    - リソースがホストされている *場所*。 これは、一部の (すべてではない) API へのリクエストに必要です。
+2. Visual Studio Code で、**02-cognitive-security** フォルダーを右クリックし、統合ターミナルを開きます。 次に、次のコマンドを入力して、Azure CLI を使用して Azure サブスクリプションにサインインします。
 
     ```
     az login
     ```
 
-    A web browser tab will open and prompt you to sign into Azure. Do so, and then close the browser tab and return to Visual Studio Code.
+    Web ブラウザーのタブが開き、Azure にサインインするように求められます。 そうしてから、ブラウザー タブを閉じて、Visual Studio Code に戻ります。
 
-    > <bpt id="p1">**</bpt>Tip<ept id="p1">**</ept>: If you have multiple subscriptions, you'll need to ensure that you are working in the one that contains your cognitive services resource.  Use this command to         determine your current subscription - its unique ID is the <bpt id="p1">**</bpt>id<ept id="p1">**</ept> value in the JSON that gets returned.
+    > **ヒント**: 複数のサブスクリプションがある場合は、確実に Cognitive Services リソースが含まれるサブスクリプションで作業している必要があります。  このコマンドを使用して、現在のサブスクリプションを判別します。その一意の ID は、返される JSON の **ID** 値です。
 
     > **警告**: `az login` で証明書の検証エラーが発生する場合は、数分待ってからもう一度試してみてください。
     >
@@ -75,7 +75,7 @@ When you created your cognitive services resource, two authentication keys were 
 
 このコマンドは、Cognitive Services リソースのキーのリストを返します。**key1** と **key2** という名前の 2 つのキーがあります。
 
-4. To test your cognitive service, you can use <bpt id="p1">**</bpt>curl<ept id="p1">**</ept> - a command line tool for HTTP requests. In the <bpt id="p1">**</bpt>02-cognitive-security<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>rest-test.cmd<ept id="p2">**</ept> and edit the <bpt id="p3">**</bpt>curl<ept id="p3">**</ept> command it contains (shown below), replacing <bpt id="p4">*</bpt><ph id="ph1">&amp;lt;</ph>yourEndpoint<ph id="ph2">&amp;gt;</ph><ept id="p4">*</ept> and <bpt id="p5">*</bpt><ph id="ph3">&amp;lt;</ph>yourKey<ph id="ph4">&amp;gt;</ph><ept id="p5">*</ept> with your endpoint URI and <bpt id="p6">**</bpt>Key1<ept id="p6">**</ept> key to use the Text Analytics API in your cognitive services resource.
+4. Cognitive Services をテストするには、HTTP 要求に **curl** コマンド ライン ツールを使用できます。 **02-cognitive-security** フォルダーで **rest-test.cmd** を開き、そこに含まれる **curl** コマンド (以下に表示) を編集し、 *&lt;yourEndpoint&gt;* と *&lt;yourKey&gt;* をお使いのエンドポイント URI と **Key1** キーに置き換えて、Cognitive Services リソースで Text Analytics API を使用します。
 
     ```
     curl -X POST "<yourEndpoint>/text/analytics/v3.0/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':[{'id':1,'text':'hello'}]}"
@@ -89,7 +89,7 @@ When you created your cognitive services resource, two authentication keys were 
 
 このコマンドは、入力データで検出された言語に関する情報を含む JSON ドキュメントを返します (これは英語でなければなりません)。
 
-6. If a key becomes compromised, or the developers who have it no longer require access, you can regenerate it in the portal or by using the Azure CLI. Run the following command to regenerate your <bpt id="p1">**</bpt>key1<ept id="p1">**</ept> key (replacing <bpt id="p2">*</bpt><ph id="ph1">&amp;lt;</ph>resourceName<ph id="ph2">&amp;gt;</ph><ept id="p2">*</ept> and <bpt id="p3">*</bpt><ph id="ph3">&amp;lt;</ph>resourceGroup<ph id="ph4">&amp;gt;</ph><ept id="p3">*</ept> for your resource).
+6. キーが危険にさらされた場合、またはキーを持っている開発者がアクセスを必要としなくなった場合は、ポータルで、または Azure CLI を使用してキーを再生成できます。 次のコマンドを実行して、**key1** キーを再生成します (リソースの *&lt;resourceName&gt;* と *&lt;resourceGroup&gt;* を置き換えます)。
 
     ```
     az cognitiveservices account keys regenerate --name <resourceName> --resource-group <resourceGroup> --key-name key1
@@ -98,13 +98,13 @@ When you created your cognitive services resource, two authentication keys were 
 Cognitive Services リソースのキーのリストが返されます。**key1** は最後に取得してから変更されていることに注意してください。
 
 7. 古いキーを使用して **rest-test** コマンドを再実行し ( **^** キーを使用して前のコマンドを切り替えることができます)、失敗することを確認します。
-8. Edit the <bpt id="p1">*</bpt>curl<ept id="p1">*</ept> command in <bpt id="p2">**</bpt>rest-test.cmd<ept id="p2">**</ept> replacing the key with the new <bpt id="p3">**</bpt>key1<ept id="p3">**</ept> value, and save the changes. Then rerun the <bpt id="p1">**</bpt>rest-test<ept id="p1">**</ept> command and verify that it succeeds.
+8. **rest-test.cmd** の *curl* コマンドを編集して、キーを新しい **key1** 値に置き換え、変更を保存します。 次に、**rest-test** コマンドを再実行し、成功することを確認します。
 
-> <bpt id="p1">**</bpt>Tip<ept id="p1">**</ept>: In this exercise, you used the full names of Azure CLI parameters, such as <bpt id="p2">**</bpt>--resource-group<ept id="p2">**</ept>.  You can also use shorter alternatives, such as <bpt id="p1">**</bpt>-g<ept id="p1">**</ept>, to make your commands less verbose (but a little harder to understand).  The <bpt id="p1">[</bpt>Cognitive Services CLI command reference<ept id="p1">](https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest)</ept> lists the parameter options for each cognitive services CLI command.
+> **ヒント**: この演習では、 **--resource-group** などの Azure CLI パラメーターのフルネームを使用しました。  **-g** などの短い代替手段を使用して、コマンドの冗長性を低くすることもできます (ただし、理解が少し難しくなります)。  [Cognitive Services CLI コマンド リファレンス](https://docs.microsoft.com/cli/azure/cognitiveservices?view=azure-cli-latest)には、各 Cognitive Services CLI コマンドのパラメーター オプションがリストされています。
 
 ## <a name="secure-key-access-with-azure-key-vault"></a>Azure Key Vault を使用した安全なキー アクセス
 
-You can develop applications that consume cognitive services by using a key for authentication. However, this means that the application code must be able to obtain the key. One option is to store the key in an environment variable or a configuration file where the application is deployed, but this approach leaves the key vulnerable to unauthorized access. A better approach when developing applications on Azure is to store the key securely in Azure Key Vault, and provide access to the key through a <bpt id="p1">*</bpt>managed identity<ept id="p1">*</ept> (in other words, a user account used by the application itself).
+認証にキーを使用することで、Cognitive Services を利用するアプリケーションを開発できます。 ただし、これは、アプリケーションコードがキーを取得できる必要があることを意味します。 1 つのオプションは、アプリケーションがデプロイされている環境変数または構成ファイルにキーを格納することですが、このアプローチでは、キーが不正アクセスに対して脆弱なままになります。 Azure でアプリケーションを開発する場合のより良いアプローチは、キーを Azure Key Vault に安全に保存し、*マネージド ID* (つまり、アプリケーション自体が使用するユーザー アカウント) を介してキーへのアクセスを提供することです。
 
 ### <a name="create-a-key-vault-and-add-a-secret"></a>Key Vault を作成してシークレットを追加する
 
@@ -126,9 +126,9 @@ You can develop applications that consume cognitive services by using a key for 
 
 ### <a name="create-a-service-principal"></a>サービス プリンシパルの作成
 
-To access the secret in the key vault, your application must use a service principal that has access to the secret. You'll use the Azure command line interface (CLI) to create the service principal, find its object ID, and grant access to the secret in Azure Vault.
+Key Vault 内のシークレットにアクセスするには、アプリケーションはシークレットにアクセスできるサービス プリンシパルを使用する必要があります。 Azure コマンド ライン インターフェイス (CLI) を使用して、サービス プリンシパルを作成し、そのオブジェクト ID を検索し、Azure Vault のシークレットへのアクセスを許可します。
 
-1. Return to Visual Studio Code, and in the integrated terminal for the <bpt id="p1">**</bpt>02-cognitive-security<ept id="p1">**</ept> folder, run the following Azure CLI command, replacing <bpt id="p2">*</bpt><ph id="ph1">&amp;lt;</ph>spName<ph id="ph2">&amp;gt;</ph><ept id="p2">*</ept> with a suitable name for an application identity (for example, <bpt id="p3">*</bpt>ai-app<ept id="p3">*</ept>). Also replace <bpt id="p1">*</bpt><ph id="ph1">&amp;lt;</ph>subscriptionId<ph id="ph2">&amp;gt;</ph><ept id="p1">*</ept> and <bpt id="p2">*</bpt><ph id="ph3">&amp;lt;</ph>resourceGroup<ph id="ph4">&amp;gt;</ph><ept id="p2">*</ept> with the correct values for your subscription ID and the resource group containing your cognitive services and key vault resources:
+1. Visual Studio Code に戻り、**02-cognitive-security** フォルダーの対話型ターミナルで、 *&lt;spName&gt;* をアプリケーション ID に適した名前 (たとえば、*ai-app*) に置き換えて、次の Azure CLI コマンドを実行します。 また、 *&lt;subscriptionId&gt;* と *&lt;resourceGroup&gt;* を、サブスクリプション ID と、Cognitive Services および Key Vault リソースを含むリソース グループの正しい値に置き換えます。
 
     > **ヒント**: サブスクリプション ID が不明な場合は、**az account show** コマンドを使用してサブスクリプション情報を取得します。サブスクリプション ID は出力の **id** 属性です。
 
@@ -136,7 +136,7 @@ To access the secret in the key vault, your application must use a service princ
     az ad sp create-for-rbac -n "api://<spName>" --role owner --scopes subscriptions/<subscriptionId>/resourceGroups/<resourceGroup>
     ```
 
-The output of this command includes information about your new service principal. It should look similar to this:
+このコマンドの出力には、新しいサービス プリンシパルに関する情報が含まれます。 次のようになります。
 
     ```
     {
@@ -166,10 +166,10 @@ The output of this command includes information about your new service principal
 
 これで、アプリケーションでサービス プリンシパル ID を使用する準備が整い、Key Vault にシークレット Cognitive Services キーを入力し、それを使用して Cognitive Services リソースに接続します。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: In this exercise, we'll store the service principal credentials in the application configuration and use them to authenticate a <bpt id="p2">**</bpt>ClientSecretCredential<ept id="p2">**</ept> identity in your application code. This is fine for development and testing, but in a real production application, an administrator would assign a <bpt id="p1">*</bpt>managed identity<ept id="p1">*</ept> to the application so that it uses the service principal identity to access resources, without caching or storing the password.
+> **注**: この演習では、サービス プリンシパルの資格情報をアプリケーション構成に格納し、それらを使用して、アプリケーション コードで **ClientSecretCredential** IDを認証します。 これは開発とテストには問題ありませんが、実際の運用アプリケーションでは、管理者は *マネージド ID* をアプリケーションに割り当て、パスワードをキャッシュしたり保存したりせずに、サービス プリンシパル ID を使用してリソースにアクセスします。
 
 1. Visual Studio Code で、**02-cognitive-security** フォルダーと、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. Right-click the <bpt id="p1">**</bpt>keyvault-client<ept id="p1">**</ept> folder and open an integrated terminal. Then install the packages you will need to use Azure Key Vault and the Text Analytics API in your cognitive services resource by running the appropriate command for your language preference:
+2. **keyvault-client** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Azure Key Vault と Text Analytics API を使用するために必要なパッケージを Cognitive Services リソースにインストールします。
 
     **C#**
 
@@ -223,7 +223,7 @@ The output of this command includes information about your new service principal
     python keyvault-client.py
     ```
 
-6. When prompted, enter some text and review the language that is detected by the service. For example, try entering "Hello", "Bonjour", and "Gracias".
+6. プロンプトが表示されたら、テキストを入力し、サービスによって検出された言語を確認します。 たとえば、「Hello」、「Bonjour」、「Gracias」と入力してみてください。
 7. アプリケーションのテストが終了したら、「quit」と入力してプログラムを終了します。
 
 ## <a name="more-information"></a>詳細情報

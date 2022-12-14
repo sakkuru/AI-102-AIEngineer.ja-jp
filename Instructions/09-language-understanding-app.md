@@ -14,11 +14,11 @@ Language Understanding サービスを使用すると、アプリケーション
 
 この種の入力は、*発話* (ユーザーが言うまたは入力する可能性のあるもの) の例です。*意図* は、特定の場所 (*エンティティ*) (この場合はロンドン) の時刻を得ることです。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The task of the language understanding app is to predict the user's intent, and identify any entities to which the intent applies. It is <bpt id="p1">&lt;u&gt;</bpt>not<ept id="p1">&lt;/u&gt;</ept> its job to actually perform the actions required to satisfy the intent. For example, the clock application can use a language app to discern that the user wants to know the time in London; but the client application itself must then implement the logic to determine the correct time and present it to the user.
+> **注**: 言語理解アプリのタスクは、ユーザーの意図を予測し、意図が適用されるエンティティを特定することです。 意図を満たすために必要なアクションを実際に実行することは、その仕事では<u>ありません</u>。 たとえば、時計アプリケーションは言語アプリを使用して、ユーザーがロンドンの時刻を知りたいことを識別できます。ただし、クライアント アプリケーション自体は、正しい時刻を決定してユーザーに提示するロジックを実装する必要があります。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
-If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1">**</ept> code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
@@ -31,10 +31,10 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
 
 Language Understanding サービスを使用するには、次の 2 種類のリソースが必要です。
 
-- An <bpt id="p1">*</bpt>authoring<ept id="p1">*</ept> resource: used to define, train, and test the language understanding app. This must be a <bpt id="p1">**</bpt>Language Understanding - Authoring<ept id="p1">**</ept> resource in your Azure subscription.
-- A <bpt id="p1">*</bpt>prediction<ept id="p1">*</ept> resource: used to publish your language understanding app and handle requests from client applications that use it. This can be either a <bpt id="p1">**</bpt>Language Understanding<ept id="p1">**</ept> or <bpt id="p2">**</bpt>Cognitive Services<ept id="p2">**</ept> resource in your Azure subscription.
+- *オーサリング* リソース: Language Understanding アプリの定義、トレーニング、およびテストに使用されます。 Azure サブスクリプションの **Language Understanding - オーサリング** リソースである必要があります。
+- *予測*リソース: Language Understanding アプリを公開し、それを使用するクライアント アプリケーションからのリクエストを処理するために使用されます。 Azure サブスクリプションの **Language Understanding** リソースまたは **Cognitive Services** リソースのどちらでも構いません。
 
-     > <bpt id="p1">**</bpt>Important<ept id="p1">**</ept>: Authoring resources must be created in one of three <bpt id="p2">*</bpt>regions<ept id="p2">*</ept> (Europe, Australia, or US). Language Understanding apps created in European or Australian authoring resources can only be deployed to prediction resources in Europe or Australia respectively; models created in US authoring resources can be deployed to prediction resources in any Azure location other than Europe and Australia. See the <bpt id="p1">[</bpt>authoring and publishing regions documentation<ept id="p1">](https://docs.microsoft.com/azure/cognitive-services/luis/luis-reference-regions)</ept> for details about matching authoring and prediction locations.
+     > **重要**: オーサリング リソースは、3 つの*リージョン* (ヨーロッパ、オーストラリア、または米国) のいずれかで作成する必要があります。 ヨーロッパまたはオーストラリアのオーサリング リソースで作成された Language Understanding アプリは、それぞれヨーロッパまたはオーストラリアの予測リソースにのみデプロイできます。米国のオーサリング リソースで作成されたモデルは、ヨーロッパとオーストラリア以外の Azure の場所にある予測リソースにデプロイできます。 一致するオーサリングと予測の場所の詳細については、[オーサリングとパブリッシング リージョンのドキュメント](https://docs.microsoft.com/azure/cognitive-services/luis/luis-reference-regions)を参照してください。
 
 言語理解のオーサリングおよび予測リソースをまだ持っていない場合：
 
@@ -45,24 +45,24 @@ Language Understanding サービスを使用するには、次の 2 種類のリ
 
     - **[Create option](作成オプション)**: 両方
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[名前]**: *一意の名前を入力します*
     - **[作成場所]**: *希望の場所を選択します*
     - **[価格レベルを作成しています]**: F0
     - **予測の場所**: *作成場所と同じです*
     - **[予測価格レベル]**: F0
-3. Wait for the resources to be created, and note that two Language Understanding resources are provisioned; one for authoring, and another for prediction. You can view both of these by navigating to the resource group where you created them. If you select <bpt id="p1">**</bpt>Go to resource<ept id="p1">**</ept>, it will open the <bpt id="p2">*</bpt>authoring<ept id="p2">*</ept> resource.
+3. リソースが作成されるまで待ちます。2 つの Language Understanding リソースがプロビジョニングされていることに注意してください。1 つは作成用、もう 1 つは予測用です。 作成先のリソース グループに移動すると、この両方を表示できます。 **[リソースに移動]** を選択すると、*オーサリング* リソースが開きます。
 
 ## <a name="create-a-language-understanding-app"></a>Language Understanding アプリを作成する
 
 オーサリング リソースを作成したので、それを使用して Language Understanding アプリを作成できます。
 
 1. ブラウザーの新しいタブで、`https://www.luis.ai` の Language Understanding ポータルを開きます。
-2. Sign in using the Microsoft account associated with your Azure subscription. If this is the first time you have signed into the Language Understanding portal, you may need to grant the app some permissions to access your account details. Then complete the <bpt id="p1">*</bpt>Welcome<ept id="p1">*</ept> steps by selecting your Azure subscription and the authoring resource you just created.
+2. Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。 初めて Language Understanding ポータルにサインインする場合は、アカウントの詳細にアクセスするために、アプリケーションにいくつかのアクセス許可を付与する必要が生じることがあります。 次に、Azure サブスクリプションと作成したオーサリング リソースを選択して、*ようこそ* の手順を完了します。
 
     > **注**: アカウントが異なるディレクトリ内の複数のサブスクリプションに関連付けられている場合は、Language Understanding リソースをプロビジョニングしたサブスクリプションを含むディレクトリに切り替える必要がある場合があります。
 
-3. **注**: 言語理解アプリのタスクは、ユーザーの意図を予測し、意図が適用されるエンティティを特定することです。
+3. **[会話アプリ]** ページで、サブスクリプションと Language Understanding オーサリング リソースが選択されていることを確認します。 次に、次の設定で会話用の新しいアプリを作成します。
     - **名前**: Clock
     - **カルチャ**: 英語 (*このオプションが使用できない場合は空白のままにします*)
     - **説明**: Natural language clock (自然言語の時計)
@@ -95,7 +95,7 @@ Language Understanding サービスを使用するには、次の 2 種類のリ
 
     *what date is it?* (今日は何日ですか)
 
-5. 意図を満たすために必要なアクションを実際に実行することは、その仕事では<u>ありません</u>。
+5. これらの発話を追加したら、 **[意図]** ページに戻り、**None** 意図を選択します。 これは、言語モデルで定義した意図のいずれにもマップされない入力のフォールバックとして提供されます。
 6. 次の発話を **None** 意図に追加します。
 
     *hello*
@@ -135,7 +135,7 @@ Language Understanding サービスを使用するには、次の 2 種類のリ
 
 ## <a name="add-entities"></a>複数エンティティの追加
 
-たとえば、時計アプリケーションは言語アプリを使用して、ユーザーがロンドンの時刻を知りたいことを識別できます。ただし、クライアント アプリケーション自体は、正しい時刻を決定してユーザーに提示するロジックを実装する必要があります。
+これまで、意図にマップするいくつかの簡単な発話を定義しました。 ほとんどの実際のアプリケーションには、より複雑な発話が含まれており、意図のコンテキストを増やすために、特定のデータ エンティティを抽出する必要があります。
 
 ### <a name="add-a-machine-learned-entity"></a>*機械学習*エンティティを追加する
 
@@ -178,7 +178,7 @@ Language Understanding サービスを使用するには、次の 2 種類のリ
 
     *what date was it on Saturday?* (土曜日は何日でしたか)
 
-5. When the utterance has been added, verify that <bpt id="p1">**</bpt>saturday<ept id="p1">**</ept> has been automatically mapped to the <bpt id="p2">**</bpt>Weekday<ept id="p2">**</ept> entity. If not, select the word <bpt id="p1">***</bpt>saturday<ept id="p1">***</ept>, and in the drop-down list that appears, select <bpt id="p2">**</bpt>Weekday<ept id="p2">**</ept>.
+5. 発話が追加されたら、**saturday** が **Weekday** エンティティに自動的にマップされていることを確認します。 そうでない場合は、***saturday*** という単語を選択し、表示されるドロップダウン リストで **Weekday** を選択します。
 6. 別の発話例を追加します。
 
     *what date will it be on Friday?* (金曜日は何日ですか)
@@ -187,7 +187,7 @@ Language Understanding サービスを使用するには、次の 2 種類のリ
 
 ### <a name="add-a-regex-entity"></a>*正規表現エ*ンティティを追加する
 
-Sometimes, entities have a specific format, such as a serial number, form code, or date. You can define a regular expression (<bpt id="p1">*</bpt>regex<ept id="p1">*</ept>) that describes an expected format to help your app identify matching entity values.
+エンティティには、シリアル番号、フォームコード、日付などの特定の形式がある場合があります。 アプリが一致するエンティティ値を識別するのに役立つ、予想される形式を説明する正規表現 (*regex*) を定義できます。
 
 1. **[エンティティ]** ページで、 **[&#65291; 作成]** を選択し、新しいエンティティを作成します。
 2. **[エンティティの作成]** ダイアログ ボックスで、次の正規表現を使用して **Date** という名前の**正規表現**エンティティを作成します。
@@ -196,14 +196,14 @@ Sometimes, entities have a specific format, such as a serial number, form code, 
     [0-9]{2}/[0-9]{2}/[0-9]{4}
     ```
 
-    > このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。
+    > **注**: これは単純な正規表現です。これは、2 桁の後に "/"、別の 2 桁、別の "/"、および 4 桁が続くかどうかをチェックします (たとえば、*01/11/2020*)。 *56/00/9999* などの無効な日付を許可します。ただし、エンティティ正規表現は、日付値を検証するためではなく、日付として*意図された*データ入力を識別するために使用されることを覚えておくことが重要です。
 
 3. **Date** エンティティが作成されたら、 **[意図]** ページに戻り、**GetDay** 意図を選択します。
 4. 次の新しい発話例を入力します。
 
     *what day was 01/01/1901?* (1901 年 1 月 1 日は何曜日でしたか)
 
-5. それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
+5. 発話が追加されたら、**01/01/1901** が自動的に **Date** エンティティにマップされていることを確認します。 そうでない場合は、***01/01/1901*** を選択し、表示されるドロップダウンリストで **[日付]** を選択します。
 6. 別の発話例を追加します。
 
     *what day will it be on 12/12/2099?* (2099 年 12 月 12 日は何曜日ですか)
@@ -219,7 +219,7 @@ Sometimes, entities have a specific format, such as a serial number, form code, 
 
     *what's the time in Edinburgh?* (エジンバラの時刻は何時ですか)
 
-3. Review the result that is returned, which should hopefully predict the <bpt id="p1">**</bpt>GetTime<ept id="p1">**</ept> intent. Then select <bpt id="p1">**</bpt>Inspect<ept id="p1">**</ept> and in the additional inspection panel that is displayed, examine the <bpt id="p2">**</bpt>ML entities<ept id="p2">**</ept> section. The model should have predicted that "edinburgh" is an instance of a <bpt id="p1">**</bpt>Location<ept id="p1">**</ept> entity.
+3. 返される結果を確認します。これにより、**GetTime** の意図が予測されるはずです。 次に、 **[検査]** を選択し、表示される追加の検査パネルで、 **[ML エンティティ]** セクションを調べます。 モデルは、"edinburgh" が **Location** エンティティのインスタンスであると予測するはずです。
 4. 次の発話をテストしてみてください。
 
     *what date is it on Friday?* (金曜日は何日ですか)
@@ -234,35 +234,35 @@ Sometimes, entities have a specific format, such as a serial number, form code, 
 
 テスト ペインを使用して個々の発話をインタラクティブにテストできますが、より複雑な言語モデルの場合は、通常、*バッチ テスト*を実行する方が効率的です。
 
-1. In Visual Studio Code, open the <bpt id="p1">**</bpt>batch-test.json<ept id="p1">**</ept> file in the <bpt id="p2">**</bpt>09-luis-app<ept id="p2">**</ept> folder. This file consists of a JSON document that contains multiple test cases for the clock language model you created.
-2. In the Language Understanding portal, in the Test panel, select <bpt id="p1">**</bpt>Batch testing panel<ept id="p1">**</ept>. Then select <bpt id="p1">**</bpt>&amp;#65291; Import<ept id="p1">**</ept> and import the <bpt id="p2">**</bpt>batch-test.json<ept id="p2">**</ept> file, assigning the name <bpt id="p3">**</bpt>clock-test<ept id="p3">**</ept>.
+1. Visual Studio Code で、**09-luis-app** フォルダーにある **batch-test.json** ファイルを開きます。 このファイルは、作成した時計言語モデルの複数のテストケースを含む JSON ドキュメントで構成されています。
+2. Language Understanding ポータルの[テスト] パネルで、 **[バッチテスト] パネル**を選択します。 次に、 **[&#65291; インポート]** を選択し、**batch-test.json** ファイルをインポートして、**clock-test** という名前を割り当てます。
 3. [バッチ テスト] パネルで、**clock-test** テストを実行します。
 4. テストが完了したら、 **[結果を表示]** を選択します。
-5. On the results page, view the confusion matrix that represents the prediction results. It shows true positive, false positive, true negative, and false negative predictions for the intent or entity that is selected in the list on the right.
+5. 結果ページで、予測結果を表す混同行列を表示します。 右側のリストで選択されている意図またはエンティティの真陽性、偽陽性、真陰性、および偽陰性の予測が表示されます。
 
     ![Language Understanding バッチ テストの混同行列](./images/luis-confusion-matrix.jpg)
 
-    > <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: Each utterance is scored as <bpt id="p2">*</bpt>positive<ept id="p2">*</ept> or <bpt id="p3">*</bpt>negative<ept id="p3">*</ept> for each intent - so for example "what time is it?" should be scored as <bpt id="p1">*</bpt>positive<ept id="p1">*</ept> for the <bpt id="p2">**</bpt>GetTime<ept id="p2">**</ept> intent, and <bpt id="p3">*</bpt>negative<ept id="p3">*</ept> for the <bpt id="p4">**</bpt>GetDate<ept id="p4">**</ept> intent. The points on the confusion matrix show which utterances were predicted correctly (<bpt id="p1">*</bpt>true<ept id="p1">*</ept>) and incorrectly (<bpt id="p2">*</bpt>false<ept id="p2">*</ept>) as <bpt id="p3">*</bpt>positive<ept id="p3">*</ept> and <bpt id="p4">*</bpt>negative<ept id="p4">*</ept> for the selected intent.
+    > **注**: 各発話は、各意図について *肯定的* または *否定的*としてスコアリングされます。たとえば、"what time is it?" は、 **GetTime** の意図については *肯定的*、**GetDate** の意図については *否定的* としてスコアリングされるはずです。 混同行列上のポイントは、選択した意図について、どの発話が *肯定的* および *否定的* として正しく予測されたか (*true*)、誤って予測されたか (*false*) を示します。
 
-6. With the <bpt id="p1">**</bpt>GetDate<ept id="p1">**</ept> intent selected, select any of the points on the confusion matrix to see the details of the prediction - including the utterance and the confidence score for the prediction. Then select the <bpt id="p1">**</bpt>GetDay<ept id="p1">**</ept>, <bpt id="p2">**</bpt>GetTime<ept id="p2">**</ept> and <bpt id="p3">**</bpt>None<ept id="p3">**</ept> intents and view their prediction results. The app should have done well at predicting the intents correctly.
+6. **GetDate** 意図を選択した状態で、混同行列上の任意のポイントを選択して、予測の詳細 (発話や予測の信頼度スコアなど) を確認します。 次に、**GetDay**、**GetTime**、および **None** の意図を選択し、それらの予測結果を表示します。 アプリは、意図を正しく予測できるように、うまく機能しているはずです。
 
     > **注**: ユーザー インターフェイスでは、以前に選択したポイントがクリアされない場合があります。
 
-7. Select the <bpt id="p1">**</bpt>Location<ept id="p1">**</ept> entity and view the prediction results in the confusion matrix. In particular, note the predictions that were <bpt id="p1">*</bpt>false negatives<ept id="p1">*</ept> - these were cases where the app failed to detect the specified location in the utterance, indicating that you may need to add more sample utterances to the intents and retrain the model.
+7. **Location** エンティティを選択し、混同行列で予測結果を表示します。 具体的には、*偽陰性* だった予測に注意してください。これらは、アプリが発話内の指定された場所を検出できなかった場合であり、その意図にさらにサンプル発話を追加し、モデルを再トレーニングする必要があることを示しています。
 8. [バッチ テスト] パネルを閉じます。
 
 ## <a name="publish-the-app"></a>アプリの発行
 
-In a real project, you'd iteratively refine intents and entities, retrain, and retest until you are satisfied with the predictive performance. Then, you can publish the app for client applications to use.
+実際のプロジェクトでは、予測パフォーマンスに満足するまで、意図とエンティティを繰り返し改良し、再トレーニングして、再テストします。 次に、クライアント アプリケーションが使用できるようにアプリを公開できます。
 
 1. Language Understanding ポータルの右上にある **[公開]** を選択します。
 2. **[本番スロット]** を選択し、アプリを公開します。
 3. 公開が完了したら、Language Understanding ポータルの上部にある **[管理]** を選択します。
-4. *オーサリング* リソース: Language Understanding アプリの定義、トレーニング、およびテストに使用されます。
-5. Azure サブスクリプションの **Language Understanding - オーサリング** リソースである必要があります。
-6. In Visual Studio Code, in the <bpt id="p1">**</bpt>09-luis-app<ept id="p1">**</ept> folder, select the <bpt id="p2">**</bpt>GetIntent.cmd<ept id="p2">**</ept> batch file and view the code it contains. This command-line script uses cURL to call the Language Understanding REST API for the specified application and prediction endpoint.
+4. **[設定]** ページで、**アプリ ID** をメモします。 クライアント アプリケーションがアプリを使用するには、これが必要です。
+5. **[Azure リソース]** ページで、アプリを使用できる予測リソースの**プライマリ キー**、**セカンダリ キー**、**エンドポイント URL** をメモします。 クライアント アプリケーションは、予測リソースに接続して認証されるために、エンドポイントとキーの 1 つを必要とします。
+6. Visual Studio Code の **09-luis-app** フォルダーで、**GetIntent.cmd** バッチ ファイルを選択し、そこに含まれるコードを表示します。 このコマンドライン スクリプトは、cURL を使用して、指定されたアプリケーションと予測エンドポイントの Language Understanding REST API を呼び出します。
 7. スクリプト内のプレースホルダー値を、**アプリ ID**、**エンドポイント URL**、Language Understanding アプリの**プライマリ キー**または**セカンダリ キー**のいずれかに置き換えます。次に、更新したファイルを保存します。
-8. *予測*リソース: Language Understanding アプリを公開し、それを使用するクライアント アプリケーションからのリクエストを処理するために使用されます。
+8. **09-luis-app** フォルダーを右クリックして、統合ターミナルを開きます。 次に、次のコマンドを入力します (必ず引用符を含めてください)。
 
     ```
     GetIntent "What's the time?"
@@ -299,31 +299,31 @@ In a real project, you'd iteratively refine intents and entities, retrain, and r
     ```
 15. さらにいくつかのバリエーションを試してください。目標は、**GetTime** 意図を正しく予測するが、**Location** エンティティの検出に失敗する少なくともいくつかの応答を生成することです。
 
-    Azure サブスクリプションの **Language Understanding** リソースまたは **Cognitive Services** リソースのどちらでも構いません。
+    ターミナルを開いたままにします。 後で戻ります。
 
 ## <a name="apply-active-learning"></a>*アクティブ ラーニング*を適用する
 
-You can improve a Language Understanding app based on historical utterances submitted to the endpoint. This practice is called <bpt id="p1">*</bpt>active learning<ept id="p1">*</ept>.
+エンドポイントに送信された過去の発話に基づいて、Language Understanding アプリを改善できます。 この実践は*アクティブ ラーニング*と呼ばれます。
 
-**重要**: オーサリング リソースは、3 つの*リージョン* (ヨーロッパ、オーストラリア、または米国) のいずれかで作成する必要があります。
+前の手順では、cURL を使用してアプリのエンドポイントにリクエストを送信しました。 これらのリクエストには、クエリをログに記録するオプションが含まれていました。これにより、アプリはアクティブ ラーニングで使用するためにクエリを追跡できます。
 
-1. ヨーロッパまたはオーストラリアのオーサリング リソースで作成された Language Understanding アプリは、それぞれヨーロッパまたはオーストラリアの予測リソースにのみデプロイできます。米国のオーサリング リソースで作成されたモデルは、ヨーロッパとオーストラリア以外の Azure の場所にある予測リソースにデプロイできます。
+1. Language Understanding ポータルで、 **[ビルド]** を選択し、 **[エンドポイントの発話の確認]** ページを表示します。 このページには、サービスがレビュー用にフラグを付けたログに記録された発話が一覧表示されます。
 2. 意図と新しい Location エンティティ (元のトレーニング発話に含まれていなかった) が正しく予測された発話については、 **&#10003;** を選択してエンティティを確認し、 **&#10514;** アイコンを使用して、トレーニングの例として、発話を意図に追加します。
-3. 一致するオーサリングと予測の場所の詳細については、[オーサリングとパブリッシング リージョンのドキュメント](https://docs.microsoft.com/azure/cognitive-services/luis/luis-reference-regions)を参照してください。
+3. **GetTime** 意図が正しく識別されたが、**Location** エンティティが識別され<u>なかった</u>発話の例を見つけます。location 名を選択して、**location** エンティティにマップします。 次に、 **&#10514;** アイコンを使用して、トレーニングの例として発話を意図に追加します。
 4. **[意図]** ページに移動し、**GetTime** 意図を開いて、提案された発話が追加されたことを確認します。
 5. Language Understanding ポータルの上部にある **[トレーニング]** を選択して、アプリを再トレーニングします。
 6. Language Understanding ポータルの右上にある **[公開]** を選択し、アプリを**本番スロット**に再公開します。
 7. **09-luis-app** フォルダーのターミナルに戻り、**GetIntent** コマンドを使用して、アクティブ ラーニング中に追加および修正した発話を送信します。
-8. Verify that the result now includes the <bpt id="p1">**</bpt>Location<ept id="p1">**</ept> entity. Then try another utterance that uses the same phrasing but specifies a different location (for example, <bpt id="p1">*</bpt>Berlin<ept id="p1">*</ept>).
+8. 結果に **Location** エンティティが含まれていることを確認します。 次に、同じ言い回しを使用しているが、別の場所を指定している別の発話を試してください (たとえば、*Berlin*)。
 
 ## <a name="export-the-app"></a>アプリをエクスポートする
 
-You can use the Language Understanding portal to develop and test your language app, but in a software development process for DevOps, you should maintain a source controlled definition of the app that can be included in continuous integration and delivery (CI/CD) pipelines. While you <bpt id="p1">*</bpt>can<ept id="p1">*</ept> use the Language Understanding SDK or REST API in code scripts to create and train the app, a simpler way is to use the portal to create the app, and export it as a <bpt id="p2">*</bpt>.lu<ept id="p2">*</ept> file that can be imported and retrained in another Language Understanding instance. This approach enables you to make use of the productivity benefits of the portal while maintaining portability and reproducibility for the app.
+Language Understanding ポータルを使用して言語アプリを開発およびテストできますが、DevOps のソフトウェア開発プロセスでは、継続的インテグレーションとデリバリー (CI/CD) パイプラインに含めることができるアプリのソース制御定義を維持する必要があります。 コード スクリプトで Language Understanding SDK または REST API を使用してアプリを作成およびトレーニング*できます*が、より簡単な方法は、ポータルを使用してアプリを作成し、それを *.lu* ファイルとしてエクスポートして、別の言語理解インスタンスにインポートして再トレーニングできるようにすることです。 このアプローチにより、アプリの移植性と再現性を維持しながら、ポータルの生産性のメリットを活用できます。
 
 1. Language Understanding ポータルで、 **[管理]** を選択します。
 2. **[バージョン]** ページで、アプリの現在のバージョンを選択します (1 つだけである必要があります)。
-3. In the <bpt id="p1">**</bpt>Export<ept id="p1">**</ept> drop-down list, select <bpt id="p2">**</bpt>Export as LU<ept id="p2">**</ept>. Then, when prompted by your browser, save the file in the <bpt id="p1">**</bpt>09-luis-app<ept id="p1">**</ept> folder.
-4. In Visual Studio Code, open the <bpt id="p1">**</bpt>.lu<ept id="p1">**</ept> file you just exported and downloaded (if you are prompted to search the marketplace for an extension that can read it, dismiss the prompt). Note that the LU format is human-readable, making it an effective way to document the definition of your Language Understanding app in a team development environment.
+3. **[エクスポート]** ドロップダウン リストで、 **[LU としてエクスポート]** を選択します。 次に、ブラウザーのプロンプトが表示されたら、ファイルを **09-luis-app** フォルダーに保存します。
+4. Visual Studio Code で、エクスポートしてダウンロードした **.lu** ファイルを開きます (マーケットプレイスでそれを読み取ることができる拡張機能を検索するように求められた場合は、プロンプトを閉じます)。 LU 形式は人間が読める形式であるため、チーム開発環境で Language Understanding アプリの定義を文書化する効果的な方法であることに注意してください。
 
 ## <a name="more-information"></a>詳細情報
 

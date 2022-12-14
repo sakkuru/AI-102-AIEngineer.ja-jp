@@ -8,7 +8,7 @@ lab:
 
 音声サービスを Language Understanding サービスと統合して、音声入力からユーザーの意図をインテリジェントに判断できるアプリケーションを作成できます。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: This exercise works best if you have a microphone. Some hosted virtual environments may be able to capture audio from your local microphone, but if this doesn't work (or you don't have a microphone at all), you can use a provided audio file for speech input. Follow the instructions carefully, as you'll need to choose different options depending on whether you are using a microphone or the audio file.
+> **注**: この演習は、マイクがあると適切に行うことができます。 一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。 マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -23,44 +23,45 @@ lab:
 
 ## <a name="create-language-understanding-resources"></a>Language Understanding リソースの作成
 
-If you already have Language Understanding authoring and prediction resources in your Azure subscription, you can use them in this exercise. Otherwise, follow these instructions to create them.
+Azure サブスクリプションに Language Understanding オーサリングおよび予測リソースが既にある場合は、この演習でそれらを使用できます。 それ以外の場合は、次の手順に従って作成してください。
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択して、「*language understanding*」を検索し、次の設定を使用して **Language Understanding** リソースを作成します。
     - **[Create option]\(作成オプション\)**: 両方
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[名前]**: *一意の名前を入力します*
     - **[作成場所]**: *希望の場所を選択します*
     - **[価格レベルを作成しています]**: F0
     - **[予測の場所]**: *作成場所と<u>同じ場所</u>を選択します*
     - **予測価格レベル**: F0 (*F0 が使用できない場合は、S0 を選択*)
 
-3. Wait for the resources to be created, and note that two Language Understanding resources are provisioned; one for authoring, and another for prediction. You can view both of these by navigating to the resource group where you created them.
+3. リソースが作成されるまで待ちます。2 つの Language Understanding リソースがプロビジョニングされていることに注意してください。1 つは作成用、もう 1 つは予測用です。 作成先のリソース グループに移動すると、この両方を表示できます。
 
 ## <a name="prepare-a-language-understanding-app"></a>Language Understanding アプリを準備する
 
-If you already have a <bpt id="p1">**</bpt>Clock<ept id="p1">**</ept> app from a previous exercise, open it in the Language Understanding portal at <ph id="ph1">`https://www.luis.ai`</ph>. Otherwise, follow these instructions to create it.
+前の演習の**時計**アプリを既にお持ちの場合は、`https://www.luis.ai` の Language Understanding ポータルで開きます。 それ以外の場合は、次の手順に従って作成してください。
 
 1. ブラウザーの新しいタブで、`https://www.luis.ai` の Language Understanding ポータルを開きます。
-2. **注**: この演習は、マイクがあると適切に行うことができます。
-3. 一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。
+2. Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。 初めて Language Understanding ポータルにサインインする場合は、アカウントの詳細にアクセスするために、アプリケーションにいくつかのアクセス許可を付与する必要が生じることがあります。 次に、Azure サブスクリプションと作成したオーサリング リソースを選択して、*ようこそ* の手順を完了します。
+3. **[会話アプリ]** ページを開き、 **[新しいアプリ]** の横にあるドロップダウン リストを表示して、 **[LU としてインポート]** を選択します。
+この演習のラボ ファイルを含むプロジェクト フォルダー内の **11-luis-speech** サブフォルダーを参照し、**Clock.lu** を選択します。 次に、時計アプリの一意の名前を指定します。
 4. 効果的な Language Understanding アプリを作成するためのヒントが表示されたパネルが表示された場合、そのパネルを閉じます。
 
 ## <a name="train-and-publish-the-app-with-speech-priming"></a>*音声プライミング*でアプリをトレーニングして公開する
 
 1. アプリがまだトレーニングされていない場合は、Language Understanding ポータルの上部にある **[トレーニング]** を選択して、アプリをトレーニングします。
-2. マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
+2. Language Understanding ポータルの右上にある **[公開]** を選択します。 次に、 **[本番スロット]** を選択し、設定を変更して**音声プライミング**を有効にします (これにより、音声認識のパフォーマンスが向上します)。
 3. 公開が完了したら、Language Understanding ポータルの上部にある **[管理]** を選択します。
-4. On the <bpt id="p1">**</bpt>Settings<ept id="p1">**</ept> page, note the <bpt id="p2">**</bpt>App ID<ept id="p2">**</ept>. Client applications need this to use your app.
+4. **[設定]** ページで、**アプリ ID** をメモします。 クライアント アプリケーションがアプリを使用するには、これが必要です。
 5. **[Azure リソース]** ページの **[予測リソース]** で、予測リソースがリストされていない場合は、Azure サブスクリプションに予測リソースを追加します。
-6. Note the <bpt id="p1">**</bpt>Primary Key<ept id="p1">**</ept>, <bpt id="p2">**</bpt>Secondary Key<ept id="p2">**</ept>, and <bpt id="p3">**</bpt>Location<ept id="p3">**</ept> (<bpt id="p4">&lt;u&gt;</bpt>not<ept id="p4">&lt;/u&gt;</ept> endpoint!) for the prediction resource. Speech SDK client applications need the location and one of the keys to connect to the prediction resource and be authenticated.
+6. 予測リソースの**プライマリ キー**、**セカンダリ キー**、および**場所** (エンドポイントでは<u>ありません</u>) に注意してください。 Speech SDK クライアント アプリケーションは、予測リソースに接続して認証されるために、場所とキーの 1 つを必要とします。
 
 ## <a name="configure-a-client-application-for-language-understanding"></a>Language Understanding 用クライアント アプリケーションを構成する
 
 この演習では、音声入力を受け入れ、Language Understanding アプリを使用して、ユーザーに意図を予測するクライアント アプリケーションを作成します。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the SDK for either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept> in this exercise. In the steps that follow, perform the actions appropriate for your preferred language.
+> **注**: この演習では、**C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**11-luis-speech** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. **speaking-clock-client** フォルダーの内容を表示し、構成設定用のファイルが含まれていることに注意してください。
@@ -73,7 +74,7 @@ If you already have a <bpt id="p1">**</bpt>Clock<ept id="p1">**</ept> app from a
 
 Speech SDK を Language Understanding と共に使用するには、使用するプログラム言語用の Speech SDK を印刷インストールする必要があります。
 
-1. In Visual Studio, right-click the <bpt id="p1">**</bpt>speaking-clock-client<ept id="p1">**</ept> folder and open an integrated terminal. Then install the Language Understanding SDK package by running the appropriate command for your language preference:
+1. Visual Studio で、**speaking-clock-client** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Language Understanding SDK パッケージをインストールします
 
     **C#**
 
@@ -87,7 +88,7 @@ Speech SDK を Language Understanding と共に使用するには、使用する
     pip install azure-cognitiveservices-speech==1.14.0
     ```
 
-2. Additionally, if your system does <bpt id="p1">&lt;u&gt;</bpt>not<ept id="p1">&lt;/u&gt;</ept> have a working microphone, you will need to use an audio file to provide spoken input for your application. In this case, use the following commands to install an additional package so your program can play the audio file (you can skip this if you intend to use a microphone):
+2. また、システムに動作するマイクが<u>ない</u>場合は、アプリケーションに音声入力を提供するために、音声ファイルを使用する必要があります。 この場合は、次のコマンドを使用して、プログラムが音声ファイルを再生できるように、次のパッケージをインストールします (マイクを使用する場合は、これをスキップできます)。
 
     **C#**
 
@@ -106,7 +107,7 @@ Speech SDK を Language Understanding と共に使用するには、使用する
     - **C#** : Program.cs
     - **Python**: speaking-clock-client.py
 
-4. Open the code file and at the top, under the existing namespace references, find the comment <bpt id="p1">**</bpt>Import namespaces<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Speech SDK:
+4. コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
     **C#**
 
@@ -142,7 +143,7 @@ Speech SDK を Language Understanding と共に使用するには、使用する
 
 **IntentRecognizer** クラスは、音声入力から Language Understanding 予測を取得するために使用できるクライアント オブジェクトを提供します。
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, note that code to load the App ID, prediction region, and key from the configuration file has already been provided. Then find the comment <bpt id="p1">**</bpt>Configure speech service and get intent recognizer<ept id="p1">**</ept>, and add the following code depending on whether you will use a microphone or an audio file for speech input:
+1. **Main** 関数では、構成ファイルからアプリ ID、予測リージョン、およびキーを読み込むためのコードが既に提供されていることに注意してください。 次にコメント「**Configure speech service and get intent recognizer**」を見つけ、音声入力にマイクまたは音声ファイルを使用するかに応じて、次のコードを追加します。
 
     ### <a name="if-you-have-a-working-microphone"></a>**機能するマイクがある場合:**
 
@@ -223,7 +224,7 @@ Speech SDK を Language Understanding と共に使用するには、使用する
     recognizer.add_intents(intents)
     ```
 
-2. Under the comment <bpt id="p1">**</bpt>Process speech input<ept id="p1">**</ept>, add the following code, which uses the recognizer to asynchronously call the Language Understanding service with spoken input, and retrieve response. If the response includes a predicted intent, the spoken query, predicted intent, and full JSON response are displayed. Otherwise the code handles the response based on the reason returned.
+2. このループ内で、コメント **「Process speech input」** を見つけ、次のコードを追加します。このコードは、レコグナイザーを使用して、音声入力を使用して Language Understanding サービスを非同期的に呼び出し、応答を取得します。 応答に予測された意図が含まれている場合、音声クエリ、予測された意図、および完全な JSON 応答が表示されます。 それ以外の場合、コードは返された理由に基づいて応答を処理します。
 
 **C#**
 
@@ -332,7 +333,7 @@ if len(json_response["entities"]) > 0:
     print(entity_type + ': ' + entity_value)
 ```
     
-Your code now uses the Language Understanding app to predict an intent as well as any entities that were detected in the input utterance. Your client application must now use that prediction to determine and perform the appropriate action.
+コードは、言語理解アプリを使用して、入力発話で検出されたエンティティだけでなく、インテントも予測するようになりました。 クライアント アプリケーションは、その予測を使用して適切なアクションを決定および実行する必要があります。
 
 4. 追加したコードの下に、**「Apply the appropriate action」** というコメントを見つけ、次のコードを追加します。このコードは、アプリケーションでサポートされている意図 (**GetTime**、**GetDate**、および **GetDay**) をチェックし、適切な応答を生成するために既存の関数を呼び出す前に、関連するエンティティが検出されたかどうかを判断します。
 
@@ -447,7 +448,7 @@ else:
     python speaking-clock-client.py
     ```
 
-2. Azure サブスクリプションに Language Understanding オーサリングおよび予測リソースが既にある場合は、この演習でそれらを使用できます。
+2. マイクを使用している場合、アプリケーションをテストするために声を出して発言を話します。 たとえば、次のことを試してください (毎回、プログラムを再実行します)。
 
     *What's the time?*
     
@@ -461,7 +462,7 @@ else:
 
     *What date is Sunday?*
 
-> それ以外の場合は、次の手順に従って作成してください。
+> **注**: アプリケーションのロジックは意図的に単純であり、いくつかの制限がありますが、Speech SDK を使用して音声入力から意図を予測する Language Understanding モデルの機能をテストする目的に役立つはずです。 *MM/DD/YYYY* 形式で日付を言語化するのが難しいため、特定の日付エンティティで **GetDay** 意図を認識できない場合があります。
 
 ## <a name="more-information"></a>詳細情報
 

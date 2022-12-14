@@ -6,7 +6,7 @@ lab:
 
 # <a name="enable-resource-providers"></a>リソース プロバイダーを有効にする
 
-There are some resource providers that must be registered in your Azure subscription. Follow these steps to ensure that they're registered.
+Azure サブスクリプションに登録する必要のあるリソース プロバイダーがいくつかあります。 次の手順に従って、登録されていることを確認してください。
 
 1. ご利用の Azure サブスクリプションに関連付けられている Microsoft 資格情報を使用して、Azure portal `https://portal.azure.com` にサインインします。
 2. **[ホーム]** ページの **[サブスクリプション]** を選択します (または **[&#8801;]** メニューを展開し、 **[すべてのサービス]** を選択し、 **[全般]** カテゴリの **[サブスクリプション]** を選択します)。

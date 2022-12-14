@@ -6,9 +6,9 @@ lab:
 
 # <a name="use-a-cognitive-services-container"></a>Cognitive Services コンテナーの使用
 
-Using cognitive services hosted in Azure enables application developers to focus on the infrastructure for their own code while benefiting from scalable services that are managed by Microsoft. However, in many scenarios, organizations require more control over their service infrastructure and the data that is passed between services.
+Azure でホストされている Cognitive Services を使用すると、アプリケーション開発者は、Microsoft が管理するスケーラブルなサービスの恩恵を受けながら、独自のコードのインフラストラクチャに集中できます。 ただし、多くのシナリオでは、組織はサービス インフラストラクチャとサービス間で受け渡されるデータをより細かく制御する必要があります。
 
-Many of the cognitive services APIs can be packaged and deployed in a <bpt id="p1">*</bpt>container<ept id="p1">*</ept>, enabling organizations to host cognitive services in their own infrastructure; for example in local Docker servers, Azure Container Instances, or Azure Kubernetes Services clusters. Containerized cognitive services need to communicate with an Azure-based cognitive services account to support billing; but application data is not passed to the back-end service, and organizations have greater control over the deployment configuration of their containers, enabling custom solutions for authentication, scalability, and other considerations.
+Cognitive Services API の多くは、"*コンテナー*" にパッケージ化してデプロイできるため、組織は独自のインフラストラクチャで Cognitive Services をホストできます。たとえば、ローカル Docker サーバー、Azure Container Instances、または Azure Kubernetes Services クラスターなどです。 コンテナー化された Cognitive Services は、課金をサポートするために Azure ベースの Cognitive Services アカウントと通信する必要があります。ただし、アプリケーション データはバックエンド サービスに渡されず、組織はコンテナーの展開構成をより細かく制御できるため、認証、スケーラビリティ、およびその他の考慮事項に対応したスタム ソリューションを実現できます。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -28,17 +28,17 @@ Many of the cognitive services APIs can be packaged and deployed in a <bpt id="p
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need the endpoint and one of the keys from this page in the next procedure.
+5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
 ## <a name="deploy-and-run-a-text-analytics-container"></a>Text Analytics コンテナーをデプロイして実行する
 
-Azure でホストされている Cognitive Services を使用すると、アプリケーション開発者は、Microsoft が管理するスケーラブルなサービスの恩恵を受けながら、独自のコードのインフラストラクチャに集中できます。
+一般的に使用される多くの Cognitive Services API は、コンテナー イメージで利用できます。 完全なリストについては、[Cognitive Services のドキュメント](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)をご確認ください。 この演習では、Text Analytics "*言語検出*" API のコンテナー イメージを使用します。ただし、原則は利用可能なすべての画像で同じです。
 
 1. Azure portal の **ホーム** ページで、 **[&#65291;リソースの作成]** ボタンを選択し、*Container Instances* を検索して、次の設定で **Container Instances** リソースを作成します。
 
@@ -76,13 +76,13 @@ Azure でホストされている Cognitive Services を使用すると、アプ
     - **IP アドレス**: これは、コンテナー インスタンスへのアクセスに使用できるパブリック IP アドレスです。
     - **FQDN**: これはコンテナー インスタンス リソースの "*完全修飾ドメイン名*" です。これを使用して、IP アドレスの代わりにコンテナー インスタンスにアクセスできます。
 
-    > ただし、多くのシナリオでは、組織はサービス インフラストラクチャとサービス間で受け渡されるデータをより細かく制御する必要があります。
+    > **注**: この演習では、テキストを翻訳するための Cognitive Services コンテナー イメージを Azure Container Instances (ACI) リソースにデプロイしました。 同様のアプローチを使用して、次のコマンド (1 行) を実行して言語検出コンテナーをローカルの Docker インスタンスにデプロイすることにより、ご自分のコンピューターまたはネットワーク上の *[Docker](https://www.docker.com/products/docker-desktop)* ホストにデプロイできます。 *&lt;yourEndpoint&gt;* と *&lt;yourKey&gt;* をエンドポイント URI と、Cognitive Services リソースのいずれかのキーに置き換えます。
     >
     > ```
     > docker run --rm -it -p 5000:5000 --memory 4g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
     > ```
     >
-    > The command will look for the image on your local machine, and if it doesn't find it there it will pull it from the <bpt id="p1">*</bpt>mcr.microsoft.com<ept id="p1">*</ept> image registry and deploy it to your Docker instance. When deployment is complete, the container will start and listen for incoming requests on port 5000.
+    > このコマンドはローカル マシン上の画像を検索しますが見つからない場合は、*mcr.microsoft.com* イメージ レジストリからプルされ、Docker インスタンスにデプロイされます。 デプロイが完了すると、コンテナーが起動し、ポート 5000 で着信要求をリッスンします。
 
 ## <a name="use-the-container"></a>コンテナーを使用する
 
@@ -92,8 +92,8 @@ Azure でホストされている Cognitive Services を使用すると、アプ
     curl -X POST "http://<your_ACI_IP_address_or_FQDN>:5000/text/analytics/v3.0/languages?" -H "Content-Type: application/json" --data-ascii "{'documents':[{'id':1,'text':'Hello world.'},{'id':2,'text':'Salut tout le monde.'}]}"
     ```
 
-2. Cognitive Services API の多くは、"*コンテナー*" にパッケージ化してデプロイできるため、組織は独自のインフラストラクチャで Cognitive Services をホストできます。たとえば、ローカル Docker サーバー、Azure Container Instances、または Azure Kubernetes Services クラスターなどです。
-3. コンテナー化された Cognitive Services は、課金をサポートするために Azure ベースの Cognitive Services アカウントと通信する必要があります。ただし、アプリケーション データはバックエンド サービスに渡されず、組織はコンテナーの展開構成をより細かく制御できるため、認証、スケーラビリティ、およびその他の考慮事項に対応したスタム ソリューションを実現できます。
+2. スクリプトへの変更を保存します。 Cognitive Services のエンドポイントまたはキーを指定する必要はないことに注意してください。リクエストはコンテナー化されたサービスによって処理されます。 次に、コンテナーは Azure のサービスと定期的に通信して、請求の使用状況を報告しますが、要求データは送信しません。
+3. **04-containers** フォルダーを右クリックして、統合ターミナルを開きます。 次に、次のコマンドを入力してスクリプトを実行します
 
     ```
     rest-test

@@ -8,11 +8,11 @@ lab:
 
 **言語**サービスは、言語検出、感情分析、キー フレーズ抽出、エンティティ認識など、テキストの分析をサポートする Cognitive Services です。
 
-For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Language service, they can determine the language each review is written in, the sentiment (positive, neutral, or negative) of the reviews, key phrases that might indicate the main topics discussed in the review, and named entities, such as places, landmarks, or people mentioned in the reviews.
+たとえば、旅行代理店が会社の Web サイトに送信されたホテルのレビューを処理したいとします。 言語サービスを使用すると、各レビューが書かれている言語、レビューの感情 (ポジティブ、ニュートラル、ネガティブ)、レビューで議論されている主なトピックを示す可能性のあるキー フレーズ、場所、ランドマーク、またはレビューで言及された人などの名前付きエンティティなどを特定できます。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
-If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1">**</ept> code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
@@ -28,22 +28,22 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need the endpoint and one of the keys from this page in the next procedure.
+5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
 ## <a name="prepare-to-use-the-language-sdk-for-text-analytics"></a>テキスト分析に Language SDK を使用する準備をする
 
 この演習では、言語サービス テキスト分析 SDK を使用してホテルのレビューを分析する、部分的に実装されたクライアント アプリケーションを完成させます。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the SDK for either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **注**:**C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の **[エクスプローラー]** ペインで、**05-analyze-text** フォルダーを参照し、言語の設定に応じて、**C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
-2. たとえば、旅行代理店が会社の Web サイトに送信されたホテルのレビューを処理したいとします。
+2. **text-analysis** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適合するコマンドを実行して、Text Analytics SDK パッケージをインストールします。
     
     **C#**
     
@@ -61,14 +61,14 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     - **C#** : appsettings.json
     - **Python**: .env
 
-    言語サービスを使用すると、各レビューが書かれている言語、レビューの感情 (ポジティブ、ニュートラル、ネガティブ)、レビューで議論されている主なトピックを示す可能性のあるキー フレーズ、場所、ランドマーク、またはレビューで言及された人などの名前付きエンティティなどを特定できます。
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 
 4. **text-analysis** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
     - **C#** : Program.cs
     - **Python**: text-analysis.py
 
-    Open the code file and at the top, under the existing namespace references, find the comment <bpt id="p1">**</bpt>Import namespaces<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
+    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Text Analytics SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
@@ -86,7 +86,7 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-5. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, note that code to load the cognitive services endpoint and key from the configuration file has already been provided. Then find the comment <bpt id="p1">**</bpt>Create client using endpoint and key<ept id="p1">**</ept>, and add the following code to create a client for the Text Analysis API:
+5. **Main** 関数で、構成ファイルから Cognitive Services のエンドポイントとキーを読み込むためのコードが既に提供されていることにご注意ください。 次に、**エンドポイントとキーを使用してクライアントを作成する**というコメントを見つけ、次のコードを追加して、Text Analysis API のクライアントを作成します。
 
     **C#**
 
@@ -119,13 +119,13 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
     python text-analysis.py
     ```
 
-6. このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。
+6. コードがエラーなしで実行され、**reviews** フォルダー内の各レビュー テキストファイルの内容が表示されるので、出力を確認します。 アプリケーションは Text Analytics API のクライアントを正常に作成しますが、それを利用しません。 次の手順で修正します。
 
 ## <a name="detect-language"></a>言語を検出する
 
 Text Analytics API のクライアントを作成したので、それを使用して、各レビューが書かれている言語を検出しましょう。
 
-1. それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
+1. プログラムの **Main** 関数で、コメント **Get language** を見つけます。 次に、このコメントの下に、各レビュー ドキュメントで言語を検出するために必要なコードを追加します。
 
     **C#**
     
@@ -163,9 +163,9 @@ Text Analytics API のクライアントを作成したので、それを使用�
 
 ## <a name="evaluate-sentiment"></a>感情の評価
 
-<bpt id="p1">*</bpt>Sentiment analysis<ept id="p1">*</ept> is a commonly used technique to classify text as <bpt id="p2">*</bpt>positive<ept id="p2">*</ept> or <bpt id="p3">*</bpt>negative<ept id="p3">*</ept> (or possible <bpt id="p4">*</bpt>neutral<ept id="p4">*</ept> or <bpt id="p5">*</bpt>mixed<ept id="p5">*</ept>). It's commonly used to analyze social media posts, product reviews, and other items where the sentiment of the text may provide useful insights.
+"*感情分析*" は、テキストを "*ポジティブ*" または "*ネガティブ*" ("*ニュートラル*" または "*混合*" の場合もある) として分類するために一般的に使用される手法です。 ソーシャル メディアの投稿、製品レビュー、およびテキストの感情が有用な洞察を提供する可能性があるその他のアイテムを分析するために一般的に使用されます。
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get sentiment<ept id="p2">**</ept>. Then, under this comment, add the code necessary to detect the sentiment of each review document:
+1. プログラムの **Main** 関数で、コメント **Get sentiment** を見つけます。 次に、このコメントの下に、各レビュードキュメントの感情を検出するために必要なコードを追加します。
 
     **C#**
     
@@ -203,7 +203,7 @@ Text Analytics API のクライアントを作成したので、それを使用�
 
 テキストの本文でキーフレーズを特定すると、説明する主なトピックを特定するのに役立ちます。
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get key phrases<ept id="p2">**</ept>. Then, under this comment, add the code necessary to detect the key phrases in each review document:
+1. プログラムの **Main** 関数で、コメント **Get key phrases** を見つけます。 次に、このコメントの下に、各レビュードキュメントのキー フレーズを検出するために必要なコードを追加します。
 
     **C#**
 
@@ -249,9 +249,9 @@ Text Analytics API のクライアントを作成したので、それを使用�
 
 ## <a name="extract-entities"></a>エンティティの抽出
 
-Often, documents or other bodies of text mention people, places, time periods, or other entities. The text Analytics API can detect multiple categories (and subcategories) of entity in your text.
+多くの場合、ドキュメントまたはその他のテキスト本体は、人、場所、期間、またはその他のエンティティについて言及しています。 Text Analytics API は、テキスト内のエンティティの複数のカテゴリ (およびサブカテゴリ) を検出できます。
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get entities<ept id="p2">**</ept>. Then, under this comment, add the code necessary to identify entities that are mentioned in each review:
+1. プログラムの **Main**関数で、コメント **Get entities** を見つけます。 次に、このコメントの下に、各レビューで言及されているエンティティを識別するために必要なコードを追加します。
 
     **C#**
     
@@ -299,7 +299,7 @@ Often, documents or other bodies of text mention people, places, time periods, o
 
 分類されたエンティティに加えて、Text Analytics API は、Wikipedia などのデータソースへの既知のリンクがあるエンティティを検出できます。
 
-1. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function for your program, find the comment <bpt id="p2">**</bpt>Get linked entities<ept id="p2">**</ept>. Then, under this comment, add the code necessary to identify linked entities that are mentioned in each review:
+1. プログラムの **Main** 関数で、コメント **Get linked entities** を見つけます。 次に、このコメントの下に、各レビューで言及されているリンクされたエンティティを識別するために必要なコードを追加します。
 
     **C#**
     

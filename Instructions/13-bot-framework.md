@@ -6,7 +6,7 @@ lab:
 
 # <a name="create-a-bot-with-the-bot-framework-sdk"></a>Bot Framework SDK を使用したボットの作成
 
-<bpt id="p1">*</bpt>Bots<ept id="p1">*</ept> are software agents that can participate in conversational dialogs with human users. The Microsoft Bot Framework provides a comprehensive platform for building bots that can be delivered as cloud services through the Azure Bot Service.
+*ボット*は、人間のユーザーとの会話型ダイアログに参加できるソフトウェア エージェントです。 Microsoft Bot Framework は、Azure Bot Service を介してクラウド サービスとして提供できるボットを構築するための包括的なプラットフォームを提供します。
 
 この演習では、Microsoft Bot Framework SDK を使用して、ボットを作成およびデプロイします。
 
@@ -16,18 +16,18 @@ lab:
 
 ### <a name="update-the-bot-framework-emulator"></a>Bot Framework Emulator を更新する
 
-You're going to use the Bot Framework SDK to create your bot, and the Bot Framework Emulator to test it. The Bot Framework Emulator is updated regularly, so let's make sure you have the latest version installed.
+Bot Framework SDK を使用してボットを作成し、Bot Framework Emulator を使用してボットをテストします。 Bot Framework Emulator は定期的に更新されるため、最新バージョンがインストールされていることを確認しましょう。
 
 > **注**: 更新には、この演習の手順に影響を与えるユーザー インターフェイスの変更が含まれる場合があります。
 
-1. Start the <bpt id="p1">**</bpt>Bot Framework Emulator<ept id="p1">**</ept>, and if you are prompted to install an update, do so for the currently logged in user. If you are not prompted automatically, use the <bpt id="p1">**</bpt>Check for update<ept id="p1">**</ept> option on the <bpt id="p2">**</bpt>Help<ept id="p2">**</ept> menu to check for updates.
+1. **Bot Framework Emulator** を起動し、アップデートのインストールを求めるメッセージが表示された場合は、現在ログインしているユーザーに対してインストールしてください。 自動的にプロンプトが表示されない場合は、**[ヘルプ]** メニューの **[更新を確認する]** オプションを使用して、更新をご確認ください。
 2. アップデートをインストールした後、次に必要になるまで Bot FrameworkEmulator を閉じます。
 
-> *ボット*は、人間のユーザーとの会話型ダイアログに参加できるソフトウェア エージェントです。
+> **重要**: 更新プログラムのダウンロードは失敗することがあります。これについては調査中です。 更新を試みてから数分以内に進行しない場合は、ダウンロードを閉じて、現在インストールされているバージョンのエミュレーターを使用できます。
 
 ### <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
-Microsoft Bot Framework は、Azure Bot Service を介してクラウド サービスとして提供できるボットを構築するための包括的なプラットフォームを提供します。
+このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
@@ -40,7 +40,7 @@ Microsoft Bot Framework は、Azure Bot Service を介してクラウド サー�
 
 Bot Framework SDK を使用して、テンプレートに基づいてボットを作成し、特定の要件を満たすようにコードをカスタマイズできます。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: In this exercise, you can choose to use either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **注**: この演習では、**C#** または **Python** のいずれかを使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**13-bot-framework** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 2. 選択した言語のフォルダーを右クリックして、統合ターミナルを開きます。
@@ -90,7 +90,7 @@ Python を使用している場合、cookiecutter のプロンプトが表示さ
 
 ## <a name="test-the-bot-in-the-bot-framework-emulator"></a>Bot Framework Emulator でボットをテストします
 
-You've created a bot based on the <bpt id="p1">*</bpt>EchoBot<ept id="p1">*</ept> template. Now you can run it locally and test it by using the Bot Framework Emulator (which should be installed on your system).
+*EchoBot* テンプレートに基づいてボットを作成しました。 これで、ローカルで実行し、Bot Framework Emulator (システムにインストールする必要があります) を使用してテストできます。
 
 1. ターミナル ペインで、現在のディレクトリがボット コード ファイルを含む **TimeBot** フォルダーであることを確認してから、次のコマンドを入力してボットをローカルで実行します。
 
@@ -106,7 +106,7 @@ dotnet run
 python app.py
 ```
     
-When the bot starts, note the endpoint at which it is running is shown. This should be similar to <bpt id="p1">**</bpt><ph id="ph1">http://localhost:3978</ph><ept id="p1">**</ept>.
+ボットが起動したら、ボットが実行されているエンドポイントが表示されていることに注意してください。 これは **http://localhost:3978** のようになります。
 
 2. Bot Framework Emulator を起動し、次のように **/api/messages** パスを追加し、エンドポイントを指定してボットを開きます。
 
@@ -118,13 +118,13 @@ When the bot starts, note the endpoint at which it is running is shown. This sho
 
 ## <a name="modify-the-bot-code"></a>ボット コードの変更
 
-You've created a bot that echoes the user's input back to them. It's not particularly useful, but serves to illustrate the basic flow of a conversational dialog. A conversation with a bot consists of a sequence of <bpt id="p1">*</bpt>activities<ept id="p1">*</ept>, in which text, graphics, or user interface <bpt id="p2">*</bpt>cards<ept id="p2">*</ept> are used to exchange information. The bot begins the conversation with a greeting, which is the result of a <bpt id="p1">*</bpt>conversation update<ept id="p1">*</ept> activity that is triggered when a user initializes a chat session with the bot. Then the conversation consists of a sequence of further activities in which the user and bot take it in turns to send <bpt id="p1">*</bpt>messages<ept id="p1">*</ept>.
+ユーザーの入力をエコー バックするボットを作成しました。 これは特に有用ではありませんが、会話ダイアログの基本的な流れを説明するのに役立ちます。 ボットとの会話は、テキスト、グラフィック、またはユーザーインターフェイス "*カード*" を使用して情報を交換する一連の "*アクティビティ*" で構成されます。 ボットはあいさつから会話を開始します。これは、ユーザーがボットとのチャット セッションを初期化するときにトリガーされる *会話更新* アクティビティの結果です。 その後、会話は、ユーザーとボットが交互に *メッセージ* を送信する一連のアクティビティで構成されます。
 
 1. Visual Studio Code で、ボットの次のコード ファイルを開きます
     - **C#**: TimeBot/Bots/EchoBot.cs
     - **Python**: TimeBot/bot.py
 
-    Note that the code in this file consists of <bpt id="p1">*</bpt>activity handler<ept id="p1">*</ept> functions; one for the <bpt id="p2">*</bpt>Member Added<ept id="p2">*</ept> conversation update activity (when someone joins the chat session) and another for the <bpt id="p3">*</bpt>Message<ept id="p3">*</ept> activity (when a message is received). The conversation is based on the concept of <bpt id="p1">*</bpt>turns<ept id="p1">*</ept>, in which each turn represents an interaction in which the bot receives, processes, and responds to an activity. The <bpt id="p1">*</bpt>turn context<ept id="p1">*</ept> is used to track information about the activity being processed in the current turn.
+    このファイルのコードは *アクティビティ ハンドラー* 関数で構成されていることにご注意ください。1 つは *メンバーが追加した* 会話更新アクティビティ (誰かがチャット セッションに参加したとき) 用で、もう 1 つは *メッセージ* アクティビティ (メッセージが受信されたとき) 用です。 会話は "*ターン*" の概念に基づいており、各ターンは、ボットがアクティビティを受信、処理、応答する対話式操作を表します。 *ターン コンテキスト*は、現在のターンで処理されているアクティビティに関する情報を追跡するために使用されます。
 
 2. コード ファイルの先頭に、次の名前空間インポート ステートメントを追加します。
 
@@ -194,7 +194,7 @@ python app.py
 7. 「*Hello*」などのメッセージを入力し、ボットからの応答を表示します。これは、*Ask me what the time is* \(何時か尋ねてください\) である必要があります。
 8. 「*What is the time?*」\(何時ですか?\) と入力し、応答を表示します。
 
-    Bot Framework SDK を使用してボットを作成し、Bot Framework Emulator を使用してボットをテストします。
+    これで、ボットは実行されているローカル時刻を表示して、"What is the time?"  というクエリに応答します。 その他のクエリの場合は、ユーザーに時刻を尋ねるように求めます。 これは非常に限定されたボットであり、言語理解サービスと追加のカスタムコードとの統合によって改善される可能性がありますが、テンプレートから作成されたボットを拡張することで Bot Framework SDK を使用してソリューションを構築する方法の実用的な例として機能します。
 
 9. Bot Framework Emulator を閉じて Visual Studio Code に戻り、ターミナル ウィンドウで **CTRL + C** を入力してボットを停止します。
 

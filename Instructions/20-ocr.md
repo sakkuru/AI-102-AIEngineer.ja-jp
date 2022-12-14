@@ -6,7 +6,7 @@ lab:
 
 # <a name="read-text-in-images"></a>画像内のテキストの読み取り
 
-Optical character recognition (OCR) is a subset of computer vision that deals with reading text in images and documents. The <bpt id="p1">**</bpt>Computer Vision<ept id="p1">**</ept> service provides two APIs for reading text, which you'll explore in this exercise.
+光学式文字認識 (OCR) は、画像およびドキュメント内のテキストの読み取りを処理する Computer Vision のサブセットです。 **Computer Vision** サービスにより、テキストを読み取るための 2 つの API が提供されます。これについては、この演習で説明します。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -26,22 +26,22 @@ Optical character recognition (OCR) is a subset of computer vision that deals wi
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need the endpoint and one of the keys from this page in the next procedure.
+5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
 ## <a name="prepare-to-use-the-computer-vision-sdk"></a>Computer Vision SDKを使用する準備をする
 
 この演習では、Computer VisionSDK を使用してテキストを読み取る部分的に実装されたクライアント アプリケーションを完成させます。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the SDK for either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **注**:**C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**20-ocr** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. 光学式文字認識 (OCR) は、画像およびドキュメント内のテキストの読み取りを処理する Computer Vision のサブセットです。
+2. **read-text** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Computer Vision SDK パッケージをインストールします。
 
 **C#**
 
@@ -59,13 +59,13 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     - **C#** : appsettings.json
     - **Python**: .env
 
-    **Computer Vision** サービスにより、テキストを読み取るための 2 つの API が提供されます。これについては、この演習で説明します。
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 4. **read-text** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
     - **C#** : Program.cs
     - **Python**: read-text.py
 
-    Open the code file and at the top, under the existing namespace references, find the comment <bpt id="p1">**</bpt>Import namespaces<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Computer Vision SDK:
+    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
 **C#**
 
@@ -84,7 +84,7 @@ from azure.cognitiveservices.vision.computervision.models import OperationStatus
 from msrest.authentication import CognitiveServicesCredentials
 ```
 
-5. In the code file for your client application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, note that the code to load the configuration settings has been provided. Then find the comment <bpt id="p1">**</bpt>Authenticate Computer Vision client<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to create and authenticate a Computer Vision client object:
+5. クライアント アプリケーションのコードファイルで **Main** 関数に、構成設定を読み込むためのコードが提供されていることにご注意ください。 次に、コメント「**Authenticate Computer Vision client**」を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
 **C#**
 
@@ -107,9 +107,9 @@ cv_client = ComputerVisionClient(cog_endpoint, credential)
     
 ## <a name="use-the-ocr-api"></a>OCR API を使用する
 
-The <bpt id="p1">**</bpt>OCR<ept id="p1">**</ept> API is an optical character recognition API that is optimized for reading small to medium amounts of printed text in <bpt id="p2">*</bpt>.jpg<ept id="p2">*</ept>, <bpt id="p3">*</bpt>.png<ept id="p3">*</ept>, <bpt id="p4">*</bpt>.gif<ept id="p4">*</ept>, and <bpt id="p5">*</bpt>.bmp<ept id="p5">*</ept> format images. It supports a wide range of languages and in addition to reading text in the image it can determine the orientation of each text region and return information about the rotation angle of the text in relation to the image
+**OCR** APIは、 *.jpg*、 *.png*、 *.gif*、 *.bmp* 形式の画像で少量から中量の印刷テキストを読み取るために最適化された光学式文字認識 API です。 幅広い言語をサポートし、画像内のテキストを読み取ることに加えて、各テキスト領域の方向を決定し、画像に対するテキストの回転角に関する情報を返すことができます
 
-1. In the code file for your application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, examine the code that runs if the user selects menu option <bpt id="p2">**</bpt>1<ept id="p2">**</ept>. This code calls the <bpt id="p1">**</bpt>GetTextOcr<ept id="p1">**</ept> function, passing the path to an image file.
+1. アプリケーションのコード ファイルの **Main** 関数で、ユーザーがメニュー オプション **1** を選択した場合に実行されるコードを調べます。 このコードにより **GetTextOcr** 関数が呼び出され、パスが画像ファイルに渡されます。
 2. **read-text/images** フォルダーで、**Lincoln.jpg** を開いて、コードによって処理される画像を表示します。
 3. コード ファイルに戻り、**GetTextOcr** 関数を見つけ、コンソールにメッセージを出力する既存のコードの下に、次のコードを追加します。
 
@@ -186,7 +186,7 @@ fig.savefig(outputfile)
 print('Results saved in', outputfile)
 ```
 
-4. Examine the code you added to the <bpt id="p1">**</bpt>GetTextOcr<ept id="p1">**</ept> function. It detects regions of printed text from an image file, and for each region it extracts the lines of text and highlights there position on the image. It then extracts the words in each line and prints them.
+4. **GetTextOcr** 関数に追加したコードを調べます。 画像ファイルから印刷されたテキストの領域を検出し、領域ごとにテキストの行を抽出して、画像上のその位置を強調表示します。 次に、各行の単語を抽出して印刷します。
 5. 変更を保存し、**read-text** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
 **C#**
@@ -208,12 +208,12 @@ python read-text.py
 
 ## <a name="use-the-read-api"></a>Read API を使用する
 
-The <bpt id="p1">**</bpt>Read<ept id="p1">**</ept> API uses a newer text recognition model than the OCR API, and performs better for larger images that contain a lot of text. It also supports text extraction from <bpt id="p1">*</bpt>.pdf<ept id="p1">*</ept> files, and can recognize both printed text and handwritten text in multiple languages.
+**Read** API では、OCR API よりも新しいテキスト認識モデルが使用されており、多くのテキストを含む大きな画像に対してより優れたパフォーマンスを発揮します。 また、 *.pdf* ファイルからのテキスト抽出をサポートし、印刷されたテキストと手書きのテキストの両方を複数の言語で認識できます。
 
 **Read** API は、テキスト認識を開始する要求が送信される非同期操作モデルを使用します。その後、リクエストから返された操作 ID を使用して、進行状況を確認し、結果を取得できます。
 
-1. In the code file for your application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, examine the code that runs if the user selects menu option <bpt id="p2">**</bpt>2<ept id="p2">**</ept>. This code calls the <bpt id="p1">**</bpt>GetTextRead<ept id="p1">**</ept> function, passing the path to a PDF document file.
-2. In the <bpt id="p1">**</bpt>read-text/images<ept id="p1">**</ept> folder, right-click <bpt id="p2">**</bpt>Rome.pdf<ept id="p2">**</ept> and select <bpt id="p3">**</bpt>Reveal in File Explorer<ept id="p3">**</ept>. Then in File Explorer, open the PDF file to view it.
+1. アプリケーションのコード ファイルの **Main** 関数で、ユーザーがメニュー オプション **2** を選択した場合に実行されるコードを調べます。 このコードは **GetTextRead** 関数を呼び出し、パスを PDF ドキュメント ファイルに渡します。
+2. **read-text/images** フォルダーで、**Rome.pdf**を右クリックし、 **[ファイルエクスプローラーで表示]** を選択します。 次に、ファイル エクスプローラーで、PDF ファイルを開いて表示します。
 3. Visual Studio Code のコードファイルに戻り、**GetTextRead** 関数を見つけ、コンソールにメッセージを出力する既存のコードの下に、次のコードを追加します。
 
 **C#**
@@ -278,7 +278,7 @@ with open(image_file, mode="rb") as image_data:
                 print(line.text)
 ```
     
-4. Examine the code you added to the <bpt id="p1">**</bpt>GetTextRead<ept id="p1">**</ept> function. It submits a request for a read operation, and then repeatedly checks status until the operation has completed. If it was successful, the code processes the results by iterating through each page, and then through each line.
+4. **GetTextRead** 関数に追加したコードを調べます。 読み取り操作の要求を送信し、操作が完了するまでステータスを繰り返しチェックします。 成功した場合、コードは各ページを繰り返し処理し、次に各行を繰り返し処理して結果を処理します。
 5. 変更を保存し、**read-text** フォルダーの統合ターミナルに戻り、次のコマンドを入力してプログラムを実行します。
 
 **C#**
@@ -299,7 +299,7 @@ python read-text.py
 
 **Read** API は、印刷されたテキスト以外にも、英語の手書きのテキストを抽出できます。
 
-1. In the code file for your application, in the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, examine the code that runs if the user selects menu option <bpt id="p2">**</bpt>3<ept id="p2">**</ept>. This code calls the <bpt id="p1">**</bpt>GetTextRead<ept id="p1">**</ept> function, passing the path to an image file.
+1. アプリケーションのコード ファイルの **Main** 関数で、ユーザーがメニュー オプション **3** を選択した場合に実行されるコードを調べます。 このコードは **GetTextRead** 関数を呼び出し、パスを画像ファイルに渡します。
 2. **read-text/images** フォルダーで、**Note.jpg** を開いて、コードによって処理される画像を表示します。
 3. **read-text** フォルダーの統合ターミナルで、次のコマンドを入力してプログラムを実行します。
 

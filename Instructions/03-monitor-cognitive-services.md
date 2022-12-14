@@ -6,7 +6,7 @@ lab:
 
 # <a name="monitor-cognitive-services"></a>Cognitive Services を監視する
 
-Azure Cognitive Services can be a critical part of an overall application infrastructure. It's important to be able to monitor activity and get alerted to issues that may need attention.
+Azure Cognitive Services は、アプリケーション インフラストラクチャ全体の重要な部分になる可能性があります。 アクティビティを監視し、注意が必要な問題についてアラートを受け取ることができることが重要です。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -26,13 +26,13 @@ Azure Cognitive Services can be a critical part of an overall application infras
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェックボックスを選択して、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. Make a note of the endpoint URI - you will need it later.
+5. リソースがデプロイされたら、そこに移動して、その**キーとエンドポイント** ページを表示します。 エンドポイント URI をメモします。後で必要になります。
 
 ## <a name="configure-an-alert"></a>アラートを構成する
 
@@ -44,19 +44,19 @@ Cognitive Services リソースのアクティビティを検出できるよう�
 4. **[条件]** で、 **[条件の追加]** をクリックし、右側に表示される **[信号を選択]** ペインを確認します。ここで、監視する信号タイプを選択できます。
 5. **[信号タイプ]** リストで **[アクティビティ ログ]** を選択し、次にフィルター処理されたリストで **[リスト キー]** を選択します。
 6. 過去 6 時間のアクティビティを確認します。
-7. Select the <bpt id="p1">**</bpt>Actions<ept id="p1">**</ept> tab. Note that you can specify an <bpt id="p2">*</bpt>action group<ept id="p2">*</ept>. This enables you to configure automated actions when an alert is fired - for example, sending an email notification. We won't do that in this exercise; but it can be useful to do this in a production environment.
+7. **[アクション]** タブを選択します。*アクション グループ* を指定できることにご注意ください。 これにより、アラートが発生したときの自動アクションを構成できます。たとえば、電子メール通知を送信します。 この演習ではそれを行いません。ただし、実稼働環境でこれを行うと便利な場合があります。
 8. **[詳細]** タブで、 **[警告ルール名]** を **[キー一覧警告]** に設定します。
 9. **[Review + create]\(レビュー + 作成\)** を選択します。 
-10. Azure Cognitive Services は、アプリケーション インフラストラクチャ全体の重要な部分になる可能性があります。
-11. アクティビティを監視し、注意が必要な問題についてアラートを受け取ることができることが重要です。
+10. 警告の構成を確認します。 **[作成]** を選択し、警告ルールが作成されるのを待ちます。
+11. Visual Studio Code で、**03-monitor** フォルダーを右クリックし、統合ターミナルを開きます。 次に、次のコマンドを入力して、Azure CLI を使用して Azure サブスクリプションにサインインします。
 
     ```
     az login
     ```
 
-    A web browser tab will open and prompt you to sign into Azure. Do so, and then close the browser tab and return to Visual Studio Code.
+    Web ブラウザーのタブが開き、Azure にサインインするように求められます。 そうしてから、ブラウザー タブを閉じて、Visual Studio Code に戻ります。
 
-    > <bpt id="p1">**</bpt>Tip<ept id="p1">**</ept>: If you have multiple subscriptions, you'll need to ensure that you are working in the one that contains your cognitive services resource.  Use this command to determine your current subscription.
+    > **ヒント**: 複数のサブスクリプションがある場合は、確実に Cognitive Services リソースが含まれるサブスクリプションで作業している必要があります。  このコマンドを使用して、現在のサブスクリプションを判別します。
     >
     > ```
     > az account show
@@ -76,7 +76,7 @@ Cognitive Services リソースのアクティビティを検出できるよう�
 
 このコマンドは、Cognitive Services リソースのキーのリストを返します。
 
-11. Switch back to the browser containing the Azure portal, and refresh your <bpt id="p1">**</bpt>Alerts page<ept id="p1">**</ept>. You should see a <bpt id="p1">**</bpt>Sev 4<ept id="p1">**</ept> alert listed in the table (if not, wait up to five minutes and refresh again).
+11. Azure portal を含むブラウザーに戻り、**警告ページ**を更新します。 表に **Sev 4** 警告が表示されているはずです (表示されていない場合は、最大 5 分待ってから再度更新してください)。
 12. アラートを選択して詳細を確認します。
 
 ## <a name="visualize-a-metric"></a>メトリックの視覚化
@@ -84,9 +84,9 @@ Cognitive Services リソースのアクティビティを検出できるよう�
 アラートを定義するだけでなく、Cognitive Services リソースのメトリックを表示して、その使用率を監視できます。
 
 1. Azure portal の Cognitive Services リソースのページで、 **[メトリック]** ( **[監視]** セクション内) を選択します。
-2. If there is no existing chart, select <bpt id="p1">**</bpt>+ New chart<ept id="p1">**</ept>. Then in the <bpt id="p1">**</bpt>Metric<ept id="p1">**</ept> list, review the possible metrics you can visualize and select <bpt id="p2">**</bpt>Total Calls<ept id="p2">**</ept>.
-3. In the <bpt id="p1">**</bpt>Aggregation<ept id="p1">**</ept> list, select <bpt id="p2">**</bpt>Count<ept id="p2">**</ept>.  This will enable you to monitor the total calls to you Cognitive Service resource; which is useful in determining how much the service is being used over a period of time.
-4. To generate some requests to your cognitive service, you will use <bpt id="p1">**</bpt>curl<ept id="p1">**</ept> - a command line tool for HTTP requests. In Visual Studio Code, in the <bpt id="p1">**</bpt>03-monitor<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>rest-test.cmd<ept id="p2">**</ept> and edit the <bpt id="p3">**</bpt>curl<ept id="p3">**</ept> command it contains (shown below), replacing <bpt id="p4">*</bpt><ph id="ph1">&amp;lt;</ph>yourEndpoint<ph id="ph2">&amp;gt;</ph><ept id="p4">*</ept> and <bpt id="p5">*</bpt><ph id="ph3">&amp;lt;</ph>yourKey<ph id="ph4">&amp;gt;</ph><ept id="p5">*</ept> with your endpoint URI and <bpt id="p6">**</bpt>Key1<ept id="p6">**</ept> key to use the Text Analytics API in your cognitive services resource.
+2. 既存のグラフがない場合は、 **[+ 新しいグラフ]** を選択します。 次に、 **[メトリック]** リストで、視覚化できる可能な指標を確認し、 **[合計呼び出し数]** を選択します。
+3. **[集計]** リストで **[Count]\(カウント\)** を選択します。  これにより、Cognitive Services リソースへの合計呼び出し数を監視できるようになります。これは、一定期間にサービスがどれだけ使用されているかを判断するのに役立ちます。
+4. Cognitive Services へのリクエストを生成するには、HTTP リクエストに **curl** コマンド ライン ツールを使用します。 Visual Studio Code で **03-monitor** フォルダーから **rest-test.cmd** を開き、そこに含まれる **curl** コマンド (以下に表示) を編集し、 *&lt;yourEndpoint&gt;* と *&lt;yourKey&gt;* をお使いのエンドポイント URI と **Key1** キーに置き換えて、Cognitive Services リソースで Text Analytics API を使用します。
 
     ```
     curl -X POST "<yourEndpoint>/text/analytics/v3.1/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':           [{'id':1,'text':'hello'}]}"
@@ -101,8 +101,8 @@ Cognitive Services リソースのアクティビティを検出できるよう�
 このコマンドは、入力データで検出された言語に関する情報を含む JSON ドキュメントを返します (これは英語でなければなりません)。
 
 6. **rest-test** コマンドを複数回再実行して、呼び出しアクティビティを生成します ( **^** キーを使用して前のコマンドを切り替えることができます)。
-7. Return to the <bpt id="p1">**</bpt>Metrics<ept id="p1">**</ept> page in the Azure portal and refresh the <bpt id="p2">**</bpt>Total Calls<ept id="p2">**</ept> count chart. It may take a few minutes for the calls you made using <bpt id="p1">*</bpt>curl<ept id="p1">*</ept> to be reflected in the chart - keep refreshing the chart until it updates to include them.
+7. Azure portal の **[メトリック]** ページに戻り、**合計呼び出し数**のグラフを更新します。 *curl* を使用して行った呼び出しがグラフに反映されるまで、数分かかる場合があります。更新されて含まれるまで、グラフを更新し続けます。
 
 ## <a name="more-information"></a>詳細情報
 
-One of the options for monitoring cognitive services is to use <bpt id="p1">*</bpt>diagnostic logging<ept id="p1">*</ept>. Once enabled, diagnostic logging captures rich information about your cognitive services resource usage, and can be a useful monitoring and debugging tool. It can take over an hour after setting up diagnostic logging to generate any information, which is why we haven't explored it in this exercise; but you can learn more about it in the <bpt id="p1">[</bpt>Cognitive Services documentation<ept id="p1">](https://docs.microsoft.com/azure/cognitive-services/diagnostic-logging)</ept>.
+Cognitive Services を監視するためのオプションの 1 つは、*診断ログ*を使用することです。 有効にすると、診断ログは Cognitive Services のリソース使用状況に関する豊富な情報をキャプチャし、便利な監視およびデバッグ ツールになります。 診断ログを設定して情報を生成するまでに 1 時間以上かかる場合があるため、この演習では取り上げていませんが、[Cognitive Services のドキュメント](https://docs.microsoft.com/azure/cognitive-services/diagnostic-logging)で詳細をご覧になれます。

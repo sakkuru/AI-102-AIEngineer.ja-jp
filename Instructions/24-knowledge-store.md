@@ -6,7 +6,7 @@ lab:
 
 # <a name="create-a-knowledge-store-with-azure-cognitive-search"></a>Azure Cognitive Search 用ナレッジ ストアの作成
 
-Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extract AI-generated fields from documents and include them in a search index. While the index might be considered the primary output from an indexing process, the enriched data it contains might also be useful in other ways. For example:
+Azure Cognitive Search は、コグニティブ スキルの強化パイプラインを使用して、ドキュメントから AI で生成されたフィールドを抽出し、検索インデックスに含めます。 インデックスはインデックス作成プロセスの主な出力と見なせますが、それに含まれるエンリッチされたデータも他の方法で役立てることができます。 次に例を示します。
 
 - 基本的にインデックスは、それぞれがインデックス付きレコードを表す JSON オブジェクトのコレクションであるため、オブジェクトを JSON ファイルとしてエクスポートし、Azure Data Factory などのツールによるデータ オーケストレーション プロセスへの統合に使用するのに役立つ可能性があります。
 - Microsoft Power BI などのツールで分析やレポートを行うために、インデックス レコードをテーブルのリレーショナル スキーマに正規化することもできます。
@@ -27,13 +27,13 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
 
 ## <a name="create-azure-resources"></a>Azure リソースを作成する
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: If you have previously completed the <bpt id="p2">**</bpt><bpt id="p3">[</bpt>Create an Azure Cognitive Search solution<ept id="p3">](22-azure-search.md)</ept><ept id="p2">**</ept> exercise, and still have these Azure resources in your subscription, you can skip this section and start at the <bpt id="p4">**</bpt>Create a search solution<ept id="p4">**</ept> section. Otherwise, follow the steps below to provision the required Azure resources.
+> **注**: 以前に「**[Azure Cognitive Search ソリューションを作成する](22-azure-search.md)**」の演習を完了し、サブスクリプションにこれらの Azure リソースがまだある場合は、このセクションをスキップして、「**検索ソリューションの作成**」セクションから開始できます。 それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
 
 1. Web ブラウザーで Azure portal (`https://portal.azure.com`) を開き、自分の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. サブスクリプションの**リソース グループ**を表示します。
-3. If you are using a restricted subscription in which a resource group has been provided for you, select the resource group to view its properties. Otherwise, create a new resource group with a name of your choice, and go to it when it has been created.
-4. Azure Cognitive Search は、コグニティブ スキルの強化パイプラインを使用して、ドキュメントから AI で生成されたフィールドを抽出し、検索インデックスに含めます。
-5. インデックスはインデックス作成プロセスの主な出力と見なせますが、それに含まれるエンリッチされたデータも他の方法で役立てることができます。
+3. リソース グループが提供されている制限付きサブスクリプションを使用している場合は、リソース グループを選択してそのプロパティを表示します。 それ以外の場合は、選択した名前で新しいリソース グループを作成し、作成されたらそのグループに移動します。
+4. リソース グループの **[概要]** ページで、**サブスクリプション ID** と**場所**を記録します。 これらの値は、後続の手順でリソース グループの名前とともに必要になります。
+5. Visual Studio Code で、**24-knowledge-store** フォルダーを展開し、**setup.cmd** を選択します。 このバッチ スクリプトを使用して、必要な Azure リソースを作成するために必要な Azure コマンド ライン インターフェイス (CLI) コマンドを実行します。
 6. **24-knowledge-store** フォルダーを右クリックし、 **[統合ターミナルで開く]** を選択します。
 7. ターミナル ペインで、次のコマンドを入力して、お使いの Azure サブスクリプションへの認証された接続を確立します。
 
@@ -41,7 +41,7 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
     az login --output none
     ```
 
-8. 次に例を示します。
+8. メッセージ表示されたら、Azure サブスクリプションにサインインします。 その後、Visual Studio Code に戻り、サインイン プロセスが完了するまで待ちます。
 9. 次のコマンドを実行して、Azure の場所を一覧表示します。
 
     ```
@@ -49,13 +49,13 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
     ```
 
 10. 出力で、リソース グループの場所に対応する **Name** の値を見つけます (たとえば、*米国東部* の場合、対応する名前は *eastus* です)。
-11. In the <bpt id="p1">**</bpt>setup.cmd<ept id="p1">**</ept> script, modify the <bpt id="p2">**</bpt>subscription_id<ept id="p2">**</ept>, <bpt id="p3">**</bpt>resource_group<ept id="p3">**</ept>, and <bpt id="p4">**</bpt>location<ept id="p4">**</ept> variable declarations with the appropriate values for your subscription ID, resource group name, and location name. Then save your changes.
+11. **setup.cmd** スクリプトで、**subscription_id**、**resource_group**、**location** 変数の宣言を、サブスクリプション ID、リソース グループ名、場所名の適切な値で変更します。 次に、変更を保存します。
 12. **24-knowledge-store** フォルダーのターミナルで、次のコマンドを入力してスクリプトを実行します。
 
     ```
     setup
     ```
-    > <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The Search CLI module is in preview, and may get stuck in the <bpt id="p2">*</bpt>- Running ..<ept id="p2">*</ept> process. If this happens for over 2 minutes, press CTRL+C to cancel the long-running operation, and then select <bpt id="p1">**</bpt>N<ept id="p1">**</ept> when asked if you want to terminate the script. It should then complete successfully.
+    > **注**: Search CLI モジュールはプレビュー中であり、 *- 実行中 ..* プロセスでスタックする可能性が存在して います。 これが 2 分以上続く場合は、Ctrl + C キーを押して長時間実行中の操作をキャンセルし、スクリプトを終了するかどうかを尋ねられたら **N** を選択します。 その後、正常に完了するはずです。
     >
     > スクリプトが失敗した場合は、正しい変数名で保存したことを確認して、再試行してください。
 
@@ -75,9 +75,9 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
 必要な Azure リソースが揃ったので、次のコンポーネントで構成される検索ソリューションを作成できます。
 
 - Azure ストレージ コンテナー内のドキュメントを参照する**データ ソース**。
-- A <bpt id="p1">**</bpt>skillset<ept id="p1">**</ept> that defines an enrichment pipeline of skills to extract AI-generated fields from the documents. The skillset also defines the <bpt id="p1">*</bpt>projections<ept id="p1">*</ept> that will be generated in your <bpt id="p2">*</bpt>knowledge store<ept id="p2">*</ept>.
+- ドキュメントから AI で生成されたフィールドを抽出するスキルの強化パイプラインを定義する**スキルセット**。 スキルセットは、*ナレッジ ストア*で生成される*予測*も定義します。
 - 検索可能なドキュメント レコードのセットを定義する**インデックス**。
-- An <bpt id="p1">**</bpt>indexer<ept id="p1">**</ept> that extracts the documents from the data source, applies the skillset, and populates the index. The process of indexing also persists the projections defined in the skillset in the knowledge store.
+- データ ソースからドキュメントを抽出し、スキル セットを適用して、インデックスにデータを入力する**インデクサー**。 インデックス作成のプロセスは、ナレッジ ストアのスキル セットで定義された予測も保持します。
 
 この演習では、Azure Cognitive Search REST インターフェイスを使用して、JSON リクエストを送信することでこれらのコンポーネントを作成します。
 
@@ -85,7 +85,7 @@ Azure Cognitive Search uses an enrichment pipeline of cognitive skills to extrac
 
 REST インターフェイスを使用して、Azure CognitiveSearch コンポーネントの JSON 定義を送信します。
 
-1. In Visual Studio Code, in the <bpt id="p1">**</bpt>24-knowledge-store<ept id="p1">**</ept> folder, expand the <bpt id="p2">**</bpt>create-search<ept id="p2">**</ept> folder and select <bpt id="p3">**</bpt>data_source.json<ept id="p3">**</ept>. This file contains a JSON definition for a data source named <bpt id="p1">**</bpt>margies-knowledge-data<ept id="p1">**</ept>.
+1. Visual Studio Code の **24-knowledge-store** フォルダーで、**create-search** フォルダーを展開し、**data_source.json** を選択します。 このファイルには、**margies-knowledge-data** という名前のデータソースの JSON 定義が含まれています。
 2. **YOUR_CONNECTION_STRING** プレースホルダーを Azure ストレージ アカウントの接続文字列に置き換えます。これは次のようになります。
 
     ```
@@ -95,13 +95,13 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
     *接続文字列は、Azure portal のストレージ アカウントの **[アクセス キー]** ページにあります。*
 
 3. 更新された JSON ファイルを保存して閉じます。
-4. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>skillset.json<ept id="p2">**</ept>. This file contains a JSON definition for a skillset named <bpt id="p1">**</bpt>margies-knowledge-skillset<ept id="p1">**</ept>.
+4. **create-search** フォルダーで、**skillset.json** を開きます。 このファイルには、**margies-knowledge-skillset** という名前のスキルセットの JSON 定義が含まれています。
 5. スキルセット定義の先頭にある **cognitiveServices** 要素で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーを Cognitive Services リソースのいずれかのキーに置き換えます。
 
     *キーは、Azure portal の Cognitive Services リソースの **[キーとエンドポイント]** ページにあります。*
 
-6. At the end of the collection of skills in your skillset, find the <bpt id="p1">**</bpt>Microsoft.Skills.Util.ShaperSkill<ept id="p1">**</ept> skill named <bpt id="p2">**</bpt>define-projection<ept id="p2">**</ept>. This skill defines a JSON structure for the enriched data that will be used for the projections that the pipeline will persist on the knowledge store for each document processed by the indexer.
-7. At the bottom of the skillset file, observe that the skillset also includes a <bpt id="p1">**</bpt>knowledgeStore<ept id="p1">**</ept> definition, which includes a connection string for the Azure Storage account where the knowledge store is to be created, and a collection of <bpt id="p2">**</bpt>projections<ept id="p2">**</ept>. This skillset includes three <bpt id="p1">*</bpt>projection groups<ept id="p1">*</ept>:
+6. スキルセット内のスキルのコレクションの最後に、**define-projection** という名前の **Microsoft.Skills.Util.ShaperSkill** スキルを見つけます。 このスキルは、インデクサーによって処理される各ドキュメントのナレッジ ストアにパイプラインが保持されるプロジェクションに使用される、強化されたデータの JSON 構造を定義します。
+7. スキル セット ファイルの下部に、ナレッジ ストア定義が含まれていることを確認します。**ナレッジ ストア**定義には、ナレッジ ストアが作成される Azure Storage アカウントの接続文字列と、**プロジェクション**のコレクションが含まれています。 このスキルセットには、次の 3 つの "*プロジェクション グループ*" が含まれます。
     - スキルセットに含まれる Shaper スキルの **knowledge_projection** 出力に基づく "*オブジェクト*" プロジェクションを含むグループ。
     - ドキュメントから抽出された画像データの **normalized_images** コレクションに基づく "*ファイル*" プロジェクションを含むグループ。
     - 次の "*テーブル*" プロジェクションを含むグループ。
@@ -111,16 +111,16 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
         - **Docs**: 自動的に生成されたキー列と、テーブルにまだ割り当てられていない Shaper スキルのすべての **knowledge_projection** 出力値が含まれています。
 8. **storageConnectionString** 値の **YOUR_CONNECTION_STRING** プレースホルダーを、ストレージ アカウントの接続文字列に置き換えます。
 9. 更新された JSON ファイルを保存して閉じます。
-10. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>index.json<ept id="p2">**</ept>. This file contains a JSON definition for an index named <bpt id="p1">**</bpt>margies-knowledge-index<ept id="p1">**</ept>.
+10. **create-search** フォルダーで、**index.json** を開きます。 このファイルには、**margies-knowledge-index** という名前のインデックスの JSON 定義が含まれています。
 11. インデックスの JSON を確認し、変更を加えずにファイルを閉じます。
-12. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>indexer.json<ept id="p2">**</ept>. This file contains a JSON definition for an indexer named <bpt id="p1">**</bpt>margies-knowledge-indexer<ept id="p1">**</ept>.
+12. **create-search** フォルダーで、**indexer.json** を開きます。 このファイルには、**margies-knowledge-indexer** という名前のインデクサーの JSON 定義が含まれています。
 13. インデクサーの JSON を確認し、変更を加えずにファイルを閉じます。
 
 ### <a name="submit-rest-requests"></a>REST リクエストの送信
 
 検索ソリューションコンポーネントを定義する JSON オブジェクトを準備したので、JSON ドキュメントを REST インターフェイスに送信して作成できます。
 
-1. In the <bpt id="p1">**</bpt>create-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>create-search.cmd<ept id="p2">**</ept>. This batch script uses the cURL utility to submit the JSON definitions to the REST interface for your Azure Cognitive Search resource.
+1. **create-search** フォルダーで、**create-search.cmd** を開きます。 このバッチ スクリプトは、cURL ユーティリティを使用して、Azure Cognitive Search リソースの REST インターフェイスに JSON 定義を送信します。
 2. **YOUR_SEARCH_URL** 変数と **YOUR_ADMIN_KEY** 変数のプレースホルダーを、Azure Cognitive Search リソースの **Url** と**管理キー**の 1 つに置き換えます。
 
     *これらの値は、Azure portal の Azure Cognitive Search リソースの **[概要]** ページと **[キー]** ページにあります。*
@@ -137,7 +137,7 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
 
     ***[更新]** を選択して、インデックス作成操作の進行状況を追跡できます。完了するまでに 1 分ほどかかる場合があります。*
 
-    > <bpt id="p1">**</bpt>Tip<ept id="p1">**</ept>: If the script fails, check the placeholders you added in the <bpt id="p2">**</bpt>data_source.json<ept id="p2">**</ept> and <bpt id="p3">**</bpt>skillset.json<ept id="p3">**</ept> files as well as the <bpt id="p4">**</bpt>create-search.cmd<ept id="p4">**</ept> file. After correcting any mistakes, you may need to use the Azure portal user interface to delete any components that were created in your search resource before re-running the script.
+    > **ヒント**: スクリプトが失敗した場合は、**data_source.json** ファイルと **skillset.json** ファイル、および **create-search.cmd** ファイルに追加したプレースホルダーを確認してください。 間違いを修正した後、スクリプトを再実行する前に、Azure portal のユーザー インターフェイスを使用して、検索リソースで作成されたコンポーネントを削除する必要がある場合があります。
 
 ## <a name="view-the-knowledge-store"></a>ナレッジストアの表示
 
@@ -145,13 +145,13 @@ REST インターフェイスを使用して、Azure CognitiveSearch コンポ�
 
 ### <a name="view-object-projections"></a>オブジェクト プロジェクションを表示する
 
-The <bpt id="p1">*</bpt>object<ept id="p1">*</ept> projections defined in the Margie's Travel skillset consist of a JSON file for each indexed document. These files are stored in a blob container in the Azure Storage account specified in the skillset definition.
+Margie's Travel スキルセットで定義されている "*オブジェクト*" プロジェクションは、各インデックス付きドキュメントの JSON ファイルで構成されています。 これらのファイルは、スキルセットの定義で指定された Azure ストレージ アカウントの BLOB コンテナーに格納されます。
 
 1. Azure portal で、以前に作成した Azure Storage アカウントを表示します。
 2. **[ストレージ エクスプローラー]** タブ (左側のペイン) を選択して、Azure portal のストレージ エクスプローラー インターフェイスでストレージ アカウントを表示します。
-2. **注**: 以前に「**[Azure Cognitive Search ソリューションを作成する](22-azure-search.md)**」の演習を完了し、サブスクリプションにこれらの Azure リソースがまだある場合は、このセクションをスキップして、「**検索ソリューションの作成**」セクションから開始できます。
-3. それ以外の場合は、以下の手順に従って、必要な Azure リソースをプロビジョニングします。
-4. Open any of the folders, and then download and open the <bpt id="p1">**</bpt>knowledge-projection.json<ept id="p1">**</ept> file it contains. Each JSON file contains a representation of an indexed document, including the enriched data extracted by the skillset as shown here.
+2. **[BLOB コンテナー]** を展開して、そのストレージ アカウント内のコンテナーを表示します。 ソース データが格納されている **margies** コンテナーの他に、**margies-images** と **margies-knowledge** という 2 つの新しいコンテナーがあるはずです。 これらは、インデックス作成プロセスによって作成されたものです。
+3. **margies-knowledge** コンテナーを選択します。 これには、各インデックス付きドキュメントのフォルダーが含まれています。
+4. いずれかのフォルダーを開き、そこに含まれている **knowledge-projection.json** ファイルをダウンロードして開きます。 次に示すように、各 JSON ファイルには、スキルセットによって抽出されてエンリッチされたデータなどの、インデックス付きドキュメントの表現が含まれています。
 
 ```
 {
@@ -189,7 +189,7 @@ The <bpt id="p1">*</bpt>object<ept id="p1">*</ept> projections defined in the Ma
 
 スキルセットで定義されている "*ファイル*" プロジェクションでは、インデックス作成プロセス中にドキュメントから抽出された各画像の JPEG ファイルが作成されます。
 
-1. In the storage explorer interface in the Azure portal, select the <bpt id="p1">**</bpt>margies-images<ept id="p1">**</ept> blob container. This container contains a folder for each document that contained images.
+1. Azure portal のストレージ エクスプローラー インターフェイスで、**margies-images** BLOB コンテナーを選択します。 このコンテナーには、画像を含む各ドキュメントのフォルダーが含まれています。
 2. そのフォルダーのいずれかを開き、内容を表示します。各フォルダーに、少なくとも 1 つの \*.jpg ファイルが含まれています。
 3. 画像ファイルのいずれかを開き、ドキュメントから抽出された画像が含まれていることを確認します。
 
@@ -200,7 +200,7 @@ The <bpt id="p1">*</bpt>object<ept id="p1">*</ept> projections defined in the Ma
 スキルセットで定義されている "*テーブル*" プロジェクションは、エンリッチされたデータのリレーショナル スキーマを形成します。
 
 1. Azure portal のストレージ エクスプローラー インターフェイスで、**[テーブル]** を展開します。
-2. Select the <bpt id="p1">**</bpt>Docs<ept id="p1">**</ept> table to view its columns. The columns include some standard Azure Storage table columns - to hide these, modify the <bpt id="p1">**</bpt>Column Options<ept id="p1">**</ept> to select only the following columns:
+2. **Docs** テーブルを選択して、その列を表示します。 この列には、標準的な Azure Storage テーブル列がいくつか含まれています。これらを非表示にするには、**[列のオプション]** を変更して、次の列のみを選択します。
     - **document_id** (インデックス作成プロセスによって自動的に生成されるキー列)
     - **file_id** (エンコードされたファイルの URL)
     - **file_name** (ドキュメントのメタデータから抽出されたファイル名)
@@ -212,7 +212,7 @@ The <bpt id="p1">*</bpt>object<ept id="p1">*</ept> projections defined in the Ma
     - **KeyPhrases** (個々のキー フレーズごとに、そのフレーズが使用されているドキュメントの **document_id** が入った行が 1 行含まれます)。
     - **Locations** (個々の場所ごとに、その場所が使用されているドキュメントの **document_id** が入った行が 1 行含まれます)。
 
-リソース グループが提供されている制限付きサブスクリプションを使用している場合は、リソース グループを選択してそのプロパティを表示します。
+*テーブル* プロジェクションを作成する機能により、リレーショナル スキーマをクエリする分析およびレポート ソリューションを構築できます。たとえば、Microsoft Power BI を使用します。 自動的に生成されたキー列は、クエリでテーブルを結合するために使用できます。たとえば、特定のドキュメントに記載されているすべての場所を返すことができます。
 
 ## <a name="more-information"></a>詳細情報
 

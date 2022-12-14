@@ -6,9 +6,9 @@ lab:
 
 # <a name="extract-data-from-forms"></a>Forms からのデータの抽出 
 
-Suppose a company currently requires employees to manually purchase order sheets and enter the data into a database. They would like you to utilize AI services to improve the data entry process. You decide to build a machine learning model that will read the form and produce structured data that can be used to automatically update a database.
+ある会社が現在、手動で注文シートを購入し、データベースにデータを入力することを社員に求めているとします。 会社は AI サービスを活用してデータ入力プロセスを改善したいと考えています。 あなたは、フォームを読み取り、(データベースを自動的に更新するために使用できる) 構造化データを生成する機械学習モデルを構築することに決めます。
 
-<bpt id="p1">**</bpt>Form Recognizer<ept id="p1">**</ept> is a cognitive service that enables users to build automated data processing software. This software can extract text, key/value pairs, and tables from form documents using optical character recognition (OCR). Form Recognizer has pre-built models for recognizing invoices, receipts, and business cards. The service also provides the capability to train custom models. In this exercise, we will focus on building custom models.
+**Form Recognizer** は、ユーザーが自動データ処理ソフトウェアを構築できるようにする Cognitive Services です。 このソフトウェアは、光学式文字認識 (OCR) を使用して、フォーム ドキュメントからテキスト、キーと値のペア、およびテーブルを抽出できます。 Form Recognizer には、請求書、領収書、名刺を認識するためのモデルがあらかじめ構築されています。 このサービスは、カスタム モデルをトレーニングする機能も提供します。 この演習では、カスタム モデルの構築に焦点を当てます。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -23,20 +23,20 @@ Suppose a company currently requires employees to manually purchase order sheets
 
 ## <a name="create-a-form-recognizer-resource"></a>Form Recognizer リソースを作成する
 
-To use the Form Recognizer service, you need a Form Recognizer or Cognitive Services resource in your Azure subscription. You'll use the Azure portal to create a resource.
+Form Recognizer サービスを使用するには、Azure サブスクリプションに Form Recognizer または Cognitive Services リソースが必要です。 Azure portal を使用してリソースを作成します。
 
 1.  Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Form Recognizer* を検索して、次の設定で **Form Recognizer** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **[価格レベル]**: F0
 
     > **注**: サブスクリプションに既に F0 Form Recognizer サービスがある場合は、このサービスに **S0** を選択してください。
 
-3. ある会社が現在、手動で注文シートを購入し、データベースにデータを入力することを社員に求めているとします。 
+3. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 後でコードからのアクセスを管理するには、このページの**エンドポイント**と**キー**の 1 つが必要になります。 
 
 ## <a name="gather-documents-for-training"></a>トレーニング用のドキュメントを収集する
 
@@ -44,17 +44,17 @@ To use the Form Recognizer service, you need a Form Recognizer or Cognitive Serv
 
 このリポジトリの **21-custom-form/sample-forms** フォルダーのサンプル フォームを使用します。このサンプル フォームには、モデルをトレーニングし、テストするために必要なすべてのファイルが含まれています。
 
-1. 会社は AI サービスを活用してデータ入力プロセスを改善したいと考えています。
+1. Visual Studio Code の **21-custom-form** フォルダーで、**sample-forms** フォルダーを展開します。 フォルダー内に **.json** と **.jpg** で終わるファイルがあることに注意してください。
 
     **.jpg** ファイルを使用し、モデルをトレーニングします。  
 
-    あなたは、フォームを読み取り、(データベースを自動的に更新するために使用できる) 構造化データを生成する機械学習モデルを構築することに決めます。 
+    **.json** ファイルが生成され、ラベル情報が含まれています。 ファイルは、フォームと共に BLOB ストレージ コンテナーにアップロードされます。 
 
 2. Azure portal ([https://portal.azure.com](https://portal.azure.com)) に戻ります。
 
 3. 以前に Form Recognizer リソースを作成した**リソース グループ**を表示します。
 
-4. On the <bpt id="p1">**</bpt>Overview<ept id="p1">**</ept> page for your resource group, note the <bpt id="p2">**</bpt>Subscription ID<ept id="p2">**</ept> and <bpt id="p3">**</bpt>Location<ept id="p3">**</ept>. You will need these values, along with your <bpt id="p1">**</bpt>resource group<ept id="p1">**</ept> name in subsequent steps.
+4. リソース グループの **[概要]** ページで、**サブスクリプション ID** と**場所**を記録します。 これらの値は、後続の手順で**リソース グループ**名とともに必要になります。
 
 ![リソース グループ ページの例。](./images/resource_group_variables.png)
 
@@ -66,7 +66,7 @@ To use the Form Recognizer service, you need a Form Recognizer or Cognitive Serv
 az login --output none
 ```
 
-7. **Form Recognizer** は、ユーザーが自動データ処理ソフトウェアを構築できるようにする Cognitive Services です。
+7. メッセージ表示されたら、Azure サブスクリプションにサインインします。 その後、Visual Studio Code に戻り、サインイン プロセスが完了するまで待ちます。
 
 8. 次のコマンドを実行して、Azure の場所を一覧表示します。
 
@@ -78,16 +78,16 @@ az account list-locations -o table
 
     > **重要**: **Name** の値を記録しておき、手順 12 で使用します。
 
-10. このソフトウェアは、光学式文字認識 (OCR) を使用して、フォーム ドキュメントからテキスト、キーと値のペア、およびテーブルを抽出できます。
+10. [エクスプローラー] ペインの **21-custom-form** フォルダーで、**setup.cmd** を選択します。 このバッチス クリプトを使用して、必要な他の Azure リソースを作成するために必要な Azure コマンド ライン インターフェイス (CLI) コマンドを実行します。
 
-11. Form Recognizer には、請求書、領収書、名刺を認識するためのモデルがあらかじめ構築されています。 
+11. **setup.cmd** スクリプトで、**rem** コマンドを確認します。 これらのコメントは、スクリプトが実行するプログラムの概要を示しています。 プログラムは次のことを行います。 
     - リソース グループにストレージ アカウントを作成する
     - ローカルの _sampleforms_ フォルダーからストレージ アカウントの _sampleforms_ というコンテナーにファイルをアップロードする
     - 共有アクセス署名 URI を印刷する
 
-12. このサービスは、カスタム モデルをトレーニングする機能も提供します。
+12. **subscription_id**、**resource_group**、**location** 変数の宣言を、Form Recognizer リソースをデプロイしたサブスクリプション、リソース グループ、およびロケーション名に適切な値で変更します。 その後、変更を**保存**します。
 
-    この演習では、カスタム モデルの構築に焦点を当てます。  
+    **expiry_date** 変数は、演習用のままにしておきます。 この変数は、共有アクセス署名 (SAS) URI を生成するときに使用されます。 実際には、SAS に適切な有効期限を設定する必要があります。 SAS について詳しくは、[こちら](https://docs.microsoft.com/azure/storage/common/storage-sas-overview#how-a-shared-access-signature-works)をご覧ください。  
 
 13. **21-custom-form** フォルダーのターミナルで、次のコマンドを入力してスクリプトを実行します。
 
@@ -99,15 +99,15 @@ setup
 
 > **重要**: 進む前に、後で再度取得できる場所に SAS URI を貼り付けてください (たとえば、Visual Studio Code の新しいテキスト ファイルに)。
 
-15. In the Azure portal, refresh the resource group and verify that it contains the Azure Storage account just created. Open the storage account and in the pane on the left, select <bpt id="p1">**</bpt>Storage Browser (preview)<ept id="p1">**</ept>. Then in Storage Browser, expand <bpt id="p1">**</bpt>BLOB CONTAINERS<ept id="p1">**</ept> and select the <bpt id="p2">**</bpt>sampleforms<ept id="p2">**</ept> container to verify that the files have been uploaded from your local <bpt id="p3">**</bpt>21-custom-form/sample-forms<ept id="p3">**</ept> folder.
+15. Azure portal で、リソース グループを更新し、作成したばかりの Azure ストレージ アカウントが含まれていることを確認します。 ストレージ アカウントを開き、左側のペインで **[ストレージ ブラウザー (プレビュー)]** を選択します。 次に、ストレージ ブラウザーで、 **[BLOB コンテナー]** を展開し、**sampleforms** コンテナーを選択して、ファイルがローカルの **21-custom-form/sample-forms** フォルダーからアップロードされていることを確認します。
 
 ## <a name="train-a-model-using-the-form-recognizer-sdk"></a>Form Recognizer SDK を使用してモデルをトレーニングする
 
 次に、 **.jpg** ファイルと **.json** ファイルを使用してモデルをトレーニングします。
 
-1. In Visual Studio Code, in the <bpt id="p1">**</bpt>21-custom-form/sample-forms<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>fields.json<ept id="p2">**</ept> and review the JSON document it contains. This file defines the fields that you will train a model to extract from the forms.
-2. Open <bpt id="p1">**</bpt>Form_1.jpg.labels.json<ept id="p1">**</ept> and review the JSON it contains. This file identifies the location and values for named fields in the <bpt id="p1">**</bpt>Form_1.jpg<ept id="p1">**</ept> training document.
-3. Open <bpt id="p1">**</bpt>Form_1.jpg.ocr.json<ept id="p1">**</ept> and review the JSON it contains. This file contains a JSOn representation of the text layout of <bpt id="p1">**</bpt>Form_1.jpg<ept id="p1">**</ept>, including the location of all text areas found in the form.
+1. Visual Studio Code の **21-custom-form/sample-forms** フォルダーで、**fields.json** を開き、そこに含まれている JSON ドキュメントを確認します。 このファイルは、フォームから抽出するためにモデルをトレーニングするフィールドを定義します。
+2. **Form_1.jpg.labels.json** を開き、そこに含まれる JSON を確認します。 このファイルは、**Form_1.jpg** トレーニング ドキュメントの名前付きフィールドの場所と値を識別します。
+3. **Form_1.jpg.ocr.json** を開き、そこに含まれる JSON を確認します。 このファイルには、**Form_1.jpg** のテキストレイアウトの JSOn 表現が含まれています。これには、フォームで見つかったすべてのテキスト領域の場所が含まれます。
 
     *この演習では、フィールド情報ファイルが提供されています。独自のプロジェクトの場合、[Form Recognizer Studio](https://formrecognizer.appliedai.azure.com/studio) を利用し、これらのファイルを作成できます。ツールを使用すると、フィールド情報ファイルが自動的に作成され、接続しているストレージ アカウントに保存されます。*
 
@@ -167,7 +167,7 @@ python train-model.py
 ```
 
 12. 最後に、プログラムの待ち、その後、モデル出力を確認します。
-13. Write down the Model ID in the terminal output. You will need it for the next part of the lab. 
+13. ターミナル出力のモデル ID を書き出します。 次のラボ パートに必要になります。 
 
 ## <a name="test-your-custom-form-recognizer-model"></a>カスタム Form Recognizer モデルをテストする 
 
@@ -191,7 +191,7 @@ pip install azure-ai-formrecognizer==3.0.0
 
 *以前に pip を使用してパッケージを Python 環境にインストールしたことがある場合、これは厳密には必要ありません。しかし、それがインストールされていることを確認しても害はありません。*
 
-4. In the same terminal for the <bpt id="p1">**</bpt>test-model<ept id="p1">**</ept> folder, install the Tabulate library. This will provide your output in a table:
+4. **test-model** フォルダーの同じターミナルに、Tabulate ライブラリをインストールします。 これにより、テーブルに出力されます。
 
 **C#**
 
@@ -208,7 +208,7 @@ pip install tabulate
 5. **test-model** フォルダーで、構成ファイル (言語設定に応じて **appsettings.json** または **.env**) を編集して、次の値を追加します。
     - Form Recognizer エンドポイント。
     - Form Recognizer キー。
-    - The Model ID generated when you trained the model (you can find this by switching the terminal back to the <bpt id="p1">**</bpt>cmd<ept id="p1">**</ept> console for the <bpt id="p2">**</bpt>train-model<ept id="p2">**</ept> folder). <bpt id="p1">**</bpt>Save<ept id="p1">**</ept> your changes.
+    - モデルのトレーニング時に生成されたモデル ID (これは、ターミナルを **train-model** フォルダーの **cmd** コンソールに戻すことで確認できます)。 変更内容を**保存**します。
 
 6. **test-model** フォルダーで、クライアント アプリケーションのコード ファイル (C# の場合は *Program.cs*、Python の場合は *test-model.py*) を開き、含まれているコードを確認して、次の詳細に注意してください。
     - インストールしたパッケージの名前空間インポートされます

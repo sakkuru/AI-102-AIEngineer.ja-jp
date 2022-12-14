@@ -6,9 +6,9 @@ lab:
 
 # <a name="lab-environment-setup"></a>ラボ環境のセットアップ
 
-These exercises are designed to be completed in a hosted lab environment. If you want to complete them on your own computer, you can do so by installing the following software. You may experience unexpected dialogs and behavior when using your own environment. Due to the wide range of possible local configurations, the course team cannot support issues you may encounter in your own environment.
+これらの演習は、ホストされたラボ環境で完了するように設計されています。 ご自分のパソコンで完成させたい場合は、以下のソフトウェアをインストールしてください。 独自の環境を使用すると、予期しないダイアログや動作が発生する場合があります。 また、独自の環境は大きく異なる可能性があるため、コースチームは発生する問題をサポートできない場合があります。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The instructions below are for a Windows 10 computer. You can also use Linux or MacOS. You may need to adapt the lab instructions for your chosen OS.
+> **注:** 以下の手順は、Windows 10 コンピューター用です。 Linux または MacOS を使用することもできます。 選択した OS に応じたラボ手順を適応する必要があります。
 
 ### <a name="base-operating-system-windows-10"></a>基本オペレーティング システム (Windows 10)
 

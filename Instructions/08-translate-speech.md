@@ -6,9 +6,9 @@ lab:
 
 # <a name="translate-speech"></a>音声の翻訳
 
-The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id="p2">**</bpt>Speech translation<ept id="p2">**</ept> API that you can use to translate spoken language. For example, suppose you want to develop a translator application that people can use when traveling in places where they don't speak the local language. They would be able to say phrases such as "Where is the station?" or "I need to find a pharmacy" in their own language, and have it translate them to the local language.
+**Speech** サービスには、話し言葉の翻訳に使用できる**音声翻訳** API が含まれています。 たとえば、現地の言語を話さない場所を旅行するときに使用できる翻訳アプリケーションを開発するとします。 「駅はどこですか?」のようなフレーズを言ったり、 または、「薬局を見つける必要があります」を独自の言語で言ったり、それを現地の言語に翻訳することができます。
 
-<bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: This exercise requires that you are using a computer with speakers/headphones. For the best experience, a microphone is also required. Some hosted virtual environments may be able to capture audio from your local microphone, but if this doesn't work (or you don't have a microphone at all), you can use a provided audio file for speech input. Follow the instructions carefully, as you'll need to choose different options depending on whether you are using a microphone or the audio file.
+**注**: この演習では、スピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。 最良のエクスペリエンスのため、マイクも必要です。 一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。 マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -28,22 +28,22 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need one of the keys and the location in which the service is provisioned from this page in the next procedure.
+5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページからサービスがプロビジョニングされるキーと場所の 1 つが必要になります。
 
 ## <a name="prepare-to-use-the-speech-translation-service"></a>音声翻訳サービスを使用する準備をする
 
 この演習では、Speech SDK を使用して音声を認識、翻訳、および合成する、部分的に実装されたクライアント アプリケーションを完成させます。
 
-> **Speech** サービスには、話し言葉の翻訳に使用できる**音声翻訳** API が含まれています。
+> **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**08-speech-translation** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. たとえば、現地の言語を話さない場所を旅行するときに使用できる翻訳アプリケーションを開発するとします。
+2. **translator** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Speech SDK パッケージをインストールします。
 
     **C#**
 
@@ -61,13 +61,13 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     - **C#** : appsettings.json
     - **Python**: .env
 
-    「駅はどこですか?」のようなフレーズを言ったり、
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの認証**キー**と、それが展開されている**場所**を含めます。 変更を保存します。
 4. **translator** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#** : Program.cs
     - **Python**: translator.py
 
-    または、「薬局を見つける必要があります」を独自の言語で言ったり、それを現地の言語に翻訳することができます。
+    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Speech SDK を使用するために必要な名前空間インポートします。
 
     **C#**
     
@@ -85,7 +85,7 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     import azure.cognitiveservices.speech as speech_sdk
     ```
 
-5. In the <bpt id="p1">**</bpt>Main<ept id="p1">**</ept> function, note that code to load the cognitive services key and region from the configuration file has already been provided. You must use these variables to create a <bpt id="p1">**</bpt>SpeechTranslationConfig<ept id="p1">**</ept> for your cognitive services resource, which you will use to translate spoken input. Add the following code under the comment <bpt id="p1">**</bpt>Configure translation<ept id="p1">**</ept>:
+5. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードが既に提供されていることにご注意ください。 これらの変数を使用して、音声入力の翻訳に使用する Cognitive Services リソースの **SpeechTranslationConfig** を作成する必要があります。 コメント **「Configure translation」** の下に次のコードを追加します。
 
     **C#**
     
@@ -111,7 +111,7 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     print('Ready to translate from',translation_config.speech_recognition_language)
     ```
 
-6. **注**: この演習では、スピーカー/ヘッドフォンを備えたコンピューターを使用している必要があります。
+6. **SpeechTranslationConfig** を使用して音声をテキストに翻訳しますが、**SpeechConfig** を使用して翻訳を音声に合成します。 コメント **「Configure speech」** の下に次のコードを追加します。
 
     **C#**
     
@@ -141,7 +141,7 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     python translator.py
     ```
 
-8. 最良のエクスペリエンスのため、マイクも必要です。
+8. C# を使用している場合は、非同期メソッドで **await** 演算子を使用することに関する警告を無視できます。これは後で修正します。 コードは、en-US から変換する準備ができているというメッセージを表示する必要があります。 ENTER を押してプログラムを終了します。
 
 ## <a name="implement-speech-translation"></a>音声翻訳の実装
 
@@ -179,7 +179,7 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     print(translation)
     ```
 
-    > 一部のホストされる仮想環境では、ローカル マイクから音声をキャプチャできる場合があります。しかし、これが機能しない場合 (または、マイクがない場合)、音声入力用に付属の音声ファイルを使用できます。
+    > **注**: アプリケーションのコードは、1 回の呼び出しで入力を 3 つの言語すべてに翻訳します。 特定の言語の翻訳のみが表示されますが、結果の **translations** コレクションでターゲット言語コードを指定することにより、任意の翻訳を取得できます。
 
 3. 下の「**プログラムを実行する**」セクションにスキップします。
 
@@ -213,7 +213,7 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     from playsound import playsound
     ```
 
-3. マイクまたは音声ファイルを使用するかどうかに応じて、ことなるオプションを選択する必要があるろきは、慎重に手順に従ってください。
+3. プログラムの **Main** 関数で、コードが **Translate** 関数を使用して音声入力を翻訳していることに注意してください。 **Translate** 関数のコメント **「Translate speech」** の下に、次のコードを追加して、ファイルからの音声を認識して、翻訳するために使用できる **TranslationRecognizer** クライアントを作成します。
 
     **C#**
     
@@ -247,7 +247,7 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     print(translation)
     ```
 
-    > <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the <bpt id="p1">**</bpt>translations<ept id="p1">**</ept> collection of the result.
+    > **注**: アプリケーションのコードは、1 回の呼び出しで入力を 3 つの言語すべてに翻訳します。 特定の言語の翻訳のみが表示されますが、結果の **translations** コレクションでターゲット言語コードを指定することにより、任意の翻訳を取得できます。
 
 ### <a name="run-the-program"></a>プログラムの実行
 
@@ -265,15 +265,15 @@ The <bpt id="p1">**</bpt>Speech<ept id="p1">**</ept> service includes a <bpt id=
     python translator.py
     ```
 
-2. When prompted, enter a valid language code (<bpt id="p1">*</bpt>fr<ept id="p1">*</ept>, <bpt id="p2">*</bpt>es<ept id="p2">*</ept>, or <bpt id="p3">*</bpt>hi<ept id="p3">*</ept>), and then, if using a microphone, speak clearly and say "where is the station?" or some other phrase you might use when traveling abroad. The program should transcribe your spoken input and translate it to the language you specified (French, Spanish, or Hindi). Repeat this process, trying each language supported by the application. When you're finished, press ENTER to end the program.
+2. プロンプトが表示されたら、有効な言語コード (*fr*、*es*、または *hi*) を入力します。マイクを使用している場合は、「駅はどこですか?」、 または、海外旅行するときに使用する可能性のある他のフレーズをはっきり言います。 プログラムは、話された入力を書き起こし、指定した言語 (フランス語、スペイン語、またはヒンディー語) に翻訳します。 このプロセスを繰り返し、アプリケーションでサポートされている各言語を試してください。 終了したら、Enter キーを押してプログラムを終了します。
 
-    > <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: The TranslationRecognizer gives you around 5 seconds to speak. If it detects no spoken input, it produces a "No match" result.
+    > **注**: TranslationRecognizer を使用すると、約 5 秒で話すことができます。 音声入力が検出されない場合は、"一致なし" の結果が生成されます。
     >
     > 文字エンコードの問題により、ヒンディー語への翻訳がコンソール ウィンドウに正しく表示されない場合があります。
 
 ## <a name="synthesize-the-translation-to-speech"></a>翻訳を音声に合成する
 
-So far, your application translates spoken input to text; which might be sufficient if you need to ask someone for help while traveling. However, it would be better to have the translation spoken aloud in a suitable voice.
+これまでのところ、アプリケーションは音声入力をテキストに翻訳します。旅行中に誰かに助けを求める必要がある場合は、これで十分かもしれません。 ただし、適切な声で翻訳を声に出して話してもらう方がよいでしょう。
 
 1. **Translate** 機能では、コメント **「Synthesize translation」** の下に次のコードを追加して、デフォルトのスピーカーから音声として翻訳を合成するために **SpeechSynthesizer** クライアントを使用します。
 
@@ -326,7 +326,7 @@ So far, your application translates spoken input to text; which might be suffici
     python translator.py
     ```
 
-3. When prompted, enter a valid language code (<bpt id="p1">*</bpt>fr<ept id="p1">*</ept>, <bpt id="p2">*</bpt>es<ept id="p2">*</ept>, or <bpt id="p3">*</bpt>hi<ept id="p3">*</ept>), and then speak clearly into the microphone and say a phrase you might use when traveling abroad. The program should transcribe your spoken input and respond with a spoken translation. Repeat this process, trying each language supported by the application. When you're finished, press ENTER to end the program.
+3. プロンプトが表示されたら、有効な言語コード (*fr*、*es*、*hi*) を入力し、マイクに向かってはっきりと話し、海外旅行で使用する可能性のあるフレーズを話します。 プログラムは、口頭入力を書き起こし、口頭翻訳で応答します。 このプロセスを繰り返し、アプリケーションでサポートされている各言語を試してください。 終了したら、Enter キーを押してプログラムを終了します。
 
     > **注** *この例では、**SpeechTranslationConfig** を使用して音声をテキストに変換し、**SpeechConfig** を使用して翻訳を音声として合成しました。実際には **SpeechTranslationConfig** を使用して翻訳を直接合成できますが、これは 1 つの言語に翻訳する場合にのみ機能し、通常はスピーカーに直接送信されるのではなく、ファイルとして保存されるオーディオ ストリームになります。*
 

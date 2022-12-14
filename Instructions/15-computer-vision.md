@@ -6,11 +6,11 @@ lab:
 
 # <a name="analyze-images-with-computer-vision"></a>Computer Vision を使用する画像の分析
 
-Computer vision is an artificial intelligence capability that enables software systems to interpret visual input by analyzing images. In Microsoft Azure, the <bpt id="p1">**</bpt>Computer Vision<ept id="p1">**</ept> cognitive service provides pre-built models for common computer vision tasks, including analysis of images to suggest captions and tags, detection of common objects, landmarks, celebrities, brands, and the presence of adult content. You can also use the Computer Vision service to analyze image color and formats, and to generate "smart-cropped" thumbnail images.
+Computer Vision は、ソフトウェアシステムが画像を分析することで視覚入力を解釈できるようにする人工知能機能です。 Microsoft Azure では、**Computer Vision** Cognitive Services は、キャプションとタグを提案する画像の分析、一般的なオブジェクト、ランドマーク、有名人、ブランドの検出、アダルトコンテンツの存在など、一般的な Computer Vision 用の構築済みモデルを提供します。 Computer Vision サービスを使用して、画像の色と形式を分析し、"スマートにトリミングされた" サムネイル画像を生成することもできます。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
-If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1">**</ept> code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
@@ -26,22 +26,22 @@ If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need the endpoint and one of the keys from this page in the next procedure.
+5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページのエンドポイントとキーの 1 つが必要になります。
 
 ## <a name="prepare-to-use-the-computer-vision-sdk"></a>Computer Vision SDKを使用する準備をする
 
 この演習では、Computer VisionSDKを使用して画像を分析する部分的に実装されたクライアントアプリケーションを完成させます。
 
-> Computer Vision は、ソフトウェアシステムが画像を分析することで視覚入力を解釈できるようにする人工知能機能です。
+> **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**15-computer-vision** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
-2. Microsoft Azure では、**Computer Vision** Cognitive Services は、キャプションとタグを提案する画像の分析、一般的なオブジェクト、ランドマーク、有名人、ブランドの検出、アダルトコンテンツの存在など、一般的な Computer Vision 用の構築済みモデルを提供します。
+2. **image-analysis** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Computer Vision SDK パッケージをインストールします。
 
 **C#**
 
@@ -59,13 +59,13 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Computer Vision サービスを使用して、画像の色と形式を分析し、"スマートにトリミングされた" サムネイル画像を生成することもできます。
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの**エンドポイント**と認証**キー**を反映します。 変更を保存します。
 4. **image-analysis** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることに注意してください。
 
     - **C#** : Program.cs
     - **Python**: image-analysis.py
 
-    Open the code file and at the top, under the existing namespace references, find the comment <bpt id="p1">**</bpt>Import namespaces<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Computer Vision SDK:
+    コード ファイルを開き、上部の既存の名前空間参照の下で、「**Import namespaces**」というコメントを見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision SDK を使用するために必要な名前空間をインポートします
 
 **C#**
 
@@ -95,7 +95,7 @@ from msrest.authentication import CognitiveServicesCredentials
 
 これで、SDK を使用して Computer Vision サービスを呼び出す準備が整いました。
 
-1. In the code file for your client application (<bpt id="p1">**</bpt>Program.cs<ept id="p1">**</ept> or <bpt id="p2">**</bpt>image-analysis.py<ept id="p2">**</ept>), in the <bpt id="p3">**</bpt>Main<ept id="p3">**</ept> function, note that the code to load the configuration settings has been provided. Then find the comment <bpt id="p1">**</bpt>Authenticate Computer Vision client<ept id="p1">**</ept>. Then, under this comment, add the following language-specific code to create and authenticate a Computer Vision client object:
+1. クライアント アプリケーションのコード ファイル (**Program.cs** または **image-analysis.py**) の **Main** 関数で、構成設定をロードするためのコードが提供されていることに注意してください。 次に、コメント「**Authenticate Computer Vision client**」を見つけます。 次に、このコメントの下に、次の言語固有のコードを追加して、Computer Vision クライアント オブジェクトを作成および認証します
 
 **C#**
 
@@ -116,7 +116,7 @@ credential = CognitiveServicesCredentials(cog_key)
 cv_client = ComputerVisionClient(cog_endpoint, credential)
 ```
 
-2. このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。
+2. **Main** 関数で、追加したコードの下で、コードが画像ファイルへのパスを指定し、画像パスを他の 2 つの関数 (**AnalyzeImage** と **GetThumbnail**) に渡すことに注意してください。 これらの関数はまだ完全には実装されていません。
 
 3. **AnalyzeImage** 関数のコメント "**Specify features to be retrieved**" の下に、次のコードを追加します。
 
@@ -329,7 +329,7 @@ if (len(analysis.categories) > 0):
 
 ## <a name="get-brands-in-an-image"></a>画像でブランドを取得する
 
-それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
+一部のブランドは、ブランド名が表示されていなくても、ロゴから視覚的に認識できます。 Computer Vision サービスは、何千もの有名なブランドを特定するためにトレーニングされています。
 
 1. **AnalyzeImage** 関数で、コメント "**Get brands in the image**" 下に、次のコードを追加します。
 
@@ -428,7 +428,7 @@ if len(analysis.objects) > 0:
     print('  Results saved in', outputfile)
 ```
     
-2. Save your changes and run the program once for each of the image files in the <bpt id="p1">**</bpt>images<ept id="p1">**</ept> folder, observing any objects that are detected. After each run, view the <bpt id="p1">**</bpt>objects.jpg<ept id="p1">**</ept> file that is generated in the same folder as your code file to see the annotated objects.
+2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、検出されるオブジェクトを監視します。 実行するたびに、コードファイルと同じフォルダーに生成された **objects.jpg** ファイルを表示して、注釈付きのオブジェクトを確認します。
 
 ## <a name="get-moderation-ratings-for-an-image"></a>画像のモデレート評価を取得する
 
@@ -456,7 +456,7 @@ print(ratings)
     
 2. 変更を保存し、**images** フォルダー内の画像ファイルごとにプログラムを 1 回実行し、各画像の評価を確認します。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: In the preceding tasks, you used a single method to analyze the image, and then incrementally added code to parse and display the results. The SDK also provides individual methods for suggesting captions, identifying tags, detecting objects, and so on - meaning that you can use the most appropriate method to return only the information you need, reducing the size of the data payload that needs to be returned. See the <bpt id="p1">[</bpt>.NET SDK documentation<ept id="p1">](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet)</ept> or <bpt id="p2">[</bpt>Python SDK documentation<ept id="p2">](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python)</ept> for more details.
+> **注**: 前のタスクでは、単一の方法を使用して画像を分析し、コードを段階的に追加して結果を解析および表示しました。 SDK には、キャプションの提案、タグの識別、オブジェクトの検出などの個別のメソッドも用意されています。つまり、最も適切なメソッドを使用して必要な情報のみを返し、返す必要のあるデータ ペイロードのサイズを減らすことができます。 詳細については、[.NET SDK のドキュメント](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet)または [Python SDK のドキュメント](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python)を参照してください。
 
 ## <a name="generate-a-thumbnail-image"></a>サムネイル画像の生成
 
@@ -505,6 +505,6 @@ print('Thumbnail saved in.', thumbnail_file_name)
 
 ## <a name="more-information"></a>詳細情報
 
-In this exercise, you explored some of the image analysis and manipulation capabilities of the Computer Vision service. The service also includes capabilities for reading text, detecting faces, and other computer vision tasks.
+この演習では、Computer Vision サービスの画像分析および操作機能のいくつかについて説明しました。 このサービスには、テキストの読み取り、顔の検出、およびその他の Computer Vision タスクの機能も含まれています。
 
 **Computer Vision** サービスの使用の詳細については、[Computer Vision のドキュメント](https://docs.microsoft.com/azure/cognitive-services/computer-vision/)を参照してください。

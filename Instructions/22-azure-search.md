@@ -6,15 +6,15 @@ lab:
 
 # <a name="create-an-azure-cognitive-search-solution"></a>Azure Cognitive Search ソリューションを作成する
 
-All organizations rely on information to make decisions, answer questions, and function efficiently. The problem for most organizations is not a lack of information, but the challenge of finding and  extracting the information from the massive set of documents, databases, and other sources in which the information is stored.
+すべての組織は、意思決定を行い、疑問に答え、効率的に機能するために情報を利用しています。 ほとんどの組織にとって問題となっているのは、情報の不足ではなく、情報が格納されている大量の一連のドキュメント、データベース、およびその他のソースから情報を検索して抽出するという課題です。
 
-For example, suppose <bpt id="p1">*</bpt>Margie's Travel<ept id="p1">*</ept> is a travel agency that specializes in organizing trips to cities around the world. Over time, the company has amassed a huge amount of information in documents such as brochures, as well as reviews of hotels submitted by customers. This data is a valuable source of insights for travel agents and customers as they plan trips, but the sheer volume of data can make it difficult to find relevant information to answer a specific customer question.
+たとえば、*Margie's Travel* は世界各地の都市への旅行の手配に特化した旅行代理店だとします。 長い時間をかけて、同社は、パンフレットなどのドキュメントや顧客から送信されたホテルのレビューに含まれている大量の情報を蓄積してきました。 このデータは、旅行代理店の従業員や顧客にとって旅行を計画する際に価値のある分析情報源となりますが、データ量が膨大であるため、特定の顧客の疑問に答える際に関連情報を見つけることが困難な場合があります。
 
 この課題に対処するために、Margie'sTravel は Azure Cognitive Search を使用して、AI ベースのコグニティブ スキルを使用してドキュメントにインデックスを付け、強化して検索を容易にするソリューションを実装します。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
-If you have not already cloned <bpt id="p1">**</bpt>AI-102-AIEngineer<ept id="p1">**</ept> code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。 それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
 
 1. Visual Studio Code を起動します。
 2. パレットを開き (SHIFT+CTRL+P)、**Git:Clone** コマンドを実行して、`https://github.com/MicrosoftLearning/AI-102-AIEngineer` リポジトリをローカル フォルダーに複製します (どのフォルダーでも問題ありません)。
@@ -44,11 +44,11 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
     - **価格レベル**: Basic
 
 3. デプロイが完了するまで待ち、デプロイされたリソースに移動します。
-4. すべての組織は、意思決定を行い、疑問に答え、効率的に機能するために情報を利用しています。
+4. Azure portal の Azure Cognitive Search リソースのブレードの **[概要]** ページを確認します。 ここでは、ビジュアル インターフェイスを使用して、検索ソリューションのさまざまなコンポーネントを作成、テスト、管理、および監視できます。データソース、インデックス、インデクサー、スキルセットを含みます。
 
 ### <a name="create-a-cognitive-services-resource"></a>Cognitive Services リソースの作成
 
-ほとんどの組織にとって問題となっているのは、情報の不足ではなく、情報が格納されている大量の一連のドキュメント、データベース、およびその他のソースから情報を検索して抽出するという課題です。
+サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。 検索ソリューションではこれを使用して、AI によって生成された分析情報でデータストア内のデータをエンリッチします。
 
 1. Azure portal のホーム ページに戻り、**[&#65291;リソースの作成]** ボタンを選択し、*cognitive services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
@@ -70,7 +70,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
     - **レプリケーション**: ローカル冗長ストレージ (LRS)
 2. デプロイが完了するまで待ち、デプロイされたリソースに移動します。
 3. **[概要]** ページで、**サブスクリプション ID** に注意してください。これはストレージ アカウントがプロビジョニングされているサブスクリプションを識別します。
-4. On the <bpt id="p1">**</bpt>Access keys<ept id="p1">**</ept> page, note that two keys have been generated for your storage account. Then select <bpt id="p1">**</bpt>Show keys<ept id="p1">**</ept> to view the keys.
+4. **[アクセスキー]** ページで、ストレージ アカウント用に 2 つのキーが生成されていることに注意してください。 次に、 **[キーの表示]** を選択してキーを表示します。
 
     > **ヒント**: **ストレージ アカウント** ブレードを開いたままにします。次の手順では、サブスクリプション ID とキーの 1 つが必要になります。
 
@@ -87,9 +87,9 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
     az login
     ```
 
-たとえば、*Margie's Travel* は世界各地の都市への旅行の手配に特化した旅行代理店だとします。
+Web ブラウザーのタブが開き、Azure にサインインするように求められます。 そうしてから、ブラウザー タブを閉じて、Visual Studio Code に戻ります。
 
-5. 長い時間をかけて、同社は、パンフレットなどのドキュメントや顧客から送信されたホテルのレビューに含まれている大量の情報を蓄積してきました。
+5. 次のコマンドを入力して、バッチファイルを実行します。 これにより、ストレージ アカウントに BLOB コンテナーが作成され、**データ** フォルダー内のドキュメントがそこにアップロードされます。
 
     ```
     UploadDocs
@@ -99,8 +99,8 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 
 ドキュメントが配置されたので、インデックスを作成して検索ソリューションを作成できます。
 
-1. このデータは、旅行代理店の従業員や顧客にとって旅行を計画する際に価値のある分析情報源となりますが、データ量が膨大であるため、特定の顧客の疑問に答える際に関連情報を見つけることが困難な場合があります。
-2. On the <bpt id="p1">**</bpt>Connect to your data<ept id="p1">**</ept> page, in the <bpt id="p2">**</bpt>Data Source<ept id="p2">**</ept> list, select <bpt id="p3">**</bpt>Azure Blob Storage<ept id="p3">**</ept>. Then complete the data store details with the following values:
+1. Azure portal で、Azure Cognitive Search リソースを参照します。 その後、その **[概要]** ページで、**[データのインポート]** を選択します。
+2. **[データへの接続]** ページの **[データ ソース]** リストで、**[Azure Blob Storage]** を選択します。 その後、次の値でデータ ストアの詳細を入力します。
     - **データ ソース**: Azure BLOB ストレージ
     - **データ ソース名**: margies-data
     - **抽出するデータ**: コンテンツとメタデータ
@@ -127,7 +127,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
         | 画像からタグを生成する | | imageTags |
         | 画像からキャプションを生成する | | imageCaption |
 
-6. Double-check your selections (it can be difficult to change them later). Then proceed to the next step (<bpt id="p1">*</bpt>Customize target index<ept id="p1">*</ept>).
+6. 選択内容をもう一度確認します (後で変更するのは困難な場合があります)。 次に、次の手順 (*ターゲット インデックスのカスタマイズ*) に進みます。
 7. **インデックス名**を **margies-index** に変更します。
 8. **[キー]** が **metadata_storage_path** に設定されていることを確かめます。 **[Suggester 名]** は空白のままにし、 **[検索モード]** は既定のままにします。
 9. インデックス フィールドに次の変更を加え、他のすべてのフィールドはデフォルト設定のままにします (**重要**: テーブル全体を表示するには、右にスクロールする必要がある場合があります)。
@@ -142,15 +142,15 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
     | keyphrases | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; |
     | language | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10004; | | | |
 
-11. Double-check your selections, paying particular attention to ensure that the correct <bpt id="p1">**</bpt>Retrievable<ept id="p1">**</ept>, <bpt id="p2">**</bpt>Filterable<ept id="p2">**</ept>, <bpt id="p3">**</bpt>Sortable<ept id="p3">**</ept>, <bpt id="p4">**</bpt>Facetable<ept id="p4">**</ept>, and <bpt id="p5">**</bpt>Searchable<ept id="p5">**</ept> options are selected for each field  (it can be difficult to change them later). Then proceed to the next step (<bpt id="p1">*</bpt>Create an indexer<ept id="p1">*</ept>).
+11. 選択内容を再確認し、特に注意して、各フィールドで正しい**取得可能**、**フィルター可能**、**並べ替え可能**、**ファセット可能**、および**検索可能**オプションが選択されていることを確認します (後で変更するのは難しい場合があります)。 次に、次の手順 (*インデクサーの作成*) に進みます。
 12. **インデクサー名**を **margies-indexer** に変更します。
 13. **[スケジュール]** は **[1 回]** に設定されているままにします。
 14. **[詳細設定]** オプションを展開し、**[Base-64 エンコード キー]** オプションが選択されていることを確かめます (通常、エンコード キーを使用するとインデックスの効率が向上します)。
-15. このラボで作業している環境に **AI-102-AIEngineer** コードのリポジトリをまだクローンしていない場合は、次の手順に従ってクローンします。
+15. **[送信]** を選択して、データ ソース、スキルセット、インデックス、およびインデクサーを作成します。 インデクサーは自動的に実行され、インデックス作成パイプラインが実行されます。これにより、次のことが行われます。
     1. データ ソースからドキュメント メタデータ フィールドとコンテンツを抽出する
     2. コグニティブ スキルのスキルセットを実行して、追加のエンリッチされたフィールドを生成する
     3. 抽出されたフィールドをインデックスにマップする。
-16. それ以外の場合は、複製されたフォルダーを Visual Studio Code で開きます。
+16. Azure Cognitive Search リソースの **[概要]** ページの下半分で、 **[インデクサー]** タブを表示します。ここに、新しく作成された **margies-indexer** が表示されるはずです。 数分待ち、 **[状態]** に成功が示されるまで **&orarr; [最新の情報に更新]** をクリックします。
 
 ## <a name="search-the-index"></a>インデックスを検索する
 
@@ -159,7 +159,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 1. Azure Cognitive Search リソースの **[概要]** ブレードの上部で、 **[検索エクスプローラー]** を選択します。
 2. 検索エクスプローラーの **[クエリ文字列]** ボックスに、「`*`」(1 つのアスタリスク) を入力し、**[検索]** を選択します。
 
-    This query retrieves all documents in the index in JSON format. Examine the results and note the fields for each document, which contain document content, metadata, and enriched data extracted by the cognitive skills you selected.
+    このクエリは、インデックス内のすべてのドキュメントを JSON 形式で取得します。 結果を調べて、選択した認知スキルによって抽出されたドキュメント コンテンツ、メタデータ、および強化されたデータを含む各ドキュメントのフィールドをメモします。
 
 3. クエリ文字列を `search=*&$count=true` に変更し、検索を送信します。
 
@@ -171,7 +171,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
     search=*&$count=true&$select=metadata_storage_name,metadata_author,locations
     ```
 
-    This time the results include only the file name, author, and any locations mentioned in the document content. The file name and author are in the <bpt id="p1">**</bpt>metadata_storage_name<ept id="p1">**</ept> and <bpt id="p2">**</bpt>metadata_author<ept id="p2">**</ept> fields, which were extracted from the source document. The <bpt id="p1">**</bpt>locations<ept id="p1">**</ept> field was generated by a cognitive skill.
+    今回の結果には、ファイル名、作成者、およびドキュメントの内容に記載されている場所のみが含まれます。 ファイル名と作成者は、ソース ドキュメントから抽出された **metadata_storage_name** および **metadata_author** フィールドにあります。 **locations** フィールドは、コグニティブ スキルによって生成されました。
 
 5. 次に、次のクエリ文字列を試してください。
 
@@ -198,7 +198,7 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 ### <a name="get-the-endpoint-and-key-for-your-azure-cognitive-search-resource"></a>Azure Cognitive Search リソースのエンドポイントとキーを取得する
 
 1. Azure portal で、Azure Cognitive Search リソースの **[概要]** ページに戻ります。ページの上部で、リソースの **Url** ( **https://resource_name.search.windows.net** のようになります) を見つけてクリップボードにコピーします。
-2. In Visual Studio Code, in the Explorer pane, expand the <bpt id="p1">**</bpt>22-create-a-search-solution<ept id="p1">**</ept> folder and its <bpt id="p2">**</bpt>modify-search<ept id="p2">**</ept> subfolder, and select <bpt id="p3">**</bpt>modify-search.cmd<ept id="p3">**</ept> to open it. You will use this script file to run <bpt id="p1">*</bpt>cURL<ept id="p1">*</ept> commands that submit JSON to the Azure Cognitive Service REST interface.
+2. Visual Studio Code の [エクスプローラー] ペインで、**22-create-a-search-solution** フォルダーとその **modify-search** サブフォルダーを展開し、**modify-search.cmd** を選択して開きます。 このスクリプト ファイルを使用して、JSON を Azure Cognitive Service REST インターフェイスに送信する *cURL* コマンドを実行します。
 3. **modify-search.cmd** で、**YOUR_SEARCH_URL** プレースホルダーをクリップボードにコピーした URL に置き換えます。
 4. Azure portal で、Azure Cognitive Search リソースの **[キー]** ページを表示し、**プライマリ管理者キー**をクリップボードにコピーします。
 5. Visual Studio Code で、**YOUR_ADMIN_KEY** プレースホルダーをクリップボードにコピーしたキーに置き換えます。
@@ -206,11 +206,11 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
 
 ### <a name="review-and-modify-the-skillset"></a>スキルセットを確認および変更する
 
-1. In Visual studio Code, in the <bpt id="p1">**</bpt>modify-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>skillset.json<ept id="p2">**</ept>. This shows a JSON definition for <bpt id="p1">**</bpt>margies-skillset<ept id="p1">**</ept>.
+1. Visual studio Code の **modify-search** フォルダーで、**skillset.json** を開きます。 これは、**margies-skillset** の JSON 定義を示しています。
 2. スキルセット定義の上部にある **cognitiveServices** オブジェクトに注意してください。このオブジェクトは、Cognitive Services リソースをスキルセットに接続するために使用されます。
-3. In the Azure portal, open your Cognitive Services resource (<bpt id="p1">&lt;u&gt;</bpt>not<ept id="p1">&lt;/u&gt;</ept> your Azure Cognitive Search resource!) and view its <bpt id="p2">**</bpt>Keys<ept id="p2">**</ept> page. Then copy <bpt id="p1">**</bpt>Key 1<ept id="p1">**</ept> to the clipboard.
+3. Azure portal で、Cognitive Services リソース (Azure Cognitive Search リソースではあり<u>ません</u>。) を開き、その**キー** ページを表示します。 次に、**キー 1** をクリップボードにコピーします。
 4. Visual Studio Code の **skillset.json** で、**YOUR_COGNITIVE_SERVICES_KEY** プレースホルダーをクリップボードにコピーした Cognitive Services キーに置き換えます。
-5. Scroll through the JSON file, noting that it includes definitions for the skills you created using the Azure Cognitive Search user interface in the Azure portal. At the bottom of the list of skills, an additional skill has been added with the following definition:
+5. JSON ファイルをスクロールして、Azure portal の Azure Cognitive Search ユーザー インターフェイスを使用して作成したスキルの定義が含まれていることに注意してください。 スキルのリストの下部に、次の定義で追加のスキルが追加されました。
 
     ```
     {
@@ -238,14 +238,14 @@ Margie's Travel 用に作成するソリューションでは、お使いの Azu
     }
     ```
 
-The new skill is named <bpt id="p1">**</bpt>get-sentiment<ept id="p1">**</ept>, and for each <bpt id="p2">**</bpt>document<ept id="p2">**</ept> level in a document, it, will evaluate the text found in the <bpt id="p3">**</bpt>merged_content<ept id="p3">**</ept> field of the document being indexed (which includes the source content as well as any text extracted from images in the content). It uses the extracted <bpt id="p1">**</bpt>language<ept id="p1">**</ept> of the document (with a default of English), and evaluates a label for the sentiment of the content. Values for the sentiment label can be "positive", "negative", "neutral", or "mixed". This label is then output as a new field named <bpt id="p1">**</bpt>sentimentLabel<ept id="p1">**</ept>.
+新しいスキルは **get-sentiment** という名前で、ドキュメント内の**ドキュメント** レベルごとに、インデックスが作成されているドキュメントの **merged_content** フィールドで見つかったテキストを評価します (これには、ソース コンテンツと、コンテンツ内の画像から抽出されたテキストが含まれます)。 ドキュメントの抽出された**言語** (既定は英語) を使用し、コンテンツのセンチメントのスコアを評価します。 センチメント ラベルの値には、"positive"、"negative"、"neutral"、または "mixed" を指定できます。 このラベルは、**sentimentLabel** という名前の新しいフィールドとして出力されます。
 
 6. **skillset.json** に加えた変更を保存します。
 
 ### <a name="review-and-modify-the-index"></a>インデックスを確認して変更する
 
-1. In Visual studio Code, in the <bpt id="p1">**</bpt>modify-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>index.json<ept id="p2">**</ept>. This shows a JSON definition for <bpt id="p1">**</bpt>margies-index<ept id="p1">**</ept>.
-2. Scroll through the index and view the field definitions. Some fields are based on metadata and content in the source document, and others are the results of skills in the skillset.
+1. Visual Studio Code の **modify-search** フォルダーで、**index.json** を開きます。 これは、**margies-index** の JSON 定義を示しています。
+2. インデックスをスクロールして、フィールド定義を表示します。 一部のフィールドはソースドキュメントのメタデータとコンテンツに基づいており、その他のフィールドはスキルセットのスキルの結果です。
 3. Azure portal で定義したフィールドのリストの最後に、2 つのフィールドが追加されていることに注意してください
 
     ```
@@ -268,12 +268,12 @@ The new skill is named <bpt id="p1">**</bpt>get-sentiment<ept id="p1">**</ept>, 
     }
     ```
 
-4. The <bpt id="p1">**</bpt>sentiment<ept id="p1">**</ept> field will be used to add the output from the <bpt id="p2">**</bpt>get-sentiment<ept id="p2">**</ept> skill that was added the skillset. The <bpt id="p1">**</bpt>url<ept id="p1">**</ept> field will be used to add the URL for each indexed document to the index, based on the <bpt id="p2">**</bpt>metadata_storage_path<ept id="p2">**</ept> value extracted from the data source. Note that index already includes the <bpt id="p1">**</bpt>metadata_storage_path<ept id="p1">**</ept> field, but it's used as the index key and Base-64 encoded, making it efficient as a key but requiring client applications to decode it if they want to use the actual URL value as a field. Adding a second field for the unencoded value resolves this problem.
+4. **sentiment** フィールドは、スキルセットが追加された **get-sentiment** スキルからの出力を追加するために使用されます。 **url** フィールドは、データ ソースから抽出された **metadata_storage_path** 値に基づいて、インデックス付けされた各ドキュメントの URL をインデックスに追加するために使用されます。 インデックスには既に **metadata_storage_path** フィールドが含まれていますが、インデックス キーとして使用され、Base-64 でエンコードされているため、キーとして効率的ですが、実際の URL 値をフィールドとして使用する場合は、クライアント アプリケーションでデコードする必要があります。 エンコードされていない値に2番目のフィールドを追加すると、この問題が解決します。
 
 ### <a name="review-and-modify-the-indexer"></a>インデクサーを確認して変更する
 
-1. In Visual studio Code, in the <bpt id="p1">**</bpt>modify-search<ept id="p1">**</ept> folder, open <bpt id="p2">**</bpt>indexer.json<ept id="p2">**</ept>. This shows a JSON definition for <bpt id="p1">**</bpt>margies-indexer<ept id="p1">**</ept>, which maps fields extracted from document content and metadata (in the <bpt id="p2">**</bpt>fieldMappings<ept id="p2">**</ept> section), and values extracted by skills in the skillset (in the <bpt id="p3">**</bpt>outputFieldMappings<ept id="p3">**</ept> section), to fields in the index.
-3. In the <bpt id="p1">**</bpt>fieldMappings<ept id="p1">**</ept> list, note the mapping for the <bpt id="p2">**</bpt>metadata_storage_path<ept id="p2">**</ept> value to the base-64 encoded key field. This was created when you assigned the <bpt id="p1">**</bpt>metadata_storage_path<ept id="p1">**</ept> as the key and selected the option to encode the key in the Azure portal. Additionally, a new mapping explicitly maps the same value to the <bpt id="p1">**</bpt>url<ept id="p1">**</ept> field, but without the Base-64 encoding:
+1. Visual Studio Code の **modify-search** フォルダーで、**indexer.json** を開きます。 これは、**margies-indexer** の JSON 定義を示しています。これは、ドキュメントのコンテンツとメタデータから抽出されたフィールド (**fieldMappings** セクション) と、スキルセットのスキルによって抽出された値 (**outputFieldMappings** セクション) をインデックスのフィールドにマップします。
+3. **fieldMappings** リストで、**metadata_storage_path** 値の base-64 エンコード キー フィールドへのマッピングに注意してください。 これは、**metadata_storage_path** をキーとして割り当て、Azure portal でキーをエンコードするオプションを選択したときに作成されました。 さらに、新しいマッピングは、同じ値を **url** フィールドに明示的にマップしますが、Base-64 エンコーディングは使用しません。
 
     ```
     {
@@ -285,7 +285,7 @@ The new skill is named <bpt id="p1">**</bpt>get-sentiment<ept id="p1">**</ept>, 
 
 ソース ドキュメント内の他のすべてのメタデータおよびコンテンツ フィールド インデックス内の同じ名前のフィールドに暗黙的にマップされます。
 
-4. Review the <bpt id="p1">**</bpt>ouputFieldMappings<ept id="p1">**</ept> section, which maps outputs from the skills in the skillset to index fields. Most of these reflect the choices you made in the user interface, but the following mapping has been added to map the <bpt id="p1">**</bpt>sentimentLabel<ept id="p1">**</ept> value extracted by your sentiment skill to the <bpt id="p2">**</bpt>sentiment<ept id="p2">**</ept> field you added to the index:
+4. スキルセットのスキルからの出力をインデックス フィールドにマップする **ouputFieldMappings** セクションを確認します。 これらのほとんどは、ユーザー インターフェイスで行った選択を反映していますが、センチメント スキルによって抽出された **sentimentLabel** 値を、インデックスに追加した **sentiment** フィールドにマッピングするために、次のマッピングが追加されています。
 
     ```
     {
@@ -303,7 +303,7 @@ The new skill is named <bpt id="p1">**</bpt>get-sentiment<ept id="p1">**</ept>, 
     modify-search
     ```
 
-3. When the script has finished, return to the <bpt id="p1">**</bpt>Overview<ept id="p1">**</ept> page for your Azure Cognitive Search resource in the Azure portal and view the <bpt id="p2">**</bpt>Indexers<ept id="p2">**</ept> page. The periodically select <bpt id="p1">**</bpt>Refresh<ept id="p1">**</ept> to track the progress of the indexing operation. It may take a minute or so to complete.
+3. スクリプトが終了したら、Azure portal の　Azure Cognitive Search リソースの **[概要]** ページに戻り、 **[インデクサー]** 　ページを表示します。 定期的に **[更新]** を選択して、インデックス作成操作の進行状況を追跡できます。 完了するまでに 1 分ほどかかる場合があります。
 
     *センチメントを評価するには大きすぎるいくつかのドキュメントに対して、いくつかの警告がある場合があります。多くの場合、感情分析は、ドキュメント全体ではなく、ページまたは文レベルで実行されます。ただし、この場合のシナリオでは、ほとんどのドキュメント (特にホテルのレビュー) は、有用なドキュメント レベルのセンチメント スコアを評価するのに十分なほど短いものです。*
 
@@ -322,21 +322,21 @@ The new skill is named <bpt id="p1">**</bpt>get-sentiment<ept id="p1">**</ept>, 
 
 ## <a name="create-a-search-client-application"></a>検索クライアント アプリケーションを作成する
 
-Now that you have a useful index, you can use it from a client application. You can do this by consuming the REST interface, submitting requests and receiving responses in JSON format over HTTP; or you can use the software development kit (SDK) for your preferred programming language. In this exercise, we'll use the SDK.
+有用なインデックスができたので、クライアント アプリケーションからそれを使用できます。 これを行うには、REST インターフェイスを使用し、要求を送信し、HTTP　を介して　JSO　N形式で応答を受信します。または、お好みのプログラミング言語用のソフトウェア開発キット (SDK) を使用することもできます。 この演習では、SDK を使用します。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the SDK for either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **注**: **C#** または **Python** 用の SDK のいずれかに使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 ### <a name="get-the-endpoint-and-keys-for-your-search-resource"></a>検索リソースのエンドポイントとキーを取得する
 
-1. In the Azure portal, on the <bpt id="p1">**</bpt>Overview<ept id="p1">**</ept> page for your Azure Cognitive Search resource, note the <bpt id="p2">**</bpt>Url<ept id="p2">**</ept> value, which should be similar to <bpt id="p3">**</bpt>https://<bpt id="p4">*</bpt>your_resource_name<ept id="p4">*</ept>.search.windows.net<ept id="p3">**</ept>. This is the endpoint for your search resource.
-2. On the <bpt id="p1">**</bpt>Keys<ept id="p1">**</ept> page, note that there are two <bpt id="p2">**</bpt>admin<ept id="p2">**</ept> keys, and a single <bpt id="p3">**</bpt>query<ept id="p3">**</ept> key. An <bpt id="p1">*</bpt>admin<ept id="p1">*</ept> key is used to create and manage search resources; a <bpt id="p2">*</bpt>query<ept id="p2">*</ept> key is used by client applications that only need to perform search queries.
+1. Azure portal の Azure Cognitive Search　リソースの **[概要]** ページで、**https://*your_resource_name*.search.windows.net** のような **Url** 値に注意してください。 これは、検索リソースのエンドポイントです。
+2. **[キー]** ページで、2 つの**管理者**キーと 1 つの**クエリ** キーがあることに注意してください。 *管理者*キーは、検索リソースを作成および管理するために使用されます。*クエリ* キーは、検索クエリを実行するだけでよいクライアント アプリケーションによって使用されます。
 
     *クライアント アプリケーションのエンドポイントとクエリ キーが必要になります。*
 
 ### <a name="prepare-to-use-the-azure-cognitive-search-sdk"></a>Azure Cognitive Search SDK を使用するための準備
 
 1. Visual Studio Code の **[エクスプローラー]** ペインで、**22-create-a-search-solution** フォルダーを参照し、言語の設定に応じて **C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
-2. Right-click the <bpt id="p1">**</bpt>margies-travel<ept id="p1">**</ept> folder and open an integrated terminal. Then install the Azure Cognitive Search SDK package by running the appropriate command for your language preference:
+2. **margies-travel** フォルダーを右クリックして、統合ターミナルを開きます。 次に、言語設定に適したコマンドを実行して、Azure Cognitive Search SDK パッケージをインストールします。
 
     **C#**
     
@@ -354,7 +354,7 @@ Now that you have a useful index, you can use it from a client application. You 
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to reflect the <bpt id="p1">**</bpt>endpoint<ept id="p1">**</ept> and <bpt id="p2">**</bpt>query key<ept id="p2">**</ept> for your Azure Cognitive Search resource. Save your changes.
+    構成ファイルを開き、含まれている構成値を更新して、Azure Cognitive Search リソースの**エンドポイント**と**クエリ キー**を反映します。 変更を保存します。
 
 ### <a name="explore-code-to-search-an-index"></a>インデックスを検索するためのコードの探索
 
@@ -381,9 +381,9 @@ Web アプリには、検索結果を処理およびレンダリングするた�
 1. 選択したプログラミング言語に応じて、次のコードファイルを Web アプリケーションで開きます
     - **C#** :Pages/Index.cshtml
     - **Python**: templates/search.html
-2. Examine the code, which renders the page on which the search results are displayed. Observe that:
+2. コードを調べて、検索結果が表示されるページをレンダリングします。 次の点に注意してください。
     - ページは、ユーザーが新しい検索を送信するために使用できる検索フォームで始まります (Python バージョンのアプリケーションでは、このフォームは **base.html** テンプレートで定義されています)。これはページの先頭で参照されます。
-    - Azure portal の Azure Cognitive Search リソースのブレードの **[概要]** ページを確認します。
+    - 次に、2 番目のフォームがレンダリングされ、ユーザーは検索結果を絞り込むことができます。 このフォームのコードは、次の通りです。
         - 検索結果からドキュメントの数を取得して表示します。
         - **metadata_author** フィールドのファセット値を取得し、フィルタリングのオプション リストとして表示します。
         - 結果の並べ替えオプションのドロップダウンリストを作成します。
@@ -391,7 +391,7 @@ Web アプリには、検索結果を処理およびレンダリングするた�
         - **metadata_storage_name** (ファイル名) フィールドを、**url** フィールドのアドレスへのリンクとして表示します。
         - **merged_content** フィールドと **imageCaption** フィールドで見つかった検索用語の *ハイライト* を表示して、コンテキストで検索用語を表示しやすくします。
         - **metadata_author**、**metadata_storage_size**、**metadata_storage_last_modified**、および **language** フィールドを表示します。
-        - ここでは、ビジュアル インターフェイスを使用して、検索ソリューションのさまざまなコンポーネントを作成、テスト、管理、および監視できます。データソース、インデックス、インデクサー、スキルセットを含みます。
+        - ドキュメントの **センチメント** ラベルを表示します。 positive、negative、neutral、mixed を指定できます。
         - 最初の 5 つの **keyphrases** (ある場合) を表示します。
         - 最初の 5 つの **locations** (ある場合) を表示します。
         - 最初の 5 つの **imageTags** (ある場合) を表示します。
@@ -414,10 +414,10 @@ Web アプリには、検索結果を処理およびレンダリングするた�
 
 2. アプリが正常に起動したときに表示されるメッセージで、実行中の Web アプリケーション ( *http://localhost:5000/* または *http://127.0.0.1:5000/* ) へのリンクをたどって、Web ブラウザで Margies Travel サイトを開きます。
 3. Margie's Travel の Web サイトで、検索ボックスに「**London hotel**」と入力し、**[Search]** をクリックします。
-4. Review the search results. They include the file name (with a hyperlink to the file URL), an extract of the file content with the search terms (<bpt id="p1">*</bpt>London<ept id="p1">*</ept> and <bpt id="p2">*</bpt>hotel<ept id="p2">*</ept>) emphasized, and other attributes of the file from the index fields.
-5. Observe that the results page includes some user interface elements that enable you to refine the results. These include:
-    - サブスクリプションに **Cognitive Services** リソースがまだない場合は、プロビジョニングする必要があります。
-    - 検索ソリューションではこれを使用して、AI によって生成された分析情報でデータストア内のデータをエンリッチします。
+4. 検索結果を確認します。 これらには、ファイル名 (ファイル URL へのハイパーリンク付き)、検索語 (*London* および *hotel*) が強調されたファイル コンテンツの抽出、およびインデックス フィールドからのファイルの他の属性が含まれます。
+5. 結果ページには、結果を絞り込むことができるいくつかのユーザーインターフェイス要素が含まれていることに注意してください。 これには以下が含まれます。
+    - **metadata_author** フィールドのファセット値に基づく *フィルター*。 これは、*ファセット可能* フィールドを使用して、ユーザー インターフェイスで潜在的なフィルター値として表示できる離散値の小さなセットを含む *ファセット* フィールドのリストを返す方法を示しています。
+    - 指定されたフィールドと並べ替え方向 (昇順または降順) に基づいて結果を *並べ替える* 機能。 既定の順序は *関連性* に基づいており、インデックス フィールドの検索用語の頻度と重要性を評価する *スコアリング プロファイル* に基づいて **search.score()** 値として計算されます。
 6. **[レビュー担当者]** フィルターと **[Positive to negative]\(肯定的から否定的\)** 並べ替えオプションを選択し、 **[結果の絞り込み]** を選択します。
 7. 結果がレビューのみを含むようにフィルタリングされ、センチメント ラベルで並べ替えられていることを確認します。
 8. **[検索]** ボックスに、「**quiet hotel in New York**」の新しい検索を入力して、結果を確認します。
@@ -425,7 +425,7 @@ Web アプリには、検索結果を処理およびレンダリングするた�
     - **Tower of London** (この用語が一部のドキュメントで*キー フレーズ*として識別されていることに注意してください)。
     - **skyscraper** (この単語はどのドキュメントの実際のコンテンツにも表示されませんが、一部のドキュメントの画像用に生成された *画像のキャプション* と *画像タグ* に含まれていることに注意してください)。
     - **Mojave desert** (この用語が一部のドキュメントで*場所*として識別されていることに注意してください)。
-10. Close the browser tab containing the Margie's Travel web site and return to Visual Studio Code. Then in the Python terminal for the <bpt id="p1">**</bpt>margies-travel<ept id="p1">**</ept> folder (where the dotnet or flask application is running), enter Ctrl+C to stop the app.
+10. Margie's Travel の Web サイトが含まれているブラウザー タブを閉じ、Visual Studio Code に戻ります。 次に、**margies-travel** フォルダー (dotnet または flask アプリケーションが実行されている) の Python ターミナルで、Ctrl+C を入力してアプリを停止します。
 
 ## <a name="more-information"></a>詳細情報
 

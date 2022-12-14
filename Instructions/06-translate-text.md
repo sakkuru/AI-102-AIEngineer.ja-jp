@@ -8,7 +8,7 @@ lab:
 
 **Translator** サービスは、言語間でテキストを翻訳できるようにする Cognitive Services です。
 
-For example, suppose a travel agency wants to examine hotel reviews that have been submitted to the company's web site, standardizing on English as the language that is used for analysis. By using the Translator service, they can determine the language each review is written in, and if it is not already English, translate it from whatever source language it was written in into English.
+たとえば、旅行代理店が、分析に使用される言語として英語を標準化して、会社の Web サイトに送信されたホテルのレビューを調べたいとします。 Translator サービスを使用することで、各レビューが書かれている言語を判別できます。まだ英語でない場合は、書かれているソース言語から英語に翻訳します。
 
 ## <a name="clone-the-repository-for-this-course"></a>このコースのリポジトリを複製する
 
@@ -28,26 +28,26 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 2. **[&#65291;リソースの作成]** ボタンを選択し、*Cognitive Services* を検索して、次の設定で **Cognitive Services** リソースを作成します。
     - **[サブスクリプション]**:"*ご自身の Azure サブスクリプション*"
-    - **リソース グループ**: *リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)*
+    - **リソース グループ**: "*リソース グループを選択または作成します (制限付きサブスクリプションを使用している場合は、新しいリソース グループを作成する権限がないことがあります。提供されているものを使ってください)* "
     - **[リージョン]**: 使用できるリージョンを選択します**
     - **[名前]**: *一意の名前を入力します*
     - **価格レベル**: Standard S0
 3. 必要なチェック ボックスをオンにして、リソースを作成します。
 4. デプロイが完了するまで待ち、デプロイの詳細を表示します。
-5. When the resource has been deployed, go to it and view its <bpt id="p1">**</bpt>Keys and Endpoint<ept id="p1">**</ept> page. You will need one of the keys and the location in which the service is provisioned from this page in the next procedure.
+5. リソースがデプロイされたら、そこに移動して、その **[キーとエンドポイント]** ページを表示します。 次の手順では、このページからサービスがプロビジョニングされるキーと場所の 1 つが必要になります。
 
 ## <a name="prepare-to-use-the-translator-service"></a>Translator サービスを使用する準備をする
 
 この演習では、Translator REST API を使用してホテルのレビューを翻訳する部分的に実装されたクライアント アプリケーションを完成させます。
 
-> <bpt id="p1">**</bpt>Note<ept id="p1">**</ept>: You can choose to use the API from either <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> or <bpt id="p3">**</bpt>Python<ept id="p3">**</ept>. In the steps below, perform the actions appropriate for your preferred language.
+> **注**: **C#** または **Python** のいずれかから API を使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
 1. Visual Studio Code の**エクスプローラー** ペインで、**06-translate-text** フォルダーを参照し、言語の設定に応じて、**C-Sharp** フォルダーまたは **Python** フォルダーを展開します。
 2. **text-translation** フォルダーの内容を表示し、構成設定用のファイルが含まれていることにご注意ください。
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to include an authentication <bpt id="p1">**</bpt>key<ept id="p1">**</ept> for your cognitive services resource, and the <bpt id="p2">**</bpt>location<ept id="p2">**</ept> where it is deployed (<bpt id="p3">&lt;u&gt;</bpt>not<ept id="p3">&lt;/u&gt;</ept> the endpoint) - you should copy both of these from the <bpt id="p4">**</bpt>keys and Endpoint<ept id="p4">**</ept> page for your cognitive services resource. Save your changes.
+    構成ファイルを開き、含まれている構成値を更新して、Cognitive Services リソースの認証**キー**と、それがデプロイされている**場所** (エンドポイントでは<u>ない</u>) を含めます。Cognitive Services リソース用に、**キーとエンドポイント** ページからこれらの両方をコピーする必要があります。 変更を保存します。
 3. **text-translation** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
     - **C#** : Program.cs
@@ -55,7 +55,7 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
 
     コード ファイルを開き、含まれているコードを調べます。
 
-4. たとえば、旅行代理店が、分析に使用される言語として英語を標準化して、会社の Web サイトに送信されたホテルのレビューを調べたいとします。
+4. **Main** 関数では、構成ファイルから Cognitive Services のキーとリージョンをロードするコードがすでに提供されていることにご注意ください。 Translator サービスのエンドポイントもコードで指定されています。
 5. **text-translation** フォルダーを右クリックし、統合ターミナルを開き、次のコマンドを入力してプログラムを実行します。
 
     **C#**
@@ -70,7 +70,7 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
     python text-translation.py
     ```
 
-6. Translator サービスを使用することで、各レビューが書かれている言語を判別できます。まだ英語でない場合は、書かれているソース言語から英語に翻訳します。
+6. コードがエラーなしで実行され、**reviews** フォルダー内の各レビュー テキストファイルの内容が表示されるので、出力を確認します。 現在、アプリケーションは Translator サービスを利用していません。 次の手順で修正します。
 
 ## <a name="detect-language"></a>言語を検出する
 
