@@ -48,13 +48,13 @@ lab:
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
+    dotnet add package Microsoft.CognitiveServices.Speech
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.19.0
+    pip install azure-cognitiveservices-speech
     ```
 
 3. **translator** フォルダーの内容を表示します。また、構成設定用のファイルが含まれていることに注意してください。
