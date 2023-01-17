@@ -53,13 +53,13 @@ lab:
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
+    dotnet add package Microsoft.CognitiveServices.Speech
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.19.0
+    pip install azure-cognitiveservices-speech
     ```
 
 3. **speaking-clock** フォルダーの内容を表示し、構成設定用のファイルが含まれていることに注意してください。
@@ -155,7 +155,7 @@ Cognitive Services リソースに音声サービス用の **SpeechConfig** が�
 
 3. 以下の「**コードを追加して書き起こしたマンドを処理する**」のセクションにスキップします。
 
-### <a name="alternatively-use-audio-input-from-a-file"></a>または、ファイルからの温泉入力を使用します
+### <a name="alternatively-use-audio-input-from-a-file"></a>または、ファイルからの音声入力を使用します
 
 1. ターミナル ウィンドウで、次のコマンドを入力して、音声ファイルの再生に使用できるライブラリをインストールします。
 
@@ -331,7 +331,7 @@ speaking clock アプリケーションは話し言葉の入力を受け入れ�
     python speaking-clock.py
     ```
 
-5. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムが時間を教えくれるはずです。
+5. プロンプトが表示されたら、マイクに向かってはっきりと話し、"what time is it?" と言います。 プログラムが時間を教えくれるはずです。
 
 ## <a name="use-a-different-voice"></a>別の音声を使用する
 
@@ -371,7 +371,7 @@ speaking clock アプリケーションは、変更可能なデフォルトの�
     python speaking-clock.py
     ```
 
-3. プロンプトが表示されたら、マイクに向かってはっきりと話し、"何時ですか?" と言います。 プログラムは指定された声で話し、時間を伝えます。
+3. プロンプトが表示されたら、マイクに向かってはっきりと話し、"what time is it?" と言います。 プログラムは指定された声で話し、時間を伝えます。
 
 ## <a name="use-speech-synthesis-markup-language"></a>音声合成マークアップ言語を使用する
 
