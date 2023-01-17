@@ -3,7 +3,6 @@ lab:
   title: Conversational Language Understanding クライアント アプリケーションを作成する (プレビュー)
   module: Module 5 - Creating Language Understanding Solutions
 ---
-
 # <a name="create-a-language-service-client-application"></a>言語サービス クライアント アプリケーションを作成する
 
 Azure Cognitive Service for Language モデルの Conversational Language Understanding 機能を使うと、"会話言語" モデルを定義することができます。これをクライアント アプリから使って、ユーザーからの自然言語入力を解釈し、ユーザーの *"意図"* (達成したいこと) を予測し、その意図を適用する必要がある *"エンティティ"* を特定することができます。 会話言語理解モデルを使用するクライアント アプリケーションは、REST インターフェイスを介して直接作成するか、言語固有のソフトウェア開発キット (SDK) を使用して作成できます。
@@ -28,7 +27,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 1. Azure portal (`https://portal.azure.com`) を開き、ご利用の Azure サブスクリプションに関連付けられている Microsoft アカウントを使用してサインインします。
 
-2. **[&#65291;リソースの作成]** ボタンを選択して、*言語サービス* を検索し、次の設定を使用して**言語サービス** リソースを作成します。
+2. **[&#65291;リソースの作成]** ボタンを選択して、*言語サービス* を検索し、次の設定を使用して **言語サービス** リソースを作成します。
 
     - **既定の機能**:すべて
     - **カスタム機能**: なし
@@ -56,13 +55,13 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 4. 効果的な言語サービス アプリを作成するためのヒントが記載されたパネルが表示されたら、それを閉じます。
 
-5. Language Studio ポータルの左側にある **[モデルのトレーニング]** を選択して、アプリをトレーニングします。 **[トレーニング ジョブの開始]** をクリックし、モデルに **Clock** という名前を付け、トレーニングについての評価が有効になっていることを確認します。 トレーニングが完了するまでに数分かかる場合があります。
+5. Language Studio ポータルの左側にある **[トレーニング ジョブ]** を選択して、アプリをトレーニングします。 **[トレーニング ジョブを開始する]** をクリックし、モデルに **Clock** という名前を付け、トレーニングを開始します。。 トレーニングが完了するまでに数分かかる場合があります。
 
-    > **注**:モデル名 **Clock** はクロック クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
+    > **注**:モデル名 **Clock** は Clock クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
 
 6. Language Studio ポータルの左側にある **[モデルのデプロイ]** を選択し、 **[デプロイの追加]** を使用して、**production** という名前の Clock モデルのデプロイを作成します。
 
-    > **注**:デプロイ名 **production** はクロック クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
+    > **注**:デプロイ名 **production** は Clock クライアント コード (ラボの後半で使用) でハードコーディングされているため、説明に従って名前を大文字にしてスペルを指定します。 
 
 7. デプロイが完了したら、**production** デプロイを選択し、 **[予測 URL の取得]** をクリックします。 クライアント アプリケーションでは、デプロイされたモデルを使用するためのエンドポイント URL が必要です。
 
@@ -76,7 +75,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
 > **注**: **.NET** または **Python** 用の SDK のいずれかを使用することを選択できます。 以下の手順で、希望する言語に適したアクションを実行します。
 
-1. Visual Studio Code の**エクスプローラー** ペインで、**10b-clu-client-(preview)** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
+1. Visual Studio Code の **エクスプローラー** ペインで、**10b-clu-client-(preview)** フォルダーを参照し、言語の設定に応じて **C-Sharp** または **Python** フォルダーを展開します。
 
 2. **clock-client** フォルダーを右クリックして、 **[Open in Integrated Terminal]\(統合ターミナルで開く\)** を選択します。 次に、言語設定に適したコマンドを実行して、Conversational Language Service SDK パッケージをインストールします
 
@@ -89,7 +88,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
     **Python**
 
     ```
-    pip install azure-ai-language-conversations --pre
+    pip install azure-ai-language-conversations==1.0.0b1
     python -m pip install python-dotenv
     python -m pip install python-dateutil
     ```
@@ -99,10 +98,10 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
     - **C#** : appsettings.json
     - **Python**: .env
 
-    構成ファイルを開き、含まれている構成値を更新して、ご自分の言語リソースの**エンドポイント URL** と**主キー**を反映します。 必要な値は、Azure portal または Language Studio で次のように見つけることができます。
+    構成ファイルを開き、含まれている構成値を更新して、ご自分の言語リソースの **エンドポイント URL** と **主キー** を反映します。 必要な値は、Azure portal または Language Studio で次のように見つけることができます。
 
-    - Azure  portal:言語リソースを開きます。 **[リソース管理]** の下の **[キーとエンドポイント]** を選択します。 **KEY 1** と**エンドポイント**の値を構成設定ファイルにコピーします。
-    - Language Studio:**Clock** プロジェクトを開きます。 言語サービス エンドポイントは、 **[予測 URL の取得]** の **[モデルのデプロイ]** ページで確認でき、**主キー**は **[プロジェクトの設定]** ページにあります。 予測 URL の言語サービス エンドポイント部分は、 **.cognitiveservices.azure.com/** で終わります。 (例: `https://ai102-langserv.cognitiveservices.azure.com/`)。
+    - Azure  portal:言語リソースを開きます。 **[リソース管理]** の下の **[キーとエンドポイント]** を選択します。 **KEY 1** と **エンドポイント** の値を構成設定ファイルにコピーします。
+    - Language Studio:**Clock** プロジェクトを開きます。 言語サービス エンドポイントは、 **[モデルのデプロイ]** ページの**[予測 URL の取得]** で確認でき、**主キー** は **[プロジェクトの設定]** ページにあります。 予測 URL の言語サービス エンドポイント部分は、 **.cognitiveservices.azure.com/** で終わります。 (例: `https://ai102-langserv.cognitiveservices.azure.com/`)。
 
 4. **clock-client** フォルダーには、クライアント アプリケーションのコード ファイルが含まれていることにご注意ください。
 
@@ -361,7 +360,7 @@ Azure Cognitive Service for Language モデルの Conversational Language Unders
 
     *Hello*
     
-    *今何時?*
+    *What time is it?*
 
     *What's the time in London?* \(ロンドンの時刻は何時ですか?\)
 
